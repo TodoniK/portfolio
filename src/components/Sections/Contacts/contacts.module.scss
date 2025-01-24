@@ -1,0 +1,70 @@
+.title {
+  width: 100%;
+  text-align: center;
+  letter-spacing: 1px;
+
+  h3 {
+    font-size: 23px;
+    font-weight: 500;
+    color: #FCFBEE;
+    @media screen and (width < 576px) {
+      color: #8783d1;
+      font-size: 18px;
+    }
+  }
+
+  p {
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #ccc;
+
+
+    @media screen and (width < 576px) {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+  }
+}
+
+.action {
+  height: auto;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 25px auto 0 auto;
+    padding: 0 10px;
+    background: none;
+    border: 1px solid #7d5dd5;
+    border-radius: 30px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background: #7d5dd5;
+
+      p {
+        color: #fff;
+      }
+    }
+
+    .animation {
+      width: 40px;
+
+      @media screen and (width < 576px) {
+        width: 30px;
+      }
+    }
+
+    p {
+      margin-right: 15px;
+      font-size: 16px;
+      color: #7d5dd5;
+      @media screen and (width < 576px) {
+        font-size: 13px;
+      }
+    }
+  }
+}

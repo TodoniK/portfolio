@@ -1,0 +1,21 @@
+.footer-container {
+  position: relative;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+  padding: 5px 10px;
+  overflow: hidden;
+  margin: 50px auto 20px auto;
+  font-size: 13px;
+  font-weight: 400;
+  color: #9b9b9b;
+  a {
+    color: #FCFBEE;
+  }
+
+  @media screen and (max-width: 769px) {
+    padding: 10px 18px;
+    margin-bottom: 90px;
+    text-align: center;
+  }
+}

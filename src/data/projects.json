@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "name": "Portfolio",
+    "description": "A Portfolio website for showcasing my experiences and other innovative projects.",
+    "thumbnail": "https://job-infos.kyawzinthiha.com/Portfolio/portfolio.webp",
+    "repository": "https://github.com/kyawzin-thiha/kyawzin-thiha",
+    "tags": [
+      {
+        "name": "Node.js",
+        "url": "https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"
+      },
+      {
+        "name": "MongoDB",
+        "url": "https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"
+      },
+      {
+        "name": "SpringBoot",
+        "url": "https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"
+      },
+      {
+        "name": "Angular",
+        "url": "https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white"
+      },
+      {
+        "name": "Kotlin",
+        "url": "https://img.shields.io/badge/Kotlin-B125EA?style=for-the-badge&logo=kotlin&logoColor=white"
+      },
+      {
+        "name": "TypeScript",
+        "url": "https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"
+      }
+    ]
+  }
+]

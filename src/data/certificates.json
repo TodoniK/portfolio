@@ -1,0 +1,20 @@
+[
+    {
+      "time": "2025",
+      "title": "Master of Computer Science and Networks",
+      "school": "Enseirb-Matmeca",
+      "city": "Bordeaux, France",
+      "logo": "/schools/logo-enseirb-matmeca.png",
+      "description": "Excellent academic training combining theory and practice in networking, software development and IT security. Expertise acquired in information systems design, IT project management and emerging technologies. Curriculum enriched by work-study placements and international experience.",
+      "link": "https://www.enseirb-matmeca.fr/"
+    },
+    {
+      "time": "2022",
+      "title": "Bachelor of Computer Science",
+      "school": "University of Bayonne",
+      "city": "Bayonne, France",
+      "logo": "/schools/logo-iut-bayonne.png",
+      "description": "Comprehensive IT training combining theory and practice over three years. Specialization in application integration and information systems management. Acquisition of solid skills in software development, IT project management, systems and database administration. Enriched by practical projects and an internship.",
+      "link": "https://www.iutbayonne.univ-pau.fr"
+    }
+  ]
