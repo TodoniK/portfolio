@@ -9,10 +9,10 @@ export default function Contacts() {
             <hr className={styles.divider}/>
             <div className={styles['title']}>
                 <h3>
-                    Interested in collaborating with me?
+                    Want to work together?
                 </h3>
                 <p>
-                    I&apos;m always open to discussing product design work or partnership opportunities.
+                    I&apos;m always eager to talk about product design projects or partnership possibilities.
                 </p>
             </div>
             <div className={styles['action']}>

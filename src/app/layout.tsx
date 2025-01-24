@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.scss';
 import Navbar from '@/components/Navigations/NavBar';
+import Footer from '@/components/Navigations/Footer';
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://www.linkedin.com/in/jules-royet'),
@@ -49,6 +50,7 @@ export default function RootLayout({
             <body>
                 <Navbar />
                 {children}
+                <Footer/>
             </body>
         </html>
     );

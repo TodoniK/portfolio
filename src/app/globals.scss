@@ -10,14 +10,14 @@
 }
 
 body {
-  background-color: #1D2020;
-  background-image: radial-gradient(circle at 0 0, #303636 2px, transparent 2px),
-  radial-gradient(circle at 0 0, #303636 2px, transparent 2px);
+  background-color: #2a2d2d;
+  background-image: radial-gradient(circle at 0 0, #404646 2px, transparent 2px),
+    radial-gradient(circle at 0 0, #404646 2px, transparent 2px);
   background-size: 30px 30px;
   background-position: 0 0, 10px 10px;
 
   @media screen and (max-width: 768px) {
-    background-color: #191919;
+    background-color: #242424;
     margin-left: 10px;
     margin-right: 10px;
   }

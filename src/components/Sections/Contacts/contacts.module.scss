@@ -8,7 +8,7 @@
     font-weight: 500;
     color: #FCFBEE;
     @media screen and (width < 576px) {
-      color: #8783d1;
+      color: #FF7E5F; // Nouvelle couleur pour le titre
       font-size: 18px;
     }
   }
@@ -18,7 +18,6 @@
     font-weight: 400;
     font-size: 16px;
     color: #ccc;
-
 
     @media screen and (width < 576px) {
       margin-top: 5px;
@@ -35,15 +34,17 @@
     align-items: center;
     justify-content: space-around;
     margin: 25px auto 0 auto;
-    padding: 0 10px;
-    background: none;
-    border: 1px solid #7d5dd5;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #FF7E5F, #FEAE96, #E684AE);
+    border: none;
     border-radius: 30px;
     outline: none;
     transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
     &:hover {
-      background: #7d5dd5;
+      background: linear-gradient(45deg, #E684AE, #FEAE96, #FF7E5F);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 
       p {
         color: #fff;
@@ -59,9 +60,8 @@
     }
 
     p {
-      margin-right: 15px;
       font-size: 16px;
-      color: #7d5dd5;
+      color: #fff;
       @media screen and (width < 576px) {
         font-size: 13px;
       }
