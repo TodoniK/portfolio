@@ -104,10 +104,10 @@
       }
 
       &.resume-button {
-        background-image: linear-gradient(45deg, #6DD5FA, #FF758C);
+        background-image: linear-gradient(45deg, #FF7E5F, #FEAE96, #E684AE);
 
         &:hover {
-          background-image: linear-gradient(45deg, #75D6FA, #FF8AC8);
+          background-image: linear-gradient(45deg, #FF8A75, #FEB096, #E6A4AE);
         }
       }
     }
@@ -161,7 +161,6 @@
     }
   }
 
-  /* Animation pour l'emoji 👋 */
   @keyframes wave {
     0% {
       transform: rotate(0deg);

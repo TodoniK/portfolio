@@ -1,10 +1,45 @@
 [
   {
     "id": 1,
+    "private": false,
     "name": "Portfolio",
     "description": "A Portfolio website for showcasing my experiences and other innovative projects.",
-    "thumbnail": "https://job-infos.kyawzinthiha.com/Portfolio/portfolio.webp",
-    "repository": "https://github.com/kyawzin-thiha/kyawzin-thiha",
+    "thumbnail": "/assets/projects/portfolio.png",
+    "repository": "https://github.com/TodoniK/portfolio",
+    "tags": [
+      {
+        "name": "Next.js",
+        "url": "https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"
+      },
+      {
+        "name": "TypeScript",
+        "url": "https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"
+      },
+      {
+        "name": "React",
+        "url": "https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"
+      },
+      {
+        "name": "Figma",
+        "url": "https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"
+      },
+      {
+        "name": "Bootstrap",
+        "url": "https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"
+      },
+      {
+        "name": "Lodash",
+        "url": "https://img.shields.io/badge/Lodash-3492FF?style=for-the-badge&logo=lodash&logoColor=white"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "private": true,
+    "name": "Shopeen",
+    "description": "CONFIDENTIAL - Web application that estimates the CO2 production of the others internals applications of Orange, based on the IT equipment needed to run everything.",
+    "thumbnail": "/assets/projects/shopeen.png",
+    "repository": "https://github.com/TodoniK/portfolio",
     "tags": [
       {
         "name": "Node.js",
@@ -19,8 +54,8 @@
         "url": "https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"
       },
       {
-        "name": "Angular",
-        "url": "https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white"
+        "name": "Svelte",
+        "url": "https://img.shields.io/badge/Svelte-FF3E00?style=for-the-badge&logo=svelte&logoColor=white"
       },
       {
         "name": "Kotlin",
@@ -29,6 +64,108 @@
       {
         "name": "TypeScript",
         "url": "https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"
+      },
+      {
+        "name": "Vite",
+        "url": "https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "private": false,
+    "name": "Stak'eirb",
+    "description": "Web application that replicates an online casino platform, working closely with a classmate as part of a school project.",
+    "thumbnail": "/assets/projects/stakeirb.jpg",
+    "repository": "https://github.com/imjxlian/stakeirb",
+    "tags": [
+      {
+        "name": "Node.js",
+        "url": "https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"
+      },
+      {
+        "name": "Vue.js",
+        "url": "https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"
+      },
+      {
+        "name": "Socket.io",
+        "url": "https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socket.io&logoColor=white"
+      },
+      {
+        "name": "ExpressJS",
+        "url": "https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white"
+      },
+      {
+        "name": "SQLite",
+        "url": "https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white"
+      },
+      {
+        "name": "JavaScript",
+        "url": "https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "private": true,
+    "name": "AutomatiSMS",
+    "description": "CONFIDENTIAL - A backoffice web application for managing SMS campaigns of CDG33.",
+    "thumbnail": "/assets/projects/automatisms.png",
+    "repository": "https://github.com/TodoniK/portfolio",
+    "tags": [
+      {
+        "name": "Symfony",
+        "url": "https://img.shields.io/badge/Symfony-000000?style=for-the-badge&logo=symfony&logoColor=white"
+      },
+      {
+        "name": "Doctrine",
+        "url": "https://img.shields.io/badge/Doctrine-000000?style=for-the-badge&logo=doctrine&logoColor=white"
+      },
+      {
+        "name": "PHP",
+        "url": "https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"
+      },
+      {
+        "name": "MySQL",
+        "url": "https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"
+      },
+      {
+        "name": "Apache",
+        "url": "https://img.shields.io/badge/Apache-D22128?style=for-the-badge&logo=apache&logoColor=white"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "private": false,
+    "name": "IP Locator",
+    "description": "Web application that pinpoints the geographic location of an IP address, working closely with a classmate as part of a school project.",
+    "thumbnail": "/assets/projects/iplocator.jpg",
+    "repository": "https://github.com/imjxlian/ip-locator",
+    "tags": [
+      {
+        "name": "Node.js",
+        "url": "https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"
+      },
+      {
+        "name": "MongoDB",
+        "url": "https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white"
+      },
+      {
+        "name": "Vue.js",
+        "url": "https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white"
+      },
+      {
+        "name": "ExpressJS",
+        "url": "https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white"
+      },
+      {
+        "name": "Swagger",
+        "url": "https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black"
+      },
+      {
+        "name": "JavaScript",
+        "url": "https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"
       }
     ]
   }

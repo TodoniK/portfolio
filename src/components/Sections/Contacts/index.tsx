@@ -6,6 +6,7 @@ import styles from './contacts.module.scss';
 export default function Contacts() {
     return (
         <Container id={'contacts'} className={'contacts'}>
+            <hr className={styles.divider}/>
             <div className={styles['title']}>
                 <h3>
                     Interested in collaborating with me?

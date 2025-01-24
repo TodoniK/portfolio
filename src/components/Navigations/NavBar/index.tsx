@@ -7,7 +7,6 @@ import Home from '@/resources/svgs/nav-icons/home.svg';
 import Jobs from '@/resources/svgs/nav-icons/experiences.svg';
 import Projects from '@/resources/svgs/nav-icons/projects.svg';
 import Educations from '@/resources/svgs/nav-icons/education.svg';
-import Contact from '@/resources/svgs/nav-icons/contact.svg';
 import styles from './navbar.module.scss';
 
 const Navbar: React.FC = () => {
@@ -17,8 +16,7 @@ const Navbar: React.FC = () => {
         home: useRef(null),
         jobs: useRef(null),
         educations: useRef(null),
-        projects: useRef(null),
-        contact: useRef(null)
+        projects: useRef(null)
     });
 
     const updateActiveIndicator = useCallback((section: string): void => {
@@ -37,7 +35,7 @@ const Navbar: React.FC = () => {
 
     useEffect(() => {
         const handleScroll = debounce((): void => {
-            const sections = ['home', 'jobs', 'educations', 'projects', 'contacts'];
+            const sections = ['home', 'jobs', 'educations', 'projects'];
             let currentSection = 'home';
 
             for (const section of sections) {
@@ -80,7 +78,6 @@ const Navbar: React.FC = () => {
                 {renderNavItem('jobs', Jobs, 'Jobs')}
                 {renderNavItem('educations', Educations, 'Educations')}
                 {renderNavItem('projects', Projects, 'Projects')}
-                {renderNavItem('contacts', Contact, 'Contacts')}
             </ul>
         </nav>
     );
