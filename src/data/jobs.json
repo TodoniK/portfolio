@@ -3,7 +3,7 @@
     "time": "Sept. 2022 - Present",
     "title": "Software Engineer - Orange",
     "description": "Developed an internal ecological impact calculator and optimized sustainable business applications through full-stack development, CI/CD pipelines, green code analysis, and collaborative agile practices.",
-    "logo": "/companies/logo-orange.png",
+    "logo": "/assets/companies/logo-orange.png",
     "link": "https://www.orange.com/",
     "specifities": ["Agile", "Jira", "Confluence", "Scrum"]
   },
@@ -11,7 +11,7 @@
     "time": "May 2023 - Aug. 2023",
     "title": "Software Engineer - Market Control",
     "description": "Developed a web platform with OpenUI5, implemented automated testing, CI/CD workflows, and managed database integration and deployment on Docker and SAP BTP.",
-    "logo": "/companies/logo-market-control.png",
+    "logo": "/assets/companies/logo-market-control.png",
     "link": "https://w2.market-control.com",
     "specifities": ["Agile", "Scrum"]
   },
@@ -19,7 +19,7 @@
     "time": "Apr. 2022 - June 2022",
     "title": "Developer, Project Manager - CDG33",
     "description": "Designed and developed a web application for scheduled SMS with an admin interface and conducted a ChatBot POC for a public website.",
-    "logo": "/companies/logo-cdg33.png",
+    "logo": "/assets/companies/logo-cdg33.png",
     "link": "https://www.cdg33.fr/",
     "specifities": ["V-Cycle"]
   }

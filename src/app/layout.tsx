@@ -23,15 +23,12 @@ export const metadata: Metadata = {
         url: 'https://www.linkedin.com/in/jules-royet',
         images: [
             {
-                url: '/banner/profile-banner.png',
+                url: '/assets/banner/profile-banner.png',
                 width: 1920,
                 height: 1080,
                 alt: 'Jules - Full Stack Developer'
             }
         ]
-    },
-    icons: {
-        icon: '/favicon.ico',
     }
 };
 
@@ -50,9 +47,6 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <head>
-                <link rel="icon" href="/favicon.ico" />
-            </head>
             <body>
                 <Navbar />
                 {children}
