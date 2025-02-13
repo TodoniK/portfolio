@@ -4,19 +4,26 @@
   width: 100%;
   max-width: 650px;
   height: auto;
-  padding: 5px 10px;
+  padding: 10px 15px;
   overflow: hidden;
-  margin: 50px auto 20px auto;
-  font-size: 13px;
+  margin: 40px auto 20px auto;
+  font-size: 14px;
   font-weight: 400;
   color: #9b9b9b;
+
   a {
     color: #FCFBEE;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #ffffff;
+    }
   }
 
   @media screen and (max-width: 769px) {
-    padding: 10px 18px;
+    padding: 15px 20px;
     margin-bottom: 90px;
-    text-align: center;
+    font-size: 13px;
   }
 }

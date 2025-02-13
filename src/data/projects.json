@@ -39,7 +39,7 @@
     "name": "Shopeen",
     "description": "CONFIDENTIAL - Web application that estimates the CO2 production of the others internals applications of Orange, based on the IT equipment needed to run everything.",
     "thumbnail": "/assets/projects/shopeen.png",
-    "repository": "https://github.com/TodoniK/portfolio",
+    "repository": "",
     "tags": [
       {
         "name": "Node.js",
@@ -77,7 +77,7 @@
     "name": "Stak'eirb",
     "description": "Web application that replicates an online casino platform, working closely with a classmate as part of a school project.",
     "thumbnail": "/assets/projects/stakeirb.jpg",
-    "repository": "https://github.com/imjxlian/stakeirb",
+    "repository": "https://github.com/TodoniK/stakeirb",
     "tags": [
       {
         "name": "Node.js",
@@ -111,7 +111,7 @@
     "name": "AutomatiSMS",
     "description": "CONFIDENTIAL - A backoffice web application for managing SMS campaigns of CDG33.",
     "thumbnail": "/assets/projects/automatisms.png",
-    "repository": "https://github.com/TodoniK/portfolio",
+    "repository": "",
     "tags": [
       {
         "name": "Symfony",
@@ -141,7 +141,7 @@
     "name": "IP Locator",
     "description": "Web application that pinpoints the geographic location of an IP address, working closely with a classmate as part of a school project.",
     "thumbnail": "/assets/projects/iplocator.jpg",
-    "repository": "https://github.com/imjxlian/ip-locator",
+    "repository": "https://github.com/TodoniK/ip-locator",
     "tags": [
       {
         "name": "Node.js",
