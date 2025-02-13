@@ -18,11 +18,46 @@
     backdrop-filter: blur(5px);
 
     .img-container img {
-      border: 2px solid rgba(0, 128, 128, 0.8);
+      border: 2px solid rgba(255, 126, 95, 0.8);
     }
 
     .info-container .name h3 {
-      color: rgb(0, 164, 164);
+      color: rgba(255, 126, 95);
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    width: 100%;
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 20px;
+      margin: 10px;
+      background-color: #FF7E5F;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+      &:hover {
+        background-color: #FF4500;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      }
+
+      img {
+        width: 15px;
+        height: 15px;
+        border: none;
+      }
     }
   }
 
@@ -34,13 +69,16 @@
     position: relative;
     width: 20%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     img {
       position: relative;
       width: 100%;
       height: auto;
       aspect-ratio: 16/9;
-      border: 1px solid rgba(0, 128, 128, 0.3);
+      border: 1px solid rgba(255, 126, 95, 0.3);
       border-radius: 2px;
       transition: all 0.3s ease-in-out;
     }
@@ -122,7 +160,7 @@
       backdrop-filter: none;
 
       .info-container .name h3 {
-        color: rgba(0, 128, 128);
+        color: rgba(255, 126, 95);
       }
     }
 

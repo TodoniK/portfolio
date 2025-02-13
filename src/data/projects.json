@@ -6,6 +6,7 @@
     "description": "A Portfolio website for showcasing my experiences and other innovative projects.",
     "thumbnail": "/assets/projects/portfolio.png",
     "repository": "https://github.com/TodoniK/portfolio",
+    "preview": "https://julesroyet.fr",
     "tags": [
       {
         "name": "Next.js",
@@ -40,6 +41,7 @@
     "description": "CONFIDENTIAL - Web application that estimates the CO2 production of the others internals applications of Orange, based on the IT equipment needed to run everything.",
     "thumbnail": "/assets/projects/shopeen.png",
     "repository": "",
+    "preview": "",
     "tags": [
       {
         "name": "Node.js",
@@ -78,6 +80,7 @@
     "description": "Web application that replicates an online casino platform, working closely with a classmate as part of a school project.",
     "thumbnail": "/assets/projects/stakeirb.jpg",
     "repository": "https://github.com/TodoniK/stakeirb",
+    "preview": "https://julesroyet-projects.me",
     "tags": [
       {
         "name": "Node.js",
@@ -112,6 +115,7 @@
     "description": "CONFIDENTIAL - A backoffice web application for managing SMS campaigns of CDG33.",
     "thumbnail": "/assets/projects/automatisms.png",
     "repository": "",
+    "preview": "",
     "tags": [
       {
         "name": "Symfony",
@@ -142,6 +146,7 @@
     "description": "Web application that pinpoints the geographic location of an IP address, working closely with a classmate as part of a school project.",
     "thumbnail": "/assets/projects/iplocator.jpg",
     "repository": "https://github.com/TodoniK/ip-locator",
+    "preview": "",
     "tags": [
       {
         "name": "Node.js",
