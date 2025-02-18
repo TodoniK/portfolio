@@ -146,7 +146,7 @@
     "description": "Web application that pinpoints the geographic location of an IP address, working closely with a classmate as part of a school project.",
     "thumbnail": "/assets/projects/iplocator.jpg",
     "repository": "https://github.com/TodoniK/ip-locator",
-    "preview": "",
+    "preview": "https://iplocator.julesroyet-projects.me",
     "tags": [
       {
         "name": "Node.js",
