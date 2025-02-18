@@ -80,7 +80,7 @@
     "description": "Web application that replicates an online casino platform, working closely with a classmate as part of a school project.",
     "thumbnail": "/assets/projects/stakeirb.jpg",
     "repository": "https://github.com/TodoniK/stakeirb",
-    "preview": "https://julesroyet-projects.me",
+    "preview": "https://stakeirb.julesroyet-projects.me/",
     "tags": [
       {
         "name": "Node.js",
