@@ -29,7 +29,13 @@ export const metadata: Metadata = {
                 alt: 'Jules - Software Engineer'
             }
         ]
-    }
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Jules Royet | Développeur Full Stack',
+        description: 'Portfolio de Jules Royet, développeur FullStack spécialisé dans Node.js, Next.js et technologies web modernes.',
+        images: ['/assets/banner/og-image.png'],
+    },
 };
 
 export const viewport: Viewport = {
@@ -50,7 +56,7 @@ export default function RootLayout({
             <body>
                 <Navbar />
                 {children}
-                <Footer/>
+                <Footer />
             </body>
         </html>
     );
