@@ -173,5 +173,40 @@
         "url": "https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"
       }
     ]
+  },
+  {
+    "id": 6,
+    "private": false,
+    "name": "Mijotons",
+    "description": "Native Android application for managing shopping lists, locating local supermarkets and suggesting recipes based on food purchases.",
+    "thumbnail": "/assets/projects/mijotons.png",
+    "repository": "https://github.com/TodoniK/mijotons-dev",
+    "preview": "https://todonik.github.io/mijotons-website/",
+    "tags": [
+      {
+        "name": "Android Studio",
+        "url": "https://img.shields.io/badge/android%20studio-346ac1?style=for-the-badge&logo=android%20studio&logoColor=white"
+      },
+      {
+        "name": "MySQL",
+        "url": "https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"
+      },
+      {
+        "name": "Java",
+        "url": "https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white"
+      },
+      {
+        "name": "Gradle",
+        "url": "https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"
+      },
+      {
+        "name": "OpenStreetMap",
+        "url": "https://img.shields.io/badge/OpenStreetMap-7EBC6F?style=for-the-badge&logo=OpenStreetMap&logoColor=white"
+      },
+      {
+        "name": "JSON",
+        "url": "https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white"
+      }
+    ]
   }
 ]
