@@ -37,11 +37,11 @@ export default function Job({ job }: { job: Job }) {
                     </div>
                     <div className={styles['specifities']}>
                         {job.specifities.map((specifity, index) => (
-                            <span key={specifity}>
+                            <div key={specifity} className={styles['specifity-item']}>
                                 <div className={styles['color-circle']}
                                     style={{ backgroundColor: specifitiesColors[specifity] || 'yellow' }}></div>
                                 <span>{specifity}</span>
-                            </span>
+                            </div>
                         ))}
                     </div>
                 </div>
