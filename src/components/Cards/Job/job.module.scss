@@ -116,7 +116,7 @@
       flex-wrap: wrap;
       gap: 8px;
 
-      span {
+      .specifity-item {
         display: inline-flex;
         align-items: center;
         padding: 6px 12px;
@@ -132,6 +132,12 @@
           background: rgba(255, 126, 95, 0.1);
           border-color: rgba(255, 126, 95, 0.3);
           transform: translateY(-1px);
+        }
+
+        span {
+          color: #ffffff;
+          font-size: 13px;
+          font-weight: 400;
         }
       }
 
