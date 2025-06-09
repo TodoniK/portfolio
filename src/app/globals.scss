@@ -10,16 +10,62 @@
 }
 
 body {
-  background-color: #2a2d2d;
-  background-image: radial-gradient(circle at 0 0, #404646 2px, transparent 2px),
-    radial-gradient(circle at 0 0, #404646 2px, transparent 2px);
-  background-size: 30px 30px;
-  background-position: 0 0, 10px 10px;
+  background: linear-gradient(135deg, #1a1d1d 0%, #2a2d2d 50%, #1f2323 100%);
+  background-attachment: fixed;
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  position: relative;
+  overflow-x: hidden;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 120%;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(255, 126, 95, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(254, 174, 150, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(230, 132, 174, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 0 0, #404646 1px, transparent 1px),
+      radial-gradient(circle at 0 0, #404646 1px, transparent 1px);
+    background-size: 200% 200%, 300% 300%, 250% 250%, 30px 30px, 30px 30px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 15px 15px;
+    animation: floatBackground 20s ease-in-out infinite;
+    z-index: -1;
+    pointer-events: none;
+  }
 
   @media screen and (max-width: 768px) {
-    background-color: #242424;
+    background: linear-gradient(135deg, #1a1a1a 0%, #242424 50%, #1f1f1f 100%);
     margin-left: 10px;
     margin-right: 10px;
+    
+    &::before {
+      background-size: 150% 150%, 200% 200%, 180% 180%, 20px 20px, 20px 20px;
+    }
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes floatBackground {
+  0%, 100% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(1deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(-1deg);
   }
 }
 
