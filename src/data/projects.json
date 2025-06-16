@@ -144,7 +144,7 @@
     "private": false,
     "name": "IP Locator",
     "description": "Web application that pinpoints the geographic location of an IP address, working closely with a classmate as part of a school project.",
-    "thumbnail": "/assets/projects/iplocator.jpg",
+    "thumbnail": "/assets/projects/iplocator.png",
     "repository": "https://github.com/TodoniK/ip-locator",
     "preview": "https://iplocator.julesroyet-projects.me",
     "tags": [
