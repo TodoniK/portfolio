@@ -79,9 +79,10 @@ export default function Project({ project }: { project: Project }) {
                             <Image 
                               src={tag.url} 
                               alt={`Badge ${tag.name}`} 
-                              style={{ height: '20px', margin: '0 5px' }}
-                              width={100}
-                              height={20}
+                              width={0}
+                              height={0}
+                              sizes="100vw"
+                              style={{ height: '20px', width: 'auto', margin: '0 2px' }}
                               loading="lazy"
                             />
                         </span>
