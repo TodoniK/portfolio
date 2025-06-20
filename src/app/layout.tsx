@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.scss';
 import Navbar from '@/components/Navigations/NavBar';
 import Footer from '@/components/Navigations/Footer';
+import StructuredData from '@/components/StructuredData';
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://www.julesroyet.fr'),
@@ -82,27 +83,58 @@ export const metadata: Metadata = {
         url: 'https://www.julesroyet.fr',
         siteName: 'Jules Royet Portfolio',
         title: 'Jules Royet | Portfolio - Développeur Full Stack',
-        description: 'Portfolio de Jules Royet, développeur FullStack avec plus de 3 ans d\'expérience. Spécialisé en Node.js, Next.js, Vue.js et technologies web modernes.',
+        description: 'Portfolio de Jules Royet, développeur FullStack avec plus de 3 ans d\'expérience. Spécialisé en Node.js, Next.js, Vue.js et technologies web modernes. Expert en cybersécurité et développement d\'applications web évolutives.',
         images: [
             {
-                url: '/assets/banner/og-image.png',
+                url: 'https://www.julesroyet.fr/assets/banner/og-image.png',
                 width: 1200,
                 height: 630,
-                alt: 'Jules Royet - Développeur Full Stack Portfolio',
+                alt: 'Jules Royet - Développeur Full Stack Portfolio - Spécialisé en Node.js, Next.js, Vue.js',
                 type: 'image/png',
+                secureUrl: 'https://www.julesroyet.fr/assets/banner/og-image.png',
             }
-        ]
+        ],
+        emails: ['jules.royet.pc@gmail.com'],
+        phoneNumbers: [],
+        faxNumbers: [],
+        countryName: 'France',
+        determiner: 'auto',
     },
     twitter: {
         card: 'summary_large_image',
         title: 'Jules Royet | Portfolio - Développeur Full Stack',
-        description: 'Portfolio de Jules Royet, développeur FullStack spécialisé en Node.js, Next.js, Vue.js et technologies web modernes.',
-        images: ['/assets/banner/og-image.png'],
+        description: 'Portfolio de Jules Royet, développeur FullStack spécialisé en Node.js, Next.js, Vue.js et technologies web modernes. Expert en cybersécurité.',
+        images: [{
+            url: 'https://www.julesroyet.fr/assets/banner/og-image.png',
+            alt: 'Jules Royet - Développeur Full Stack Portfolio',
+            width: 1200,
+            height: 630,
+        }],
         creator: '@jules_royet',
-        site: '@jules_royet'
+        site: '@jules_royet',
+        siteId: '',
+        creatorId: '',
     },
     alternates: {
         canonical: 'https://www.julesroyet.fr',
+    },
+    other: {
+        // Métadonnées pour LinkedIn
+        'article:author': 'Jules Royet',
+        'article:section': 'Technology',
+        'article:tag': 'Software Engineering, Full Stack Development, Cybersecurity',
+        // Métadonnées supplémentaires pour Facebook
+        'fb:app_id': '', // Ajoutez votre App ID Facebook si vous en avez un
+        // Métadonnées pour d'autres plateformes
+        'application-name': 'Jules Royet Portfolio',
+        'msapplication-TileColor': '#191919',
+        'msapplication-config': '/browserconfig.xml',
+        'theme-color': '#191919',
+        // Métadonnées LinkedIn spécifiques
+        'linkedin:owner': 'jules-royet',
+        // Métadonnées supplémentaires pour améliorer le partage
+        'og:rich_attachment': 'true',
+        'og:see_also': 'https://www.linkedin.com/in/jules-royet',
     },
 };
 
@@ -122,6 +154,7 @@ export default function RootLayout({
     return (
         <html lang="fr">
             <head>
+                <StructuredData />
                 <link rel="canonical" href="https://www.julesroyet.fr" />
                 <meta name="google-site-verification" content="" />
                 <meta name="msvalidate.01" content="" />
@@ -153,11 +186,25 @@ export default function RootLayout({
                 <link rel="dns-prefetch" href="https://github.com" />
                 <link rel="dns-prefetch" href="https://linkedin.com" />
                 
-                <meta
-                    name="image"
-                    property="og:image"
-                    content="/assets/banner/og-image.png"
-                />
+                {/* Additional Open Graph meta tags */}
+                <meta property="og:image:secure_url" content="https://www.julesroyet.fr/assets/banner/og-image.png" />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:image:alt" content="Jules Royet - Développeur Full Stack Portfolio" />
+                
+                {/* Twitter specific meta tags */}
+                <meta name="twitter:image:src" content="https://www.julesroyet.fr/assets/banner/og-image.png" />
+                <meta name="twitter:image:width" content="1200" />
+                <meta name="twitter:image:height" content="630" />
+                <meta name="twitter:image:alt" content="Jules Royet - Développeur Full Stack Portfolio" />
+                
+                {/* LinkedIn specific meta tags */}
+                <meta property="linkedin:owner" content="jules-royet" />
+                
+                {/* WhatsApp and other messaging apps */}
+                <meta property="og:rich_attachment" content="true" />
+                
                 <meta
                     property="og:image:width"
                     content="1200"
