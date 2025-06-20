@@ -22,42 +22,72 @@ type Project = {
 
 export default function Project({ project }: { project: Project }) {
     return (
-      <div
+      <article
         className={`${styles['project-card']} ${project.private ? styles['private-card'] : ''}`}
+        itemScope
+        itemType="https://schema.org/SoftwareApplication"
       >
           <div className={styles['img-container']}>
-              <img src={project.thumbnail} alt={'Sample Image'} />
+              <Image 
+                src={project.thumbnail} 
+                alt={`Capture d'écran du projet ${project.name}`}
+                className=""
+                loading="lazy"
+                width={300}
+                height={169}
+              />
               {project.private && (
-                <div className={styles['private-overlay']}>
-                    <Image src={PrivateIcon} alt="Private Icon" />
+                <div className={styles['private-overlay']} aria-label="Projet privé">
+                    <Image src={PrivateIcon} alt="Icône projet privé" />
                 </div>
               )}
               {!project.private && (
                 <div className={styles['buttons']}>
-                    <a href={project.repository} target="_blank" className={styles['button']}>
-                        <Image src={CodeIcon} alt="Code Icon" />
+                    <a 
+                      href={project.repository} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={styles['button']}
+                      aria-label={`Voir le code source de ${project.name} sur GitHub`}
+                      itemProp="codeRepository"
+                    >
+                        <Image src={CodeIcon} alt="Icône code source" />
                     </a>
-                    <a href={project.preview} target="_blank" className={styles['button']}>
-                        <Image src={PreviewIcon} alt="Preview Icon" />
+                    <a 
+                      href={project.preview} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={styles['button']}
+                      aria-label={`Voir la démo de ${project.name}`}
+                      itemProp="url"
+                    >
+                        <Image src={PreviewIcon} alt="Icône aperçu" />
                     </a>
                 </div>
               )}
           </div>
           <div className={styles['info-container']}>
               <div className={styles['name']}>
-                  <h3>{project.name}</h3>
+                  <h3 itemProp="name">{project.name}</h3>
               </div>
               <div className={styles['description']}>
-                  <p>{project.description}</p>
+                  <p itemProp="description">{project.description}</p>
               </div>
-              <div className={styles['tags']}>
+              <div className={styles['tags']} itemProp="programmingLanguage">
                   {project.tags.map((tag, index) => (
-                    <span key={index}>
-                            <img src={tag.url} alt={tag.name} style={{ height: '20px', margin: '0 5px' }} />
+                    <span key={index} title={`Technologie: ${tag.name}`}>
+                            <Image 
+                              src={tag.url} 
+                              alt={`Badge ${tag.name}`} 
+                              style={{ height: '20px', margin: '0 5px' }}
+                              width={100}
+                              height={20}
+                              loading="lazy"
+                            />
                         </span>
                   ))}
               </div>
           </div>
-      </div>
+      </article>
     );
 }
