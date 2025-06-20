@@ -65,7 +65,11 @@ const Navbar: React.FC = () => {
             <a href={`#${id}`} onClick={() => handleNavClick(id)}
                className={activeSection === id ? styles.active : ''}>
                 <span className={styles.icon}>
-                    <Image src={Icon} alt={label}/>
+                    <Image 
+                        src={Icon} 
+                        alt={label}
+                        priority={id === 'home'}
+                    />
                 </span>
             </a>
         </li>

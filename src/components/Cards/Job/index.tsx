@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './job.module.scss';
 
 type Job = {
@@ -21,21 +22,32 @@ export default function Job({ job }: { job: Job }) {
 
     return (
         <a href={job.link} target="_blank" rel="noopener noreferrer">
-            <div className={styles['job-card']}>
+            <article 
+              className={styles['job-card']}
+              itemScope
+              itemType="https://schema.org/WorkExperience"
+            >
                 <div className={styles['timeline-container']}>
-                    <span>{job.time}</span>
+                    <time itemProp="datePublished">{job.time}</time>
                     <div className={styles['image-container']}>
-                        <img src={job.logo} alt="Company Logo" className={styles.logo} />
+                        <Image 
+                          src={job.logo} 
+                          alt={`Logo de l'entreprise ${job.title.split(' - ')[1] || 'Entreprise'}`}
+                          className={styles.logo}
+                          loading="lazy"
+                          width={55}
+                          height={55}
+                        />
                     </div>
                 </div>
                 <div className={styles['info-container']}>
                     <div className={styles['title']}>
-                        <h3>{job.title}</h3>
+                        <h3 itemProp="jobTitle">{job.title}</h3>
                     </div>
-                    <div className={styles['description']}>
+                    <div className={styles['description']} itemProp="description">
                         {job.description}
                     </div>
-                    <div className={styles['specifities']}>
+                    <div className={styles['specifities']} itemProp="skills">
                         {job.specifities.map((specifity, index) => (
                             <div key={specifity} className={styles['specifity-item']}>
                                 <div className={styles['color-circle']}
@@ -45,7 +57,7 @@ export default function Job({ job }: { job: Job }) {
                         ))}
                     </div>
                 </div>
-            </div>
+            </article>
         </a>
     );
 }

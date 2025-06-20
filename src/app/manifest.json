@@ -1,21 +1,27 @@
 {
-  "name": "Portfolio",
-  "short_name": "Portfolio",
+  "name": "Jules Royet - Portfolio Développeur Full Stack",
+  "short_name": "Jules Royet",
+  "description": "Portfolio de Jules Royet, développeur FullStack spécialisé en Node.js, Next.js, Vue.js et technologies web modernes",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1d1d",
+  "theme_color": "#FF7E5F",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "categories": ["portfolio", "developer", "technology"],
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "maskable any"
     },
     {
       "src": "/favicon/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "maskable any"
     }
-  ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  ]
 }

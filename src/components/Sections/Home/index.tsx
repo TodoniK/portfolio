@@ -24,24 +24,24 @@ export default function Home() {
         <div className={styles.contacts}>
           <a href="/assets/resume/resumes.pdf" target="_blank"
              className={styles['resume-button']}>
-            <Image src={Resume} alt={'Resume'} className={styles.icon}/>
+            <Image src={Resume} alt={'Resume'} className={styles.icon} priority/>
             <div className={styles.label}>Resume</div>
           </a>
           <a href="https://www.linkedin.com/in/jules-royet" target="_blank"
              className={styles.links}>
-            <Image src={LinkedIn} alt={'LinkedIn'} className={styles.icon}/>
+            <Image src={LinkedIn} alt={'LinkedIn'} className={styles.icon} priority/>
             <div className={styles.label}>LinkedIn</div>
           </a>
           <a href="mailto:jules.royet.pc@gmail.com" className={styles.links}>
-            <Image src={Mail} alt={'Mail'} className={styles.icon}/>
+            <Image src={Mail} alt={'Mail'} className={styles.icon} priority/>
             <div className={styles.label}>Mail</div>
           </a>
           <a href="https://github.com/todonik" target="_blank" className={styles.links}>
-            <Image src={GitHub} alt={'GitHub'} className={styles.icon}/>
+            <Image src={GitHub} alt={'GitHub'} className={styles.icon} priority/>
             <div className={styles.label}>Github</div>
           </a>
           <a href="https://www.root-me.org/ROYET?lang=fr#6d64628f42c7d83514cfbbcf25d78e75" target="_blank" className={styles.links}>
-            <Image src={RootMe} alt={'RootMe'} className={styles.icon}/>
+            <Image src={RootMe} alt={'RootMe'} className={styles.icon} priority/>
             <div className={styles.label}>Root-Me</div>
           </a>
         </div>
