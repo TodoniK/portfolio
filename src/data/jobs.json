@@ -1,11 +1,19 @@
 [
   {
-    "time": "Sept. 2022 - Present",
-    "title": "Software Engineer - Orange",
+    "time": "Sept. 2025 - Present",
+    "title": "Cloud & DevOps Architect - Orange",
+    "description": "Designing and implementing cloud infrastructure solutions and DevOps practices to optimize deployment pipelines, ensure scalability, and enhance system reliability. Leading technical architecture decisions and mentoring teams on cloud-native technologies and automation best practices.",
+    "logo": "/assets/companies/logo-orange.png",
+    "link": "https://www.orange.com/",
+    "specifities": ["Cloud Architecture", "DevOps", "CI/CD", "Infrastructure as Code", "Agile"]
+  },
+  {
+    "time": "Sept. 2022 - Aug. 2025",
+    "title": "Software Engineer - Orange (Apprenticeship)",
     "description": "Developed an internal ecological impact calculator and optimized sustainable business applications through full-stack development, CI/CD pipelines, green code analysis, and collaborative agile practices.",
     "logo": "/assets/companies/logo-orange.png",
     "link": "https://www.orange.com/",
-    "specifities": ["Agile", "Jira", "Confluence", "Scrum"]
+    "specifities": ["Agile", "Jira", "Confluence", "Scrum", "Full-Stack Development"]
   },
   {
     "time": "May 2023 - Aug. 2023",

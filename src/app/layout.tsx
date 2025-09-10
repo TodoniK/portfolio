@@ -7,12 +7,15 @@ import StructuredData from '@/components/StructuredData';
 export const metadata: Metadata = {
     metadataBase: new URL('https://www.julesroyet.fr'),
     title: {
-        default: 'Jules Royet | Portfolio - Développeur Full Stack',
-        template: '%s | Jules Royet - Développeur Full Stack'
+        default: 'Jules Royet | Portfolio - Architecte Cloud & DevOps',
+        template: '%s | Jules Royet - Architecte Cloud & DevOps'
     },
-    description: 'Portfolio de Jules Royet, développeur FullStack passionné avec plus de 3 ans d\'expérience. Spécialisé en Node.js, Next.js, Vue.js, React et technologies web modernes. Expert en développement d\'applications web évolutives et sécurisées.',
+    description: 'Portfolio de Jules Royet, Architecte Cloud & DevOps diplômé de l\'ENSEIRB-MATMECA avec plus de 3 ans d\'expérience. Expert en infrastructure cloud, CI/CD, et développement full-stack. Spécialisé en Node.js, Next.js, Vue.js, React et technologies DevOps modernes.',
     keywords: [
         'Jules Royet',
+        'Architecte Cloud',
+        'DevOps Architect',
+        'Cloud & DevOps Engineer',
         'Développeur Full Stack',
         'Software Engineer',
         'TypeScript',
@@ -25,6 +28,13 @@ export const metadata: Metadata = {
         'Kotlin',
         'Spring Boot',
         'Web Development',
+        'Cloud Architecture',
+        'Infrastructure as Code',
+        'Kubernetes',
+        'Docker',
+        'AWS',
+        'Azure',
+        'Google Cloud',
         'Frontend Developer',
         'Backend Developer',
         'Portfolio',
@@ -82,8 +92,8 @@ export const metadata: Metadata = {
         locale: 'fr_FR',
         url: 'https://www.julesroyet.fr',
         siteName: 'Jules Royet Portfolio',
-        title: 'Jules Royet | Portfolio - Développeur Full Stack',
-        description: 'Portfolio de Jules Royet, développeur FullStack avec plus de 3 ans d\'expérience. Spécialisé en Node.js, Next.js, Vue.js et technologies web modernes. Expert en cybersécurité et développement d\'applications web évolutives.',
+        title: 'Jules Royet | Portfolio - Architecte Cloud & DevOps',
+        description: 'Portfolio de Jules Royet, Architecte Cloud & DevOps diplômé de l\'ENSEIRB-MATMECA avec plus de 3 ans d\'expérience. Expert en infrastructure cloud, CI/CD et développement full-stack. Spécialisé en technologies DevOps modernes.',
         images: [
             {
                 url: 'https://www.julesroyet.fr/assets/banner/og-image.png',
@@ -122,7 +132,7 @@ export const metadata: Metadata = {
         // Métadonnées pour LinkedIn
         'article:author': 'Jules Royet',
         'article:section': 'Technology',
-        'article:tag': 'Software Engineering, Full Stack Development, Cybersecurity',
+        'article:tag': 'Cloud Architecture, DevOps, Full Stack Development, Cybersecurity',
         // Métadonnées supplémentaires pour Facebook
         'fb:app_id': '', // Ajoutez votre App ID Facebook si vous en avez un
         // Métadonnées pour d'autres plateformes
@@ -228,8 +238,8 @@ export default function RootLayout({
                             "@context": "https://schema.org",
                             "@type": "Person",
                             name: "Jules Royet",
-                            jobTitle: "Développeur Full Stack",
-                            description: "Développeur FullStack spécialisé en Node.js, Next.js, Vue.js et technologies web modernes",
+                            jobTitle: "Architecte Cloud & DevOps",
+                            description: "Architecte Cloud & DevOps diplômé de l'ENSEIRB-MATMECA, spécialisé en infrastructure cloud, CI/CD et technologies DevOps modernes",
                             url: "https://www.julesroyet.fr",
                             image: "https://www.julesroyet.fr/assets/banner/og-image.png",
                             sameAs: [

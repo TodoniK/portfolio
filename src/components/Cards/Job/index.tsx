@@ -17,7 +17,12 @@ export default function Job({ job }: { job: Job }) {
         Confluence: '#c6538c',
         Agile: '#89e051',
         "V-Cycle": '#4eaa25',
-        Scrum: '#f1e05a'
+        Scrum: '#f1e05a',
+        "Cloud Architecture": '#FF9900', // Orange AWS-style
+        "DevOps": '#326CE5', // Bleu Kubernetes
+        "CI/CD": '#FF6B6B', // Rouge moderne pour pipelines
+        "Infrastructure as Code": '#7B68EE', // Violet pour IaC
+        "Full-Stack Development": '#20B2AA' // Bleu-vert pour full-stack
     };
 
     return (
