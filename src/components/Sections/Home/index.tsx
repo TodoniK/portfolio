@@ -48,16 +48,16 @@ export default function Home() {
         <hr className={styles.divider}/>
         <div className={styles.summery}>
           <p>
-            ✌️Hey! I&apos;m Jules, a <b>passionate Cloud & DevOps Architect</b> and recent graduate from <b>l'ENSEIRB-MATMECA</b> with over <b>3 years of experience</b> in full-stack development and cloud infrastructure. I specialize in designing scalable <b>cloud architectures</b>, implementing robust <b>CI/CD pipelines</b>, and crafting efficient backend systems using <b>Java</b>, <b>Kotlin</b>, and frameworks like <b>Spring</b>. On the frontend, I build sleek, interactive interfaces with <b>Vue.js</b>, <b>React</b>, and <b>Node.js</b>, always ensuring seamless user experiences with cutting-edge <b>UI/UX designs</b>. ✨
+            ✌️Hey! I&apos;m Jules, a <b>passionate Cloud & DevOps Architect</b> and recent graduate from <b>l&apos;ENSEIRB-MATMECA</b> with over <b>3 years of experience</b> in full-stack development and cloud infrastructure. I specialize in designing scalable <b>cloud architectures</b>, implementing robust <b>CI/CD pipelines</b>, and crafting efficient backend systems using <b>Java</b>, <b>Kotlin</b>, and frameworks like <b>Spring</b>. On the frontend, I build sleek, interactive interfaces with <b>Vue.js</b>, <b>React</b>, and <b>Node.js</b>, always ensuring seamless user experiences with cutting-edge <b>UI/UX designs</b>. ✨
           </p><br/>
           <p>
-            🚀 I thrive on solving complex infrastructure challenges and delivering innovative cloud-native solutions, whether it&apos;s architecting scalable microservices, implementing Infrastructure as Code, or optimizing deployment strategies. Recently, I've been diving deeper into <b>cybersecurity</b> 🛡️, exploring both offensive and defensive strategies, with a keen interest in <b>SOC operations</b> and <b>ethical hacking</b>.
+            🚀 I thrive on solving complex infrastructure challenges and delivering innovative cloud-native solutions, whether it&apos;s architecting scalable microservices, implementing Infrastructure as Code, or optimizing deployment strategies. Recently, I&apos;ve been diving deeper into <b>cybersecurity</b> 🛡️, exploring both offensive and defensive strategies, with a keen interest in <b>SOC operations</b> and <b>ethical hacking</b>.
           </p><br/>
           <p>
             💼 Currently working at <b>Orange</b> as a Cloud & DevOps Architect, I focus on designing resilient cloud infrastructures that bridge performance, security, and scalability, creating impactful digital transformations.
           </p><br/>
           <p>
-            ☕ When I'm not architecting cloud solutions, you'll find me exploring the latest DevOps trends 🌐, reading about cybersecurity 🔍, brainstorming the next infrastructure innovation 💡, or enjoying a good coffee while unwinding with a great book 📚.
+            ☕ When I&apos;m not architecting cloud solutions, you&apos;ll find me exploring the latest DevOps trends 🌐, reading about cybersecurity 🔍, brainstorming the next infrastructure innovation 💡, or enjoying a good coffee while unwinding with a great book 📚.
           </p>
         </div>
       </div>
