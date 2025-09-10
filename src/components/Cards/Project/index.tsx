@@ -3,6 +3,7 @@ import Image from 'next/image';
 import PrivateIcon from '@/resources/svgs/project-icons/private.svg';
 import CodeIcon from '@/resources/svgs/project-icons/code.svg';
 import PreviewIcon from '@/resources/svgs/project-icons/preview.svg';
+import TechBadge from '@/components/TechBadge';
 
 type Tag = {
     name: string;
@@ -75,17 +76,11 @@ export default function Project({ project }: { project: Project }) {
               </div>
               <div className={styles['tags']} itemProp="programmingLanguage">
                   {project.tags.map((tag, index) => (
-                    <span key={index} title={`Technologie: ${tag.name}`}>
-                            <Image 
-                              src={tag.url} 
-                              alt={`Badge ${tag.name}`} 
-                              width={0}
-                              height={0}
-                              sizes="100vw"
-                              style={{ height: '20px', width: 'auto', margin: '0 2px' }}
-                              loading="lazy"
-                            />
-                        </span>
+                    <TechBadge 
+                      key={index}
+                      name={tag.name}
+                      url={tag.url}
+                    />
                   ))}
               </div>
           </div>
