@@ -12,11 +12,16 @@ import styles from './navbar.module.scss';
 const Navbar: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>('home');
     const navbarRef = useRef<HTMLElement>(null);
-    const navItemsRef = useRef<Record<string, React.RefObject<HTMLLIElement>>>({
-        home: useRef(null),
-        jobs: useRef(null),
-        educations: useRef(null),
-        projects: useRef(null)
+    const homeRef = useRef<HTMLLIElement>(null);
+    const jobsRef = useRef<HTMLLIElement>(null);
+    const educationsRef = useRef<HTMLLIElement>(null);
+    const projectsRef = useRef<HTMLLIElement>(null);
+    
+    const navItemsRef = useRef<Record<string, React.RefObject<HTMLLIElement | null>>>({
+        home: homeRef,
+        jobs: jobsRef,
+        educations: educationsRef,
+        projects: projectsRef
     });
 
     const updateActiveIndicator = useCallback((section: string): void => {
