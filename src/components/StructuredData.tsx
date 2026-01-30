@@ -5,8 +5,8 @@ export default function StructuredData() {
         "name": "Jules Royet",
         "jobTitle": "Cloud & DevOps Architect",
         "description": "Architecte Cloud & DevOps diplômé de l'ENSEIRB-MATMECA avec plus de 3 ans d'expérience, spécialisé en infrastructure cloud, CI/CD, Node.js, Next.js, Vue.js et cybersécurité",
-        "url": "https://www.julesroyet.fr",
-        "image": "https://www.julesroyet.fr/assets/banner/og-image.png",
+        "url": "https://www.julesroyet.dev",
+        "image": "https://www.julesroyet.dev/assets/banner/og-image.png",
         "sameAs": [
             "https://www.linkedin.com/in/jules-royet",
             "https://github.com/todonik",

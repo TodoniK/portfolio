@@ -6,7 +6,7 @@
     "description": "A Portfolio website for showcasing my experiences and other innovative projects.",
     "thumbnail": "/assets/projects/portfolio.png",
     "repository": "https://github.com/TodoniK/portfolio",
-    "preview": "https://julesroyet.fr",
+    "preview": "https://julesroyet.dev",
     "tags": [
       {
         "name": "Next.js",
@@ -80,7 +80,7 @@
     "description": "Web application that replicates an online casino platform, working closely with a classmate as part of a school project.",
     "thumbnail": "/assets/projects/stakeirb.jpg",
     "repository": "https://github.com/TodoniK/stakeirb",
-    "preview": "https://stakeirb.julesroyet-projects.me/",
+    "preview": "https://stakeirb.julesroyet.dev",
     "tags": [
       {
         "name": "Node.js",
@@ -146,7 +146,7 @@
     "description": "Web application that pinpoints the geographic location of an IP address, working closely with a classmate as part of a school project.",
     "thumbnail": "/assets/projects/iplocator.png",
     "repository": "https://github.com/TodoniK/ip-locator",
-    "preview": "https://iplocator.julesroyet-projects.me",
+    "preview": "https://iplocator.julesroyet.dev",
     "tags": [
       {
         "name": "Node.js",

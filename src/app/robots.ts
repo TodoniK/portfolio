@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/private/', '/admin/', '/api/'],
     },
-    sitemap: 'https://www.julesroyet.fr/sitemap.xml',
-    host: 'https://www.julesroyet.fr'
+    sitemap: 'https://www.julesroyet.dev/sitemap.xml',
+    host: 'https://www.julesroyet.dev'
   }
 }

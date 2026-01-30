@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.julesroyet.fr'
+  const baseUrl = 'https://www.julesroyet.dev'
   const currentDate = new Date().toISOString()
 
   return [
@@ -43,13 +43,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // Ajouter les URLs des projets individuels si ils existent
     {
-      url: 'https://stakeirb.julesroyet-projects.me/',
+      url: 'https://stakeirb.julesroyet.dev',
       lastModified: '2024-01-01',
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
-      url: 'https://iplocator.julesroyet-projects.me/',
+      url: 'https://iplocator.julesroyet.dev',
       lastModified: '2024-01-01',
       changeFrequency: 'monthly',
       priority: 0.5,

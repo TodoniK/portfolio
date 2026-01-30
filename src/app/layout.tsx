@@ -5,7 +5,7 @@ import Footer from '@/components/Navigations/Footer';
 import StructuredData from '@/components/StructuredData';
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://www.julesroyet.fr'),
+    metadataBase: new URL('https://www.julesroyet.dev'),
     title: {
         default: 'Jules Royet | Portfolio - Architecte Cloud & DevOps',
         template: '%s | Jules Royet - Architecte Cloud & DevOps'
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         'Performance Web',
         'UX/UI Design'
     ],
-    authors: [{ name: 'Jules Royet', url: 'https://www.julesroyet.fr' }],
+    authors: [{ name: 'Jules Royet', url: 'https://www.julesroyet.dev' }],
     creator: 'Jules Royet',
     publisher: 'Jules Royet',
     robots: {
@@ -90,18 +90,18 @@ export const metadata: Metadata = {
     openGraph: {
         type: 'website',
         locale: 'fr_FR',
-        url: 'https://www.julesroyet.fr',
+        url: 'https://www.julesroyet.dev',
         siteName: 'Jules Royet Portfolio',
         title: 'Jules Royet | Portfolio - Architecte Cloud & DevOps',
         description: 'Portfolio de Jules Royet, Architecte Cloud & DevOps diplômé de l\'ENSEIRB-MATMECA avec plus de 3 ans d\'expérience. Expert en infrastructure cloud, CI/CD et développement full-stack. Spécialisé en technologies DevOps modernes.',
         images: [
             {
-                url: 'https://www.julesroyet.fr/assets/banner/og-image.png',
+                url: 'https://www.julesroyet.dev/assets/banner/og-image.png',
                 width: 1200,
                 height: 630,
                 alt: 'Jules Royet - Développeur Full Stack Portfolio - Spécialisé en Node.js, Next.js, Vue.js',
                 type: 'image/png',
-                secureUrl: 'https://www.julesroyet.fr/assets/banner/og-image.png',
+                secureUrl: 'https://www.julesroyet.dev/assets/banner/og-image.png',
             }
         ],
         emails: ['jules.royet.pc@gmail.com'],
@@ -115,7 +115,7 @@ export const metadata: Metadata = {
         title: 'Jules Royet | Portfolio - Développeur Full Stack',
         description: 'Portfolio de Jules Royet, développeur FullStack spécialisé en Node.js, Next.js, Vue.js et technologies web modernes. Expert en cybersécurité.',
         images: [{
-            url: 'https://www.julesroyet.fr/assets/banner/og-image.png',
+            url: 'https://www.julesroyet.dev/assets/banner/og-image.png',
             alt: 'Jules Royet - Développeur Full Stack Portfolio',
             width: 1200,
             height: 630,
@@ -126,7 +126,7 @@ export const metadata: Metadata = {
         creatorId: '',
     },
     alternates: {
-        canonical: 'https://www.julesroyet.fr',
+        canonical: 'https://www.julesroyet.dev',
     },
     other: {
         // Métadonnées pour LinkedIn
@@ -165,7 +165,7 @@ export default function RootLayout({
         <html lang="fr">
             <head>
                 <StructuredData />
-                <link rel="canonical" href="https://www.julesroyet.fr" />
+                <link rel="canonical" href="https://www.julesroyet.dev" />
                 <meta name="google-site-verification" content="" />
                 <meta name="msvalidate.01" content="" />
                 
@@ -197,14 +197,14 @@ export default function RootLayout({
                 <link rel="dns-prefetch" href="https://linkedin.com" />
                 
                 {/* Additional Open Graph meta tags */}
-                <meta property="og:image:secure_url" content="https://www.julesroyet.fr/assets/banner/og-image.png" />
+                <meta property="og:image:secure_url" content="https://www.julesroyet.dev/assets/banner/og-image.png" />
                 <meta property="og:image:type" content="image/png" />
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
                 <meta property="og:image:alt" content="Jules Royet - Développeur Full Stack Portfolio" />
                 
                 {/* Twitter specific meta tags */}
-                <meta name="twitter:image:src" content="https://www.julesroyet.fr/assets/banner/og-image.png" />
+                <meta name="twitter:image:src" content="https://www.julesroyet.dev/assets/banner/og-image.png" />
                 <meta name="twitter:image:width" content="1200" />
                 <meta name="twitter:image:height" content="630" />
                 <meta name="twitter:image:alt" content="Jules Royet - Développeur Full Stack Portfolio" />
@@ -240,8 +240,8 @@ export default function RootLayout({
                             name: "Jules Royet",
                             jobTitle: "Architecte Cloud & DevOps",
                             description: "Architecte Cloud & DevOps diplômé de l'ENSEIRB-MATMECA, spécialisé en infrastructure cloud, CI/CD et technologies DevOps modernes",
-                            url: "https://www.julesroyet.fr",
-                            image: "https://www.julesroyet.fr/assets/banner/og-image.png",
+                            url: "https://www.julesroyet.dev",
+                            image: "https://www.julesroyet.dev/assets/banner/og-image.png",
                             sameAs: [
                                 "https://www.linkedin.com/in/jules-royet",
                                 "https://github.com/todonik",
