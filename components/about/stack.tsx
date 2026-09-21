@@ -14,13 +14,18 @@ type Chip = {
 };
 
 const CHIPS: Chip[] = [
-  { label: "Docker", slug: "docker", bg: "#2496ED", fg: "#0a0a0a" },
+  { label: "Docker", slug: "docker", bg: "#2496ED", fg: "#ffffff" },
   { label: "Kubernetes", slug: "kubernetes", bg: "#2557c7", fg: "#ffffff" },
+  { label: "Azure", slug: "azure", bg: "#0078D4", fg: "#ffffff", iconUrl: "/assets/icons/azure.svg" },
+  { label: "AWS", slug: "aws", bg: "#232F3E", fg: "#ffffff", iconUrl: "/assets/icons/aws.svg" },
+  { label: "Oracle Cloud", slug: "oracle", bg: "#C74634", fg: "#ffffff", iconUrl: "/assets/icons/oracle.svg" },
+  { label: "Dokploy", slug: "dokploy", bg: "#0f172a", fg: "#ffffff", iconUrl: "/assets/icons/dokploy.svg" },
+  { label: "Cloudflare", slug: "cloudflare", bg: "#F38020", fg: "#ffffff", iconUrl: "/assets/icons/cloudflare.svg" },
+  { label: "Hermes Agent", slug: "hermes", bg: "#4f46e5", fg: "#ffffff", iconUrl: "/assets/icons/hermes.svg" },
   { label: "Terraform", slug: "terraform", bg: "#7b3db8", fg: "#ffffff" },
   { label: "Linux", slug: "linux", bg: "#FCC624", fg: "#000000" },
-  { label: "AWS", slug: "aws", bg: "#232F3E", fg: "#ffffff", iconUrl: "/assets/icons/aws.svg" },
-  { label: "Java", slug: "openjdk", bg: "#ED8B00", fg: "#0a0a0a" },
-  { label: "Spring Boot", slug: "springboot", bg: "#6DB33F", fg: "#0a0a0a" },
+  { label: "Java", slug: "openjdk", bg: "#ED8B00", fg: "#ffffff" },
+  { label: "Spring Boot", slug: "springboot", bg: "#6DB33F", fg: "#ffffff" },
   { label: "Kotlin", slug: "kotlin", bg: "#6935f0", fg: "#ffffff" },
   { label: "TypeScript", slug: "typescript", bg: "#2468b1", fg: "#ffffff" },
   { label: "React", slug: "react", bg: "#61DAFB", fg: "#0a0a0a" },

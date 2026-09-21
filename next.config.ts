@@ -44,6 +44,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/_telemetry/insights/script.js",
+        destination: "https://va.vercel-scripts.com/v1/script.js",
+      },
+      {
+        source: "/_telemetry/speed/script.js",
+        destination: "https://va.vercel-scripts.com/v1/speed-insights/script.js",
+      },
+    ];
+  },
   async headers() {
     return [
       {

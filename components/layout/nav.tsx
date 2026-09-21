@@ -81,9 +81,9 @@ function NavThemeToggle(): ReactNode {
           : "Toggle theme"
       }
       aria-pressed={mounted ? isDark : undefined}
-      className="focus-ring relative inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-background ring-1 ring-foreground/8 transition-colors hover:bg-foreground/5"
+      className="group focus-ring relative inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-foreground/60 transition-all duration-200 hover:text-foreground hover:bg-foreground/5 active:scale-95"
     >
-      <span aria-hidden="true" className="relative h-4 w-4">
+      <span aria-hidden="true" className="relative h-4 w-4 transition-transform duration-300 group-hover:rotate-15 group-hover:scale-110">
         <Sun
           className={`absolute inset-0 h-4 w-4 text-foreground transition-all duration-300 ${
             mounted && isDark
@@ -197,7 +197,7 @@ export function Nav(): ReactNode {
             );
           })}
         </ul>
-        <div className="flex items-center gap-1 pl-1 border-l border-foreground/10">
+        <div className="flex items-center gap-1.5 pl-2 ml-1 border-l border-foreground/10">
           <LanguageToggle />
           <NavThemeToggle />
         </div>

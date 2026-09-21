@@ -35,3 +35,4 @@ next-env.d.ts
 /.idea/.gitignore
 /.idea/vcs.xml
 .agent-memory
+.playwright-mcp
