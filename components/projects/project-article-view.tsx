@@ -261,7 +261,7 @@ export function ProjectArticleView({ slug }: { slug: string }): ReactNode {
             <div className="sticky top-28 flex flex-col gap-6 rounded-3xl border border-foreground/10 bg-background p-6 shadow-xs">
               <div className="flex flex-col gap-3">
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground/60">
-                  {locale === "fr" ? "Stack Technique" : "Tech Stack"}
+                  {locale === "fr" ? "Stack technique" : "Tech Stack"}
                 </h3>
                 <div className="flex flex-wrap items-center gap-2">
                   {chips.map((chip) => (

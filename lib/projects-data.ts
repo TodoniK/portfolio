@@ -19,13 +19,13 @@ export type ProjectArticleContent = {
 export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   hermes: {
     id: "hermes",
-    role: { en: "Autonomous Systems Architect", fr: "Architecte Systèmes Autonomes" },
+    role: { en: "Autonomous Systems Architect", fr: "Architecte systèmes autonomes" },
     timeline: { en: "2026", fr: "2026" },
-    clientOrContext: { en: "Personal Cloud Infrastructure", fr: "Infrastructure Cloud Personnelle" },
+    clientOrContext: { en: "Personal Cloud Infrastructure", fr: "Infrastructure cloud personnelle" },
     infrastructure: { en: "Oracle Cloud VPS • Dokploy • Traefik • Docker", fr: "VPS Oracle Cloud • Dokploy • Traefik • Docker" },
     headline: {
       en: "Engineering a Self-Hosted Autonomous Agent Runtime on Oracle Cloud",
-      fr: "Conception d'un Démon d'Agent IA Autonome Auto-hébergé sur Oracle Cloud",
+      fr: "Conception d'un démon d'agent IA autonome auto-hébergé sur Oracle Cloud.",
     },
     summary: {
       en: "Deployment of an autonomous background AI agent capable of orchestrating multi-step engineering tasks, environment self-healing, and persistent context management through SQLite.",
@@ -33,7 +33,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: Reliable, Always-On Agent Execution Without Vendor Lock-in",
-      fr: "La Problématique : Une Exécution Agentique Permanente et Fiable Sans Dépendance Propriétaire",
+      fr: "La problématique : une exécution agentique permanente et fiable sans dépendance propriétaire.",
     },
     problemBody: {
       en: "Standard cloud AI platforms charge steep premiums for long-running workflows and restrict access to low-level shell commands and local file systems. The goal was to build a dedicated, self-hosted execution environment running continuously on an Oracle Cloud instance, governed by Traefik reverse-proxy and orchestrated with Dokploy.",
@@ -41,7 +41,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Target Architecture & Tool Registry",
-      fr: "Architecture Cible & Registre d'Outils",
+      fr: "Architecture cible et registre d'outils.",
     },
     architectureBody: {
       en: "Hermes operates with an asynchronous execution loop connected to an isolated Docker engine. When a task is accepted, subagents are spawned with scoped tool permissions: Docker container control, shell commands, file read/write, and Dokploy API endpoints. All state mutations and execution trees are committed to an encrypted SQLite database.",
@@ -49,7 +49,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -65,7 +65,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Sécurisation des accès entrants avec Cloudflare mTLS et authentification par jetons Dokploy.",
       },
     ],
-    metricsTitle: { en: "Operational Metrics", fr: "Métriques Opérationnelles" },
+    metricsTitle: { en: "Operational Metrics", fr: "Métriques opérationnelles." },
     metrics: [
       { label: { en: "Uptime", fr: "Disponibilité" }, value: "99.98%" },
       { label: { en: "Daily tool calls", fr: "Appels d'outils / jour" }, value: "1,800+" },
@@ -75,13 +75,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   omniroute: {
     id: "omniroute",
-    role: { en: "Cloud & Network Engineer", fr: "Ingénieur Cloud & Réseau" },
+    role: { en: "Cloud & Network Engineer", fr: "Ingénieur cloud et réseau" },
     timeline: { en: "2026", fr: "2026" },
-    clientOrContext: { en: "High-Performance Edge Architecture", fr: "Architecture Edge Haute Performance" },
+    clientOrContext: { en: "High-Performance Edge Architecture", fr: "Architecture edge haute performance" },
     infrastructure: { en: "Node.js • Redis • Cloudflare Workers • Traefik", fr: "Node.js • Redis • Cloudflare Workers • Traefik" },
     headline: {
       en: "Omniroute: Low-Latency Multi-Model AI Gateway with Semantic Caching",
-      fr: "Omniroute : Passerelle d'IA Multi-Modèles à Faible Latence avec Cache Sémantique",
+      fr: "Omniroute : passerelle d'IA multi-modèles à faible latence avec cache sémantique.",
     },
     summary: {
       en: "Designed a sub-15ms AI model proxy normalizing OpenAI and Anthropic requests with real-time health checks, Redis semantic caching, and dynamic token routing.",
@@ -89,7 +89,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: Eliminating Provider Outages and Redundant LLM Invocations",
-      fr: "La Problématique : Éliminer les Pannes Fournisseurs et les Invocations Redondantes",
+      fr: "La problématique : éliminer les pannes de fournisseurs et les requêtes redondantes.",
     },
     problemBody: {
       en: "Applications relying directly on upstream LLM APIs face frequent latency spikes, rate limits, and breaking schema differences. Omniroute was designed as a unified ingress layer that normalizes schemas, caches identical or semantically similar prompts in Redis, and automatically falls back to secondary models if latency exceeds thresholds.",
@@ -97,7 +97,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Streaming Edge Architecture",
-      fr: "Architecture Streaming Edge",
+      fr: "Architecture streaming edge.",
     },
     architectureBody: {
       en: "Incoming requests arrive via Cloudflare Edge with SSL termination and rate-limiting. A Node.js streaming proxy parses token streams chunk by chunk with zero buffer allocation, calculating real-time TTFT (Time to First Token) and storing normalized vector hashes in Redis.",
@@ -105,7 +105,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -117,7 +117,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Stratégies d'invalidation du cache sémantique selon la température et l'aléa des requêtes.",
       },
     ],
-    metricsTitle: { en: "Performance Highlights", fr: "Performances Clés" },
+    metricsTitle: { en: "Performance Highlights", fr: "Performances clés." },
     metrics: [
       { label: { en: "Proxy overhead", fr: "Surcoût de routage" }, value: "< 14ms" },
       { label: { en: "Cache hit ratio", fr: "Taux de succès cache" }, value: "38.4%" },
@@ -127,13 +127,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   "m2c-flows": {
     id: "m2c-flows",
-    role: { en: "Cloud Architect", fr: "Architecte Cloud" },
+    role: { en: "Cloud Architect", fr: "Architecte cloud" },
     timeline: { en: "2025 to 2026", fr: "2025 à 2026" },
-    clientOrContext: { en: "Orange DSI • Internal Enterprise Migration", fr: "Orange DSI • Migration SI Entreprise" },
+    clientOrContext: { en: "Orange DSI • Internal Enterprise Migration", fr: "Orange DSI • Migration SI d'entreprise" },
     infrastructure: { en: "Azure Container Apps • Private Endpoints • GitLab CI", fr: "Azure Container Apps • Private Endpoints • GitLab CI" },
     headline: {
       en: "M2C Flows: Interactive Dependency Graph & Cloud Migration Simulator",
-      fr: "M2C Flows : Cartographie Interactive et Simulateur de Migration vers Azure",
+      fr: "M2C Flows : cartographie interactive et simulateur de migration vers Azure.",
     },
     summary: {
       en: "Built a stateless digital twin mapping complex enterprise IT dependencies, simulating cloud migration strategies to Azure, and analyzing network latency risks between on-premise datacenters and cloud regions.",
@@ -141,7 +141,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: De-risking Multi-Tier Application Migration",
-      fr: "La Problématique : Sécuriser la Migration d'Applications Multi-Niveaux",
+      fr: "La problématique : sécuriser la migration d'applications multi-niveaux.",
     },
     problemBody: {
       en: "Enterprise applications frequently communicate with dozens of legacy backends across physical datacenters. Migrating a single frontend or API to Azure Container Apps without accounting for inter-tier latency can degrade response times from 5ms to 80ms+. M2C Flows allows architects to visualize and simulate these topological shifts before modifying infrastructure.",
@@ -149,7 +149,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Client-Side Graph Simulation Engine",
-      fr: "Moteur de Simulation Graphique Côté Client",
+      fr: "Moteur de simulation graphique côté client.",
     },
     architectureBody: {
       en: "To comply with strict enterprise data protection guidelines, M2C Flows runs entirely in the browser using zero telemetry. Network graphs, database topologies, and latency matrices are rendered using SVG and canvas layers, with instant scenario export for Technical Architecture Dossiers (DAT).",
@@ -157,7 +157,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -169,7 +169,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Modélisation fidèle des sauts de latence Azure ExpressRoute et des passerelles VPN.",
       },
     ],
-    metricsTitle: { en: "Enterprise Impact", fr: "Impact Entreprise" },
+    metricsTitle: { en: "Enterprise Impact", fr: "Impact en entreprise." },
     metrics: [
       { label: { en: "Simulated applications", fr: "Applications modélisées" }, value: "45+" },
       { label: { en: "Planning time saved", fr: "Temps d'étude gagné" }, value: "- 60%" },
@@ -179,13 +179,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   "opencode-harness": {
     id: "opencode-harness",
-    role: { en: "Tooling & Systems Engineer", fr: "Ingénieur Outillage & Systèmes" },
+    role: { en: "Tooling & Systems Engineer", fr: "Ingénieur outillage et systèmes" },
     timeline: { en: "2025 to 2026", fr: "2025 à 2026" },
-    clientOrContext: { en: "Autonomous Engineering Productivity", fr: "Productivité Ingénierie Autonome" },
+    clientOrContext: { en: "Autonomous Engineering Productivity", fr: "Productivité en ingénierie autonome" },
     infrastructure: { en: "Rust • TypeScript • OpenCode • Claude Code", fr: "Rust • TypeScript • OpenCode • Claude Code" },
     headline: {
       en: "Agentic Engineering Runtime: Autonomous Coding Harness with RTK & MCP",
-      fr: "Harness d'Ingénierie Agentique : Runtime Autonome avec RTK et Orchestration MCP",
+      fr: "Harness d'ingénierie agentique : runtime autonome avec RTK et orchestration MCP.",
     },
     summary: {
       en: "Engineered a high-efficiency development harness integrating Rust-based RTK token compression, structured session memory checkpoints, and specialized MCP servers for automated coding workflows.",
@@ -193,7 +193,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: Context Window Fatigue and Agent Drift",
-      fr: "La Problématique : Saturation du Contexte et Dérive des Modèles",
+      fr: "La problématique : saturation du contexte et dérive des modèles.",
     },
     problemBody: {
       en: "During prolonged coding tasks, agent context windows fill rapidly with verbose git diffs, directory trees, and compilation logs, resulting in degraded reasoning and exorbitant token costs. This project provides a compression filter written in Rust that compacts shell outputs before LLM ingestion, while persisting architectural decisions in a local session ledger.",
@@ -201,7 +201,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Plugin Architecture & Intercept Loops",
-      fr: "Architecture de Plugins & Boucles d'Interception",
+      fr: "Architecture de plugins et boucles d'interception.",
     },
     architectureBody: {
       en: "The harness intercepts standard CLI commands, routes git operations through `rtk git`, and enriches agent queries with contextual documentation from specialized skills without injecting entire codebases into prompts.",
@@ -209,7 +209,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -221,7 +221,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Conception d'un mécanisme fiable de points de contrôle de session avec reprise après interruption.",
       },
     ],
-    metricsTitle: { en: "Efficiency Gains", fr: "Gains d'Efficacité" },
+    metricsTitle: { en: "Efficiency Gains", fr: "Gains d'efficacité." },
     metrics: [
       { label: { en: "Token consumption", fr: "Réduction des tokens" }, value: "- 65%" },
       { label: { en: "Task completion rate", fr: "Taux de réussite des tâches" }, value: "94%" },
@@ -231,13 +231,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   shopeen: {
     id: "shopeen",
-    role: { en: "Full Stack Engineer (Apprenticeship)", fr: "Ingénieur Full Stack (Apprentissage)" },
+    role: { en: "Full Stack Engineer (Apprenticeship)", fr: "Ingénieur full stack en apprentissage" },
     timeline: { en: "2022 to 2025", fr: "2022 à 2025" },
-    clientOrContext: { en: "Orange Online Store Team", fr: "Équipe Boutique en Ligne Orange" },
+    clientOrContext: { en: "Orange Online Store Team", fr: "Équipe boutique en ligne Orange" },
     infrastructure: { en: "Spring Boot • Kotlin • Svelte • MongoDB • Kubernetes", fr: "Spring Boot • Kotlin • Svelte • MongoDB • Kubernetes" },
     headline: {
       en: "Enterprise Carbon Footprint Calculator for Telecom E-Commerce",
-      fr: "Calculateur d'Empreinte Carbone pour l'Infrastructure E-Commerce Télécom",
+      fr: "Calculateur d'empreinte carbone pour l'infrastructure e-commerce d'Orange.",
     },
     summary: {
       en: "Developed an internal platform evaluating the greenhouse gas emissions and electrical consumption of server racks, microservices, and network hardware powering the Orange web store.",
@@ -245,7 +245,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: Quantifying Microservice Environmental Impact",
-      fr: "La Problématique : Quantifier l'Impact Écologique d'une Architecture Microservices",
+      fr: "La problématique : quantifier l'impact écologique d'une architecture microservices.",
     },
     problemBody: {
       en: "Evaluating the environmental footprint of an e-commerce platform serving 600,000+ yearly visitors requires factoring in CPU utilization, memory allocation, storage lifecycles, and datacenter PUE (Power Usage Effectiveness). Shopeen provided a standardized calculator adhering to INR standards.",
@@ -253,7 +253,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Reactive Full-Stack Architecture",
-      fr: "Architecture Réactive Full-Stack",
+      fr: "Architecture réactive full-stack.",
     },
     architectureBody: {
       en: "Built with a Spring Boot and Kotlin reactive backend, paired with Svelte on the frontend for minimal client-side JavaScript execution overhead. Data pipelines ingest hardware telemetry into MongoDB with automated aggregation jobs.",
@@ -261,7 +261,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -273,7 +273,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Couverture de tests élevée (> 85%) avec JUnit, Hurl et Cypress dans GitLab CI.",
       },
     ],
-    metricsTitle: { en: "Key Results", fr: "Résultats Clés" },
+    metricsTitle: { en: "Key Results", fr: "Résultats clés." },
     metrics: [
       { label: { en: "Yearly visitors analyzed", fr: "Visiteurs annuels analysés" }, value: "600,000+" },
       { label: { en: "Test coverage", fr: "Couverture de tests" }, value: "87%" },
@@ -283,13 +283,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   stakeirb: {
     id: "stakeirb",
-    role: { en: "Lead Backend & Real-Time Architect", fr: "Développeur Backend & Architecte Temps Réel" },
+    role: { en: "Lead Backend & Real-Time Architect", fr: "Développeur backend et architecte temps réel" },
     timeline: { en: "2023", fr: "2023" },
-    clientOrContext: { en: "ENSEIRB-MATMECA Academic Engineering Project", fr: "Projet d'Ingénierie ENSEIRB-MATMECA" },
+    clientOrContext: { en: "ENSEIRB-MATMECA Academic Engineering Project", fr: "Projet d'ingénierie ENSEIRB-MATMECA" },
     infrastructure: { en: "Node.js • Express • Socket.io • SQLite • Vue.js", fr: "Node.js • Express • Socket.io • SQLite • Vue.js" },
     headline: {
       en: "Stak'eirb: High-Frequency Real-Time Multiplayer Gaming Platform",
-      fr: "Stak'eirb : Plateforme de Jeux Multijoueur Temps Réel Haute Fréquence",
+      fr: "Stak'eirb : plateforme de jeux multijoueur en temps réel et haute fréquence.",
     },
     summary: {
       en: "Architected a full-stack real-time gaming simulator featuring bidirectional WebSocket event broadcasting, ACID transaction isolation, and provably fair cryptographic randomness.",
@@ -297,7 +297,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: State Synchronization and Concurrency Under Load",
-      fr: "La Problématique : Synchronisation d'État et Concurrence en Charge",
+      fr: "La problématique : synchronisation d'état et concurrence sous charge.",
     },
     problemBody: {
       en: "Multiplayer wagering platforms must eliminate race conditions such as double-spending virtual credits while maintaining millisecond-level responsiveness for simultaneous users across game rooms.",
@@ -305,7 +305,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "WebSocket Room State Machine",
-      fr: "Machine d'État WebSocket par Salles",
+      fr: "Machine d'état WebSocket par salons.",
     },
     architectureBody: {
       en: "Socket.io rooms handle real-time chat, bets, and multipliers. The Express backend enforces atomic database transactions in SQLite with immediate rollback on validation failure, preventing desynchronized client balances.",
@@ -313,7 +313,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -325,7 +325,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Mise en place d'un algorithme de génération pseudo-aléatoire vérifiable par graine cryptographique.",
       },
     ],
-    metricsTitle: { en: "Platform Performance", fr: "Performances Plateforme" },
+    metricsTitle: { en: "Platform Performance", fr: "Performances de la plateforme." },
     metrics: [
       { label: { en: "Socket latency", fr: "Latence WebSocket" }, value: "< 20ms" },
       { label: { en: "Transaction rollback rate", fr: "Taux d'erreur transaction" }, value: "0% in testing" },
@@ -335,13 +335,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   iplocator: {
     id: "iplocator",
-    role: { en: "API & Backend Engineer", fr: "Ingénieur API & Backend" },
+    role: { en: "API & Backend Engineer", fr: "Ingénieur API et backend" },
     timeline: { en: "2023", fr: "2023" },
-    clientOrContext: { en: "Networking Specialization Project", fr: "Projet Spécialité Réseau & Sécurité" },
+    clientOrContext: { en: "Networking Specialization Project", fr: "Projet de spécialité réseau et sécurité" },
     infrastructure: { en: "Node.js • Express • MongoDB • Leaflet • Swagger", fr: "Node.js • Express • MongoDB • Leaflet • Swagger" },
     headline: {
       en: "IPLocator: Real-Time Geographic & ASN Network Intelligence Service",
-      fr: "IPLocator : Service de Géolocalisation et Renseignement Réseau ASN en Temps Réel",
+      fr: "IPLocator : service de géolocalisation et renseignement réseau ASN en temps réel.",
     },
     summary: {
       en: "Created a high-throughput IP intelligence API and interactive mapping dashboard resolving geographic coordinates, ISP prefixes, and Autonomous System Numbers (ASN).",
@@ -349,7 +349,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: Fast Multi-Source IP Lookups with Fallbacks",
-      fr: "La Problématique : Résolution Multi-Sources Rapide avec Stratégie de Secours",
+      fr: "La problématique : résolution multi-sources rapide avec stratégie de secours.",
     },
     problemBody: {
       en: "External geolocation APIs often apply strict rate limits and suffer from regional blind spots. The platform addresses this by combining local MaxMind GeoIP lookups with upstream API fallbacks, caching responses in MongoDB to minimize latency.",
@@ -357,7 +357,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Tiered Cache & Map Integration",
-      fr: "Cache Étagé & Cartographie Interactive",
+      fr: "Cache étagé et cartographie interactive.",
     },
     architectureBody: {
       en: "An Express.js REST API documented with OpenAPI/Swagger serves requests. Frontend client queries render on an interactive Leaflet vector map with reverse DNS resolution and ISP telemetry.",
@@ -365,7 +365,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -377,7 +377,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Génération de marqueurs cartographiques interactifs sans ralentissement du navigateur.",
       },
     ],
-    metricsTitle: { en: "Key Metrics", fr: "Métriques Clés" },
+    metricsTitle: { en: "Key Metrics", fr: "Métriques clés." },
     metrics: [
       { label: { en: "Average response time", fr: "Temps de réponse moyen" }, value: "18ms" },
       { label: { en: "Cache hit response", fr: "Réponse sur cache" }, value: "2ms" },
@@ -387,13 +387,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   automatisms: {
     id: "automatisms",
-    role: { en: "Developer & Project Manager", fr: "Développeur & Chef de Projet" },
+    role: { en: "Developer & Project Manager", fr: "Développeur et chef de projet" },
     timeline: { en: "2022", fr: "2022" },
-    clientOrContext: { en: "Centre de Gestion de la Fonction Publique Territoriale (CDG33)", fr: "Centre de Gestion de la Fonction Publique Territoriale (CDG33)" },
+    clientOrContext: { en: "Centre de Gestion de la Fonction Publique Territoriale (CDG33)", fr: "Centre de gestion de la fonction publique territoriale (CDG33)" },
     infrastructure: { en: "Symfony • PHP • MySQL • Apache • Linux", fr: "Symfony • PHP • MySQL • Apache • Linux" },
     headline: {
       en: "AutomatiSMS: Mission-Critical Broadcast Scheduling & Administration Console",
-      fr: "AutomatiSMS : Console d'Administration et Diffusion Programmée de SMS pour le CDG33",
+      fr: "AutomatiSMS : console d'administration et diffusion programmée de SMS pour le CDG33.",
     },
     summary: {
       en: "Designed, delivered, and deployed an administrative web platform handling scheduled SMS dispatches, recipient filtering, and communication audits for territorial public services.",
@@ -401,7 +401,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: Automating Public Sector Urgent Communications",
-      fr: "La Problématique : Automatiser les Communications d'Urgence du Secteur Public",
+      fr: "La problématique : automatiser les communications d'urgence du secteur public.",
     },
     problemBody: {
       en: "The CDG33 required a centralized tool to notify thousands of municipal agents regarding urgent announcements, recruitment contests, and regulatory deadlines, replacing manual and fragmented email workflows.",
@@ -409,7 +409,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Enterprise MVC Architecture with Queues",
-      fr: "Architecture MVC d'Entreprise avec Files d'Attente",
+      fr: "Architecture MVC d'entreprise avec files d'attente.",
     },
     architectureBody: {
       en: "Built on Symfony with Doctrine ORM and MySQL. Scheduled SMS jobs are staged in background queues processed by cron daemons with SMS provider API failover, complete audit logs, and delivery rate tracking.",
@@ -417,7 +417,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -429,7 +429,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Conception d'une interface d'administration claire pour des agents non spécialistes du numérique.",
       },
     ],
-    metricsTitle: { en: "Impact at CDG33", fr: "Impact au CDG33" },
+    metricsTitle: { en: "Impact at CDG33", fr: "Impact au CDG33." },
     metrics: [
       { label: { en: "Weekly broadcasts", fr: "Envois hebdomadaires" }, value: "1,000+ SMS" },
       { label: { en: "Delivery success rate", fr: "Taux de distribution" }, value: "99.4%" },
@@ -439,13 +439,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   mijotons: {
     id: "mijotons",
-    role: { en: "Android & Mobile Engineer", fr: "Ingénieur Mobile Android" },
+    role: { en: "Android & Mobile Engineer", fr: "Ingénieur mobile Android" },
     timeline: { en: "2021 to 2022", fr: "2021 à 2022" },
-    clientOrContext: { en: "IUT de Bayonne Academic Capstone Project", fr: "Projet de Fin d'Études IUT de Bayonne" },
+    clientOrContext: { en: "IUT de Bayonne Academic Capstone Project", fr: "Projet de fin d'études IUT de Bayonne" },
     infrastructure: { en: "Android SDK • Java • SQLite • OpenStreetMap • Gradle", fr: "Android SDK • Java • SQLite • OpenStreetMap • Gradle" },
     headline: {
       en: "Mijotons: Native Android Recipe Assistant with Supermarket Geolocation",
-      fr: "Mijotons : Assistant Mobile Android pour Listes de Courses et Recettes Anti-Gaspillage",
+      fr: "Mijotons : assistant mobile Android pour listes de courses et recettes anti-gaspillage.",
     },
     summary: {
       en: "Engineered a native Android application combining offline grocery checklist management, nearby supermarket routing using OpenStreetMap Overpass API, and dynamic recipe suggestions.",
@@ -453,7 +453,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: Combating Food Waste Through Smart Shopping",
-      fr: "La Problématique : Lutter Contre le Gaspillage Alimentaire par des Courses Intelligentes",
+      fr: "La problématique : lutter contre le gaspillage alimentaire par des courses intelligentes.",
     },
     problemBody: {
       en: "Shoppers often buy ingredients without a clear meal plan, leading to household food spoilage. Mijotons bridges the gap by suggesting recipes tailored specifically to the items currently in the user's cart or pantry.",
@@ -461,7 +461,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Native Mobile Architecture",
-      fr: "Architecture Mobile Native",
+      fr: "Architecture mobile native.",
     },
     architectureBody: {
       en: "Developed in Java with the Android SDK. Features a local SQLite database for instant offline access and asynchronous HTTP queries to the OpenStreetMap Overpass API for real-time supermarket coordinates.",
@@ -469,7 +469,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -481,7 +481,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Conception d'une interface adaptative prenant en charge les multiples résolutions d'écrans Android.",
       },
     ],
-    metricsTitle: { en: "App Performance", fr: "Performances Application" },
+    metricsTitle: { en: "App Performance", fr: "Performances de l'application." },
     metrics: [
       { label: { en: "Offline availability", fr: "Fonctionnement hors-ligne" }, value: "100%" },
       { label: { en: "Cold launch time", fr: "Temps de lancement à froid" }, value: "< 0.8s" },
@@ -491,13 +491,13 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
   },
   portfolio: {
     id: "portfolio",
-    role: { en: "Design Engineer & Creator", fr: "Design Engineer & Créateur" },
+    role: { en: "Design Engineer & Creator", fr: "Ingénieur design et créateur" },
     timeline: { en: "2026", fr: "2026" },
-    clientOrContext: { en: "Personal Brand & Engineering Showcase", fr: "Marque Personnelle & Vitrine Technique" },
+    clientOrContext: { en: "Personal Brand & Engineering Showcase", fr: "Marque personnelle et vitrine technique" },
     infrastructure: { en: "Next.js 16 • React 19 • Tailwind CSS v4 • Cloudflare", fr: "Next.js 16 • React 19 • Tailwind CSS v4 • Cloudflare" },
     headline: {
       en: "Crafting an Immersive, High-Performance Developer Portfolio with Next.js 16",
-      fr: "Conception d'un Portfolio Développeur Immersif Haute Performance avec Next.js 16",
+      fr: "Conception d'un portfolio développeur immersif haute performance avec Next.js 16.",
     },
     summary: {
       en: "Architected a state-of-the-art personal engineering portfolio showcasing cloud architectures, autonomous AI agents, interactive 2D physics sandboxes, and bilingual internationalization.",
@@ -505,7 +505,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     problemTitle: {
       en: "The Challenge: Elevating Beyond Generic AI Developer Portfolios",
-      fr: "La Problématique : Dépasser les Modèles de Portfolios Génériques",
+      fr: "La problématique : dépasser les modèles de portfolios génériques.",
     },
     problemBody: {
       en: "Most developer portfolios rely on predictable templates with purple gradients and low information density. The goal was to build a distinctive, tactile experience with WebGL shaders, Matter.js physics interactions, and accessible craftsmanship conforming to the strictest performance and SEO standards.",
@@ -513,7 +513,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     architectureTitle: {
       en: "Modern Next.js 16 App Router Stack",
-      fr: "Stack Next.js 16 App Router de Pointe",
+      fr: "Stack Next.js 16 App Router de pointe.",
     },
     architectureBody: {
       en: "Built on Next.js 16 and React 19 with Tailwind CSS v4. Features OGL WebGL shaders with automatic fallbacks for reduced-motion, spring-physics drag interactions, and zero layout shift on view transitions.",
@@ -521,7 +521,7 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
     },
     challengesTitle: {
       en: "Key Engineering Challenges",
-      fr: "Défis Techniques Clés",
+      fr: "Défis techniques clés.",
     },
     challenges: [
       {
@@ -533,9 +533,9 @@ export const PROJECT_ARTICLES: Record<string, ProjectArticleContent> = {
         fr: "Bascule bilingue instantanée sans scintillement d'hydratation ni rechargement de page.",
       },
     ],
-    metricsTitle: { en: "Quality & Performance Audit", fr: "Audit Qualité & Performances" },
+    metricsTitle: { en: "Quality & Performance Audit", fr: "Audit qualité et performances." },
     metrics: [
-      { label: { en: "Lighthouse Performance", fr: "Score Performance" }, value: "100 / 100" },
+      { label: { en: "Lighthouse Performance", fr: "Score performance" }, value: "100 / 100" },
       { label: { en: "Accessibility", fr: "Accessibilité" }, value: "100 / 100" },
       { label: { en: "Cumulative Layout Shift", fr: "Décalage de mise en page" }, value: "0.000" },
       { label: { en: "SEO & AEO Readiness", fr: "Préparation SEO & IA" }, value: "llms.txt + JSON-LD" },

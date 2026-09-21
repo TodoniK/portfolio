@@ -419,8 +419,8 @@ export const DICTIONARY: Record<Locale, Translations> = {
     },
     hero: {
       greeting: "Salut, moi c'est Jules",
-      titleLine1: "Architecte Cloud & DevOps",
-      titleLine2: "et Ingénieur Systèmes IA",
+      titleLine1: "Architecte cloud et DevOps",
+      titleLine2: "et ingénieur systèmes IA",
       description:
         "Conception d'architectures cloud résilientes, de runtimes d'agents autonomes, de pipelines CI/CD et de systèmes logiciels performants.",
       viewWork: "Découvrir mes projets",
@@ -442,10 +442,10 @@ export const DICTIONARY: Record<Locale, Translations> = {
       items: [
         {
           id: "hermes",
-          tag: "IA AUTONOME",
-          title: "Démon d'Agent Autonome Hermes",
+          tag: "IA autonome",
+          title: "Démon d'agent autonome Hermes",
           description:
-            "Plateforme d'agent IA autonome auto-hébergée sur Oracle Cloud avec dashboard web, persistance SQLite, registre d'outils et boucles d'exécution planifiées.",
+            "Plateforme d'agent IA autonome auto-hébergée sur Oracle Cloud avec tableau de bord web, persistance SQLite, registre d'outils et boucles d'exécution planifiées.",
           meta: "Oracle Cloud, Dokploy, Traefik, Docker et Hermes Agent",
           stack: ["Hermes Agent", "Oracle Cloud", "Dokploy", "Docker", "Traefik"],
           image: "/assets/projects/hermes.svg",
@@ -457,10 +457,10 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           id: "omniroute",
-          tag: "PASSERELLE IA",
-          title: "Passerelle de Routage d'IA Omniroute",
+          tag: "Passerelle IA",
+          title: "Passerelle de routage d'IA Omniroute",
           description:
-            "Passerelle d'inférence de modèles d'IA haute performance avec routage sous 15ms, cache sémantique Redis, bascule dynamique et compatibilité OpenAI et Anthropic.",
+            "Passerelle d'inférence de modèles d'IA haute performance avec routage sous 15 ms, cache sémantique Redis, bascule dynamique et compatibilité OpenAI et Anthropic.",
           meta: "Node.js, Redis, Traefik, Dokploy et Cloudflare",
           stack: ["Node.js", "Redis", "Cloudflare", "Traefik", "Dokploy"],
           image: "/assets/projects/omniroute.svg",
@@ -472,8 +472,8 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           id: "m2c-flows",
-          tag: "ORANGE M2C",
-          title: "M2C Flows : Jumeau Numérique SI",
+          tag: "Orange M2C",
+          title: "M2C Flows : jumeau numérique SI",
           description:
             "Application web stateless cartographiant les dépendances multi-couches du SI, simulant les migrations vers Azure et analysant les impacts de latence pour la DSI Orange.",
           meta: "Orange DSI, Azure, GitLab Pages et On-Premise",
@@ -487,10 +487,10 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           id: "opencode-harness",
-          tag: "OUTILLAGE DEV",
-          title: "Harness d'Ingénierie Agentique OpenCode",
+          tag: "Outillage dev",
+          title: "Harness d'ingénierie agentique OpenCode",
           description:
-            "Environnement d'exécution local pour OpenCode et Claude Code avec compresseur de tokens RTK en Rust, mémoire de session persistante et MCPs Dokploy et Cloudflare.",
+            "Environnement d'exécution local pour OpenCode et Claude Code avec compresseur de jetons RTK en Rust, mémoire de session persistante et MCPs Dokploy et Cloudflare.",
           meta: "TypeScript, Rust, RTK, OpenCode et Claude Code",
           stack: ["TypeScript", "Rust", "OpenCode", "Claude Code"],
           image: "/assets/projects/opencode-harness.svg",
@@ -502,7 +502,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           id: "shopeen",
-          tag: "ORANGE",
+          tag: "Orange",
           title: "Calculateur d'empreinte carbone SI",
           description:
             "Application interne confidentielle estimant l'impact écologique et les émissions de CO2 de l'infrastructure e-commerce d'Orange.",
@@ -518,7 +518,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
         {
           id: "stakeirb",
           tag: "ENSEIRB",
-          title: "Plateforme de jeux et casino temps réel",
+          title: "Plateforme de jeux et casino en temps réel",
           description:
             "Application web répliquant un casino en ligne avec gestion multijoueur via WebSockets et jeux interactifs synchronisés.",
           meta: "Projet d'école, Vue.js, Node.js, Socket.io, Express et SQLite",
@@ -532,7 +532,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           id: "iplocator",
-          tag: "RÉSEAU",
+          tag: "Réseau",
           title: "Géolocalisation et analyse réseau IP",
           description:
             "Service d'analyse d'adresses IP fournissant les coordonnées géographiques, l'identification FAI et une carte interactive.",
@@ -562,8 +562,8 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           id: "mijotons",
-          tag: "MOBILE",
-          title: "Application mobile Mijotons et Recettes",
+          tag: "Mobile",
+          title: "Application mobile Mijotons et recettes",
           description:
             "Application Android native pour la gestion de listes de courses, repérage de magasins via OpenStreetMap et suggestions culinaires.",
           meta: "Android Studio, Java, MySQL et OpenStreetMap",
@@ -577,7 +577,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           id: "portfolio",
-          tag: "PORTFOLIO",
+          tag: "Portfolio",
           title: "Portfolio personnel et vitrine interactive",
           description:
             "Portfolio moderne conçu avec Next.js 16, shaders OGL, bac à sable physique Matter.js et bascule bilingue instantanée.",
@@ -596,9 +596,9 @@ export const DICTIONARY: Record<Locale, Translations> = {
       pageTitle: "À propos",
       bioTitle: "Bonjour, je suis Jules Royet.",
       bioP1:
-        "Architecte Cloud & DevOps et Ingénieur Logiciel diplômé de l'ENSEIRB-MATMECA. Je conçois des plateformes cloud résilientes, des pipelines d'intégration continue automatisés et des runtimes d'IA agentiques. Avec plus de 3 ans d'expérience pratique, j'assure la liaison entre architecture système, outillage développeur et fiabilité opérationnelle.",
+        "Architecte cloud et DevOps et ingénieur logiciel diplômé de l'ENSEIRB-MATMECA. Je conçois des plateformes cloud résilientes, des pipelines d'intégration continue automatisés et des runtimes d'IA agentiques. Avec plus de 3 ans d'expérience pratique, j'assure la liaison entre architecture système, outillage développeur et fiabilité opérationnelle.",
       bioP2:
-        "Actuellement chez Orange en tant qu'Architecte Cloud & DevOps, j'accompagne la migration des applications du SI vers Azure et les infrastructures de cloud privé Orange. Je définis les architectures cibles (Azure Container Apps, AKS, WAF v2), les dossiers techniques DAT et l'outillage de migration assisté par l'IA. Je m'investis également dans la cybersécurité défensive sur Root-Me et le pilotage de systèmes agentiques.",
+        "Actuellement chez Orange en tant qu'architecte cloud et DevOps, j'accompagne la migration des applications du SI vers Azure et les infrastructures de cloud privé Orange. Je définis les architectures cibles (Azure Container Apps, AKS, WAF v2), les dossiers techniques DAT et l'outillage de migration assisté par l'IA. Je m'investis également dans la cybersécurité défensive sur Root-Me et le pilotage de systèmes agentiques.",
       bioP3:
         "En parallèle des projets d'entreprise, j'administre ma propre infrastructure cloud sur VPS Oracle avec Dokploy et Traefik, déploie des agents autonomes comme Hermes, optimise la consommation de tokens par des outils écrits en Rust et conçois des interfaces frontend créatives.",
       experienceTitle: "Expérience",
@@ -613,7 +613,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
       experiences: [
         {
           company: "Orange",
-          role: "Architecte Cloud & DevOps",
+          role: "Architecte cloud et DevOps",
           period: "Sept. 2025 à aujourd'hui",
           logo: "/assets/companies/logo-orange.webp",
           url: "https://www.orange.com",
@@ -622,7 +622,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           company: "Orange",
-          role: "Ingénieur Logiciel (Apprentissage)",
+          role: "Ingénieur logiciel en apprentissage",
           period: "Sept. 2022 à Août 2025",
           logo: "/assets/companies/logo-orange.webp",
           url: "https://www.orange.com",
@@ -631,7 +631,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           company: "Market Control",
-          role: "Ingénieur Logiciel Stagiaire",
+          role: "Ingénieur logiciel stagiaire",
           period: "Mai 2023 à Août 2023",
           logo: "/assets/companies/logo-market-control.webp",
           url: "https://www.market-control.com",
@@ -640,7 +640,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           company: "CDG33",
-          role: "Développeur et Chef de Projet",
+          role: "Développeur et chef de projet",
           period: "Avr. 2022 à Juin 2022",
           logo: "/assets/companies/logo-cdg33.webp",
           url: "https://www.cdg33.fr",
@@ -651,7 +651,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
       educations: [
         {
           school: "ENSEIRB-MATMECA",
-          degree: "Diplôme d'Ingénieur Informatique et Réseaux",
+          degree: "Diplôme d'ingénieur informatique et réseaux",
           period: "2022 à 2025",
           city: "Bordeaux, France",
           logo: "/assets/schools/logo-enseirb-matmeca.webp",
@@ -659,7 +659,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           school: "IUT de Bayonne (UPPA)",
-          degree: "DUT Informatique",
+          degree: "DUT informatique",
           period: "2020 à 2022",
           city: "Bayonne, France",
           logo: "/assets/schools/logo-iut-bayonne.webp",
@@ -686,25 +686,25 @@ export const DICTIONARY: Record<Locale, Translations> = {
           url: "https://aws.amazon.com/training/",
         },
         {
-          name: "TOEIC : Score C1 (Anglais courant)",
+          name: "TOEIC : score C1 (anglais courant)",
           issuer: "ETS Global",
           year: "2024 à 2026",
           url: "https://www.etsglobal.org/fr/fr/programme/toeic-tests",
         },
       ],
       skills: [
-        "Architecture Cloud (Azure, GCP, OCI)",
-        "Agents IA Autonomes (Hermes, OpenCode)",
-        "Passerelles & Routage IA (Omniroute, LiteLLM)",
-        "Docker & Kubernetes (ACA, AKS)",
-        "Infrastructure as Code (Terraform)",
-        "CI/CD & DevSecOps (GitLab, GitHub Actions)",
+        "Architecture cloud (Azure, GCP, OCI)",
+        "Agents IA autonomes (Hermes, OpenCode)",
+        "Passerelles et routage IA (Omniroute, LiteLLM)",
+        "Docker et Kubernetes (ACA, AKS)",
+        "Infrastructure as code (Terraform)",
+        "CI/CD et DevSecOps (GitLab, GitHub Actions)",
         "Backend (Java, Spring Boot, Kotlin, Node.js)",
         "Frontend (TypeScript, React, Next.js, Svelte)",
-        "Bases de Données (Cosmos DB, MongoDB, PostgreSQL)",
-        "Cybersécurité & CTF (Root-Me, DevSecOps)",
-        "Linux & Scripts Shell",
-        "Green IT & Écoconception",
+        "Bases de données (Cosmos DB, MongoDB, PostgreSQL)",
+        "Cybersécurité et CTF (Root-Me, DevSecOps)",
+        "Linux et scripts shell",
+        "Green IT et écoconception",
       ],
     },
     contact: {
@@ -717,7 +717,7 @@ export const DICTIONARY: Record<Locale, Translations> = {
       seeProjects: "Voir les projets",
       downloadResume: "Télécharger mon CV",
       builtWith: "2026 © Jules Royet, Conçu avec Next.js",
-      rights: "Architecte Cloud & DevOps",
+      rights: "Architecte cloud et DevOps",
     },
   },
 };

@@ -150,10 +150,10 @@ export function Nav(): ReactNode {
   return (
     <nav
       aria-label="Primary"
-      className="fixed left-1/2 top-6 z-50 -translate-x-1/2"
+      className="fixed left-1/2 top-6 z-50 -translate-x-1/2 max-w-[calc(100vw-1.5rem)]"
     >
-      <div className="flex items-center gap-1 rounded-full bg-background p-1.5 shadow-sm border border-foreground/8">
-        <ul ref={listRef} className="relative flex items-center gap-1">
+      <div className="flex items-center gap-0.5 sm:gap-1 rounded-full bg-background p-1 sm:p-1.5 shadow-sm border border-foreground/8">
+        <ul ref={listRef} className="relative flex items-center gap-0.5 sm:gap-1">
           {pillRect && (
             <motion.span
               aria-hidden="true"
@@ -176,18 +176,18 @@ export function Nav(): ReactNode {
                 ref={(el) => {
                   itemRefs.current[index] = el;
                 }}
-                className="relative"
+                className="relative shrink-0"
               >
                 <Link
                   href={item.href}
                   aria-current={isActive ? "page" : undefined}
-                  className="focus-ring relative inline-flex cursor-pointer items-center justify-center rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-300"
+                  className="focus-ring relative inline-flex cursor-pointer items-center justify-center rounded-full px-2.5 sm:px-4 py-1.5 text-xs sm:text-sm font-medium transition-colors duration-300 whitespace-nowrap"
                 >
                   <span
                     className={
                       isActive
-                        ? "relative z-10 text-foreground"
-                        : "relative z-10 text-foreground/60 hover:text-foreground"
+                        ? "relative z-10 text-foreground whitespace-nowrap"
+                        : "relative z-10 text-foreground/60 hover:text-foreground whitespace-nowrap"
                     }
                   >
                     {item.label}
@@ -197,7 +197,7 @@ export function Nav(): ReactNode {
             );
           })}
         </ul>
-        <div className="flex items-center gap-1.5 pl-2 ml-1 border-l border-foreground/10">
+        <div className="flex items-center gap-1 pl-1.5 sm:pl-2 ml-0.5 sm:ml-1 border-l border-foreground/10 shrink-0">
           <LanguageToggle />
           <NavThemeToggle />
         </div>

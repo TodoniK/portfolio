@@ -7,7 +7,12 @@ import type { ReactNode } from "react";
 import { useLanguage } from "@/lib/i18n";
 
 const EMAIL = "jules.royet.pc@gmail.com";
-const EASE = [0.22, 1, 0.36, 1] as const;
+const SPRING_TRANSITION = {
+  type: "spring",
+  stiffness: 420,
+  damping: 32,
+  mass: 0.8,
+} as const;
 
 export function ContactButton(): ReactNode {
   const [hovered, setHovered] = useState(false);
@@ -72,22 +77,22 @@ export function ContactButton(): ReactNode {
             ? t.contact.buttonCopy.replace("{email}", EMAIL)
             : t.contact.buttonIdle
       }
-      transition={{ layout: { duration: 0.35, ease: EASE } }}
+      transition={{ layout: SPRING_TRANSITION }}
       style={{ borderRadius: 12 }}
-      className="focus-ring relative inline-flex h-11 cursor-pointer items-center justify-center bg-foreground px-4 sm:px-5 text-sm font-medium text-background active:scale-[0.98] shadow-sm select-none"
+      className="focus-ring relative inline-flex h-11 cursor-pointer items-center justify-center overflow-hidden bg-foreground px-4 sm:px-5 text-sm font-medium text-background active:scale-[0.98] shadow-sm select-none"
     >
       <motion.div
         layout="position"
         className="relative inline-flex items-center justify-center"
       >
-        <AnimatePresence initial={false} mode="wait">
+        <AnimatePresence initial={false} mode="popLayout">
           {isOpen ? (
             <motion.span
               key="expanded"
-              initial={{ opacity: 0, filter: "blur(4px)", y: 2 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-              exit={{ opacity: 0, filter: "blur(4px)", y: -2 }}
-              transition={{ duration: 0.22, ease: EASE }}
+              initial={{ opacity: 0, y: 3 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -3 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
               className="inline-flex items-center gap-2 whitespace-nowrap"
             >
               <span className="relative inline-flex h-4 w-4 shrink-0 items-center justify-center">
@@ -95,10 +100,10 @@ export function ContactButton(): ReactNode {
                   {copied ? (
                     <motion.span
                       key="check"
-                      initial={{ scale: 0.5, opacity: 0 }}
+                      initial={{ scale: 0.6, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.5, opacity: 0 }}
-                      transition={{ duration: 0.18, ease: EASE }}
+                      exit={{ scale: 0.6, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
                       className="inline-flex text-emerald-400"
                     >
                       <Check className="h-4 w-4" aria-hidden="true" />
@@ -106,10 +111,10 @@ export function ContactButton(): ReactNode {
                   ) : (
                     <motion.span
                       key="copy"
-                      initial={{ scale: 0.5, opacity: 0 }}
+                      initial={{ scale: 0.6, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.5, opacity: 0 }}
-                      transition={{ duration: 0.18, ease: EASE }}
+                      exit={{ scale: 0.6, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
                       className="inline-flex text-background/80"
                     >
                       <Copy className="h-4 w-4" aria-hidden="true" />
@@ -126,10 +131,10 @@ export function ContactButton(): ReactNode {
           ) : (
             <motion.span
               key="idle"
-              initial={{ opacity: 0, filter: "blur(4px)", y: 2 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-              exit={{ opacity: 0, filter: "blur(4px)", y: -2 }}
-              transition={{ duration: 0.22, ease: EASE }}
+              initial={{ opacity: 0, y: 3 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -3 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
               className="inline-flex items-center gap-2 whitespace-nowrap"
             >
               <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
