@@ -9,6 +9,17 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/api/"],
       },
+      {
+        userAgent: [
+          "GPTBot",
+          "ClaudeBot",
+          "PerplexityBot",
+          "Google-Extended",
+          "Applebot-Extended",
+          "Amazonbot",
+        ],
+        allow: ["/", "/llms.txt", "/llms-full.txt"],
+      },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,
     host: siteConfig.url,

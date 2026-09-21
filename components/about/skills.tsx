@@ -8,9 +8,9 @@ export function Skills(): ReactNode {
 
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-[15px] font-semibold tracking-tight text-foreground">
+      <h2 className="text-[15px] font-semibold tracking-tight text-foreground">
         {t.about.skillsTitle}
-      </h3>
+      </h2>
       <div className="rounded-4xl border border-foreground/5 bg-foreground/2 p-3 sm:p-5 dark:bg-foreground/5">
         <div className="flex flex-wrap gap-2.5">
           {t.about.skills.map((skill) => (

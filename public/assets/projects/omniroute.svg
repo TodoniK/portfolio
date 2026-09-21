@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg-omni" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b132b"/>
+      <stop offset="100%" stop-color="#1c2541"/>
+    </linearGradient>
+    <linearGradient id="glow-omni" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#48cae4"/>
+      <stop offset="100%" stop-color="#0077b6"/>
+    </linearGradient>
+    <pattern id="grid-omni" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg-omni)"/>
+  <rect width="1600" height="900" fill="url(#grid-omni)"/>
+
+  <!-- Architecture Flow -->
+  <g transform="translate(100, 100)">
+    <!-- Header Card -->
+    <rect width="1400" height="100" rx="16" fill="#121e3d" stroke="rgba(72,202,228,0.3)" stroke-width="1.5"/>
+    <text x="50" y="58" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" font-weight="700">Omniroute AI Gateway</text>
+    <text x="370" y="58" fill="#48cae4" font-family="ui-monospace, monospace" font-size="16">https://omniroute.julesroyet.dev:20128</text>
+    <rect x="1180" y="32" width="170" height="36" rx="18" fill="rgba(16,185,129,0.15)" stroke="rgba(16,185,129,0.4)" stroke-width="1"/>
+    <circle cx="1205" cy="50" r="5" fill="#10b981"/>
+    <text x="1225" y="55" fill="#10b981" font-family="ui-monospace, monospace" font-size="13" font-weight="600">ONLINE • 14ms</text>
+
+    <!-- Column 1: Client Ingress -->
+    <g transform="translate(0, 140)">
+      <rect width="360" height="520" rx="14" fill="#0f1933" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="30" y="45" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13" font-weight="700" letter-spacing="1">CLIENT INGRESS</text>
+      
+      <rect x="25" y="70" width="310" height="85" rx="10" fill="#162347" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="45" y="105" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">OpenCode Harness</text>
+      <text x="45" y="130" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">Local developer workstation</text>
+      
+      <rect x="25" y="175" width="310" height="85" rx="10" fill="#162347" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="45" y="210" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">Claude Code Engine</text>
+      <text x="45" y="235" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">RTK compressed token streams</text>
+
+      <rect x="25" y="280" width="310" height="85" rx="10" fill="#162347" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="45" y="315" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">Hermes Autonomous</text>
+      <text x="45" y="340" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">Scheduled server daemons</text>
+
+      <rect x="25" y="385" width="310" height="105" rx="10" fill="#141c30" stroke="rgba(72,202,228,0.2)" stroke-width="1"/>
+      <text x="45" y="420" fill="#48cae4" font-family="ui-monospace, monospace" font-size="12" font-weight="600">PROTOCOL COMPATIBILITY</text>
+      <text x="45" y="445" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">• OpenAI v1 /chat/completions</text>
+      <text x="45" y="468" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">• Anthropic native messages</text>
+    </g>
+
+    <!-- Column 2: Omniroute Core -->
+    <g transform="translate(420, 140)">
+      <rect width="560" height="520" rx="14" fill="#0f1933" stroke="rgba(72,202,228,0.4)" stroke-width="1.5"/>
+      <text x="35" y="45" fill="#48cae4" font-family="ui-monospace, monospace" font-size="13" font-weight="700" letter-spacing="1">OMNIROUTE INTELLIGENT ROUTER</text>
+
+      <!-- Routing Logic Cards -->
+      <g transform="translate(35, 75)">
+        <rect width="490" height="115" rx="10" fill="#17264e" stroke="rgba(72,202,228,0.2)" stroke-width="1"/>
+        <text x="25" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">Adaptive Fallback &amp; Latency Router</text>
+        <text x="25" y="65" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">Routes prompts dynamically according to cost, rate-limits,</text>
+        <text x="25" y="88" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">context window size, and model availability.</text>
+      </g>
+
+      <g transform="translate(35, 210)">
+        <rect width="490" height="115" rx="10" fill="#17264e" stroke="rgba(72,202,228,0.2)" stroke-width="1"/>
+        <text x="25" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">High-Speed Redis Semantic Caching</text>
+        <text x="25" y="65" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">Identical queries served in under 5ms, saving up to</text>
+        <text x="25" y="88" fill="#10b981" font-family="ui-monospace, monospace" font-size="13">68% of LLM execution tokens and reducing API latency.</text>
+      </g>
+
+      <g transform="translate(35, 345)">
+        <rect width="490" height="145" rx="10" fill="#121d3a" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+        <text x="25" y="35" fill="#a855f7" font-family="ui-monospace, monospace" font-size="12" font-weight="700">GATEWAY TELEMETRY</text>
+        <text x="25" y="68" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">• Host: Oracle VPS Docker Swarm / Dokploy</text>
+        <text x="25" y="96" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">• Proxy: Traefik SSL termination with Cloudflare DNS</text>
+        <text x="25" y="124" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">• Key vault: End-to-end encrypted secret injection</text>
+      </g>
+    </g>
+
+    <!-- Column 3: Downstream Models -->
+    <g transform="translate(1040, 140)">
+      <rect width="360" height="520" rx="14" fill="#0f1933" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="30" y="45" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13" font-weight="700" letter-spacing="1">DOWNSTREAM TARGETS</text>
+
+      <rect x="25" y="70" width="310" height="75" rx="10" fill="#162347" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="45" y="102" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Anthropic Claude</text>
+      <text x="45" y="124" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">Sonnet 3.7 &amp; Opus 3.5</text>
+
+      <rect x="25" y="160" width="310" height="75" rx="10" fill="#162347" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="45" y="192" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">OpenAI GPT-4o</text>
+      <text x="45" y="214" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">Function calling &amp; Structured outputs</text>
+
+      <rect x="25" y="250" width="310" height="75" rx="10" fill="#162347" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="45" y="282" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Google Gemini Pro</text>
+      <text x="45" y="304" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">2M+ context window retrieval</text>
+
+      <rect x="25" y="340" width="310" height="75" rx="10" fill="#162347" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="45" y="372" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Self-Hosted Ollama / vLLM</text>
+      <text x="45" y="394" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">Local private offline inference</text>
+    </g>
+  </g>
+</svg>

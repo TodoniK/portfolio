@@ -42,7 +42,7 @@ vec2 coverUv(vec2 uv) {
   );
   return vec2(
     uv.x * ratio.x + (1.0 - ratio.x) * 0.5,
-    uv.y * ratio.y + (1.0 - ratio.y) * 0.5
+    uv.y * ratio.y + (1.0 - ratio.y) * 0.7
   );
 }
 
@@ -317,7 +317,7 @@ export function PortraitMorph({
           fill
           priority
           draggable={false}
-          className="select-none object-cover"
+          className="select-none object-cover object-top"
         />
       ) : null}
     </div>

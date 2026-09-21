@@ -3,7 +3,7 @@ import { PageBackdrop } from "@/components/layout/page-backdrop";
 import { Providers } from "@/components/layout/providers";
 import { SkipToContent } from "@/components/layout/skip-to-content";
 import { baseMetadata } from "@/lib/metadata";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
@@ -53,9 +53,18 @@ export default function RootLayout({
         "@type": "Person",
         "@id": "https://julesroyet.dev/#person",
         name: "Jules Royet",
-        jobTitle: "Cloud & DevOps Architect",
+        jobTitle: "Cloud & DevOps Architect and AI Systems Engineer",
+        description:
+          "Architecte Cloud & DevOps chez Orange et Ingénieur Logiciel diplômé de l'ENSEIRB-MATMECA. Spécialiste des architectures cloud résilientes, des agents autonomes et du DevSecOps.",
         url: "https://julesroyet.dev",
         image: "https://julesroyet.dev/jules-base.webp",
+        email: "jules.royet.pc@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Bordeaux",
+          addressRegion: "Nouvelle-Aquitaine",
+          addressCountry: "FR",
+        },
         sameAs: [
           "https://www.linkedin.com/in/jules-royet",
           "https://github.com/todonik",
@@ -74,8 +83,29 @@ export default function RootLayout({
           },
           {
             "@type": "CollegeOrUniversity",
-            name: "IUT de Bayonne",
+            name: "IUT de Bayonne et du Pays Basque",
+            url: "https://www.iutbayonne.univ-pau.fr/",
           },
+        ],
+        knowsAbout: [
+          "Cloud Architecture",
+          "Microsoft Azure",
+          "DevOps",
+          "CI/CD",
+          "Autonomous AI Agents",
+          "Hermes Agent",
+          "Omniroute",
+          "Kubernetes",
+          "Docker",
+          "Terraform",
+          "Java",
+          "Spring Boot",
+          "Kotlin",
+          "TypeScript",
+          "Next.js",
+          "Cybersecurity",
+          "DevSecOps",
+          "FinOps",
         ],
       },
       {
@@ -93,6 +123,10 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
+        <meta name="geo.region" content="FR-NAQ" />
+        <meta name="geo.placename" content="Bordeaux" />
+        <meta name="geo.position" content="44.8378;-0.5792" />
+        <meta name="ICBM" content="44.8378, -0.5792" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

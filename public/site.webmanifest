@@ -1,12 +1,24 @@
 {
   "name": "Jules Royet - Portfolio",
   "short_name": "Jules Royet",
-  "description": "Portfolio of Jules Royet, Cloud & DevOps Architect and Software Engineer.",
+  "description": "Portfolio de Jules Royet, Architecte Cloud & DevOps et Ingénieur Logiciel.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0066FF",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
   "icons": [
+    {
+      "src": "/favicon/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/favicon/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
     {
       "src": "/icon.svg",
       "sizes": "any",

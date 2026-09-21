@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg-harness" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0c"/>
+      <stop offset="100%" stop-color="#141418"/>
+    </linearGradient>
+    <pattern id="grid-harness" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg-harness)"/>
+  <rect width="1600" height="900" fill="url(#grid-harness)"/>
+
+  <g transform="translate(100, 80)">
+    <!-- Header -->
+    <rect width="1400" height="90" rx="14" fill="#18181b" stroke="rgba(168,85,247,0.3)" stroke-width="1.5"/>
+    <text x="40" y="52" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="26" font-weight="700">OpenCode &amp; Claude Code Agentic Harness</text>
+    <rect x="1150" y="28" width="210" height="34" rx="17" fill="rgba(168,85,247,0.15)" stroke="rgba(168,85,247,0.4)" stroke-width="1"/>
+    <text x="1255" y="50" fill="#c084fc" font-family="ui-monospace, monospace" font-size="13" font-weight="600" text-anchor="middle">CUSTOM LOCAL RUNTIME</text>
+
+    <!-- Main 3 Columns -->
+    <g transform="translate(0, 120)">
+      <!-- Col 1: Plugins & Hooks -->
+      <rect width="440" height="620" rx="14" fill="#121215" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="35" y="45" fill="#c084fc" font-family="ui-monospace, monospace" font-size="13" font-weight="700" letter-spacing="1">LOCAL PLUGINS &amp; RUNTIME</text>
+
+      <g transform="translate(25, 75)">
+        <rect width="390" height="110" rx="10" fill="#1c1c22" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <text x="20" y="32" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">session-memory.ts</text>
+        <text x="20" y="58" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">Persistent session context, decisions,</text>
+        <text x="20" y="80" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">blockers and JSONL history tracking</text>
+      </g>
+
+      <g transform="translate(25, 205)">
+        <rect width="390" height="110" rx="10" fill="#1c1c22" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <text x="20" y="32" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">rtk.ts (Rust Registry Interceptor)</text>
+        <text x="20" y="58" fill="#10b981" font-family="ui-monospace, monospace" font-size="12">Command rewrites for 60%+ token savings</text>
+        <text x="20" y="80" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">Seamless proxy through native rtk CLI</text>
+      </g>
+
+      <g transform="translate(25, 335)">
+        <rect width="390" height="110" rx="10" fill="#1c1c22" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <text x="20" y="32" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">site-builder-hook.ts</text>
+        <text x="20" y="58" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">Deterministic reminder for research-first</text>
+        <text x="20" y="80" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">and multi-page verified engineering</text>
+      </g>
+
+      <g transform="translate(25, 465)">
+        <rect width="390" height="125" rx="10" fill="#18181f" stroke="rgba(168,85,247,0.2)" stroke-width="1"/>
+        <text x="20" y="32" fill="#a855f7" font-family="ui-monospace, monospace" font-size="12" font-weight="700">OBSIDIAN &amp; GRAPHIFY</text>
+        <text x="20" y="60" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">Bi-directional knowledge graph sync</text>
+        <text x="20" y="82" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">DAT drafting, automated follow-ups,</text>
+        <text x="20" y="104" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">context compaction with Caveman</text>
+      </g>
+
+      <!-- Col 2: MCP Ecosystem -->
+      <g transform="translate(480, 0)">
+        <rect width="440" height="620" rx="14" fill="#121215" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="35" y="45" fill="#38bdf8" font-family="ui-monospace, monospace" font-size="13" font-weight="700" letter-spacing="1">CONNECTED MCP SERVERS</text>
+
+        <g transform="translate(25, 75)">
+          <rect width="390" height="110" rx="10" fill="#1c1c22" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="20" y="32" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Dokploy Remote Orchestrator</text>
+          <text x="20" y="58" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">Direct server management, deployments,</text>
+          <text x="20" y="80" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">domains, Swarm telemetry on Oracle VPS</text>
+        </g>
+
+        <g transform="translate(25, 205)">
+          <rect width="390" height="110" rx="10" fill="#1c1c22" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="20" y="32" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Cloudflare Edge &amp; DNS MCP</text>
+          <text x="20" y="58" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">Automated DNS zone records, SSL,</text>
+          <text x="20" y="80" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">Workers script inspection and routing</text>
+        </g>
+
+        <g transform="translate(25, 335)">
+          <rect width="390" height="110" rx="10" fill="#1c1c22" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="20" y="32" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Playwright &amp; Chrome DevTools</text>
+          <text x="20" y="58" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">Headless browser audits, DOM inspection,</text>
+          <text x="20" y="80" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">Lighthouse scores and visual regression</text>
+        </g>
+
+        <g transform="translate(25, 465)">
+          <rect width="390" height="125" rx="10" fill="#1c1c22" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="20" y="32" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Apify &amp; ReactBits MCPs</text>
+          <text x="20" y="58" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">Web extraction actors and curated</text>
+          <text x="20" y="80" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">animated component source injection</text>
+        </g>
+      </g>
+
+      <!-- Col 3: Principles & Output -->
+      <g transform="translate(960, 0)">
+        <rect width="440" height="620" rx="14" fill="#121215" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="35" y="45" fill="#10b981" font-family="ui-monospace, monospace" font-size="13" font-weight="700" letter-spacing="1">ENGINEERING METHODOLOGY</text>
+
+        <g transform="translate(25, 75)">
+          <rect width="390" height="150" rx="10" fill="#18231c" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+          <text x="20" y="35" fill="#34d399" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600">Minimalist &amp; Verified Delivery</text>
+          <text x="20" y="65" fill="#a7f3d0" font-family="ui-monospace, monospace" font-size="12">• Priorité aux fonctionnalités natives</text>
+          <text x="20" y="88" fill="#a7f3d0" font-family="ui-monospace, monospace" font-size="12">• Zéro abstraction inutile (YAGNI)</text>
+          <text x="20" y="111" fill="#a7f3d0" font-family="ui-monospace, monospace" font-size="12">• Vérification systématique par tests</text>
+          <text x="20" y="134" fill="#a7f3d0" font-family="ui-monospace, monospace" font-size="12">• Pas de dérive d'architecture</text>
+        </g>
+
+        <g transform="translate(25, 250)">
+          <rect width="390" height="340" rx="10" fill="#1c1c22" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="20" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Orchestration Quotidienne</text>
+          <text x="20" y="70" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">L'environnement permet d'exécuter des</text>
+          <text x="20" y="94" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">refactorings de grande envergure, des audits</text>
+          <text x="20" y="118" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">de sécurité et des déploiements cloud sans</text>
+          <text x="20" y="142" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">déperdition de contexte.</text>
+          
+          <rect x="20" y="170" width="350" height="145" rx="8" fill="#121215" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <text x="35" y="200" fill="#38bdf8" font-family="ui-monospace, monospace" font-size="12">Token efficiency: ~64% reduction</text>
+          <text x="35" y="228" fill="#f59e0b" font-family="ui-monospace, monospace" font-size="12">Average task cycle: 3-5m</text>
+          <text x="35" y="256" fill="#a855f7" font-family="ui-monospace, monospace" font-size="12">Auditability: complete Git diffs</text>
+          <text x="35" y="284" fill="#10b981" font-family="ui-monospace, monospace" font-size="12">Tool safety: explicit confirmation</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

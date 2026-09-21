@@ -14,21 +14,21 @@ type Chip = {
 };
 
 const CHIPS: Chip[] = [
-  { label: "Docker", slug: "docker", bg: "#2496ED", fg: "#ffffff" },
-  { label: "Kubernetes", slug: "kubernetes", bg: "#326CE5", fg: "#ffffff" },
-  { label: "Terraform", slug: "terraform", bg: "#844FBA", fg: "#ffffff" },
+  { label: "Docker", slug: "docker", bg: "#2496ED", fg: "#0a0a0a" },
+  { label: "Kubernetes", slug: "kubernetes", bg: "#2557c7", fg: "#ffffff" },
+  { label: "Terraform", slug: "terraform", bg: "#7b3db8", fg: "#ffffff" },
   { label: "Linux", slug: "linux", bg: "#FCC624", fg: "#000000" },
-  { label: "AWS", slug: "amazonwebservices", bg: "#232F3E", fg: "#ffffff" },
-  { label: "Java", slug: "openjdk", bg: "#ED8B00", fg: "#ffffff" },
-  { label: "Spring Boot", slug: "springboot", bg: "#6DB33F", fg: "#ffffff" },
-  { label: "Kotlin", slug: "kotlin", bg: "#7F52FF", fg: "#ffffff" },
-  { label: "TypeScript", slug: "typescript", bg: "#3178C6", fg: "#ffffff" },
+  { label: "AWS", slug: "aws", bg: "#232F3E", fg: "#ffffff", iconUrl: "/assets/icons/aws.svg" },
+  { label: "Java", slug: "openjdk", bg: "#ED8B00", fg: "#0a0a0a" },
+  { label: "Spring Boot", slug: "springboot", bg: "#6DB33F", fg: "#0a0a0a" },
+  { label: "Kotlin", slug: "kotlin", bg: "#6935f0", fg: "#ffffff" },
+  { label: "TypeScript", slug: "typescript", bg: "#2468b1", fg: "#ffffff" },
   { label: "React", slug: "react", bg: "#61DAFB", fg: "#0a0a0a" },
   { label: "Next.js", slug: "nextdotjs", bg: "#111111", fg: "#ffffff" },
-  { label: "Python", slug: "python", bg: "#3776AB", fg: "#ffffff" },
-  { label: "PostgreSQL", slug: "postgresql", bg: "#4169E1", fg: "#ffffff" },
+  { label: "Python", slug: "python", bg: "#275c87", fg: "#ffffff" },
+  { label: "PostgreSQL", slug: "postgresql", bg: "#2d52b9", fg: "#ffffff" },
   { label: "GitHub", slug: "github", bg: "#181717", fg: "#ffffff" },
-  { label: "Tailwind CSS", slug: "tailwindcss", bg: "#06B6D4", fg: "#ffffff" },
+  { label: "Tailwind CSS", slug: "tailwindcss", bg: "#06B6D4", fg: "#0a0a0a" },
 ];
 
 const CHIP_RADIUS = 14;
@@ -215,9 +215,9 @@ export function Stack(): ReactNode {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-foreground text-[15px] font-semibold tracking-tight">
+        <h2 className="text-foreground text-[15px] font-semibold tracking-tight">
           {t.about.stackTitle}
-        </h3>
+        </h2>
         <span className="text-[12px] text-foreground/50 hidden sm:inline">
           {t.about.stackHint}
         </span>

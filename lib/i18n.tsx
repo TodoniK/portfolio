@@ -63,6 +63,7 @@ export type Translations = {
     showMore: string;
     showLess: string;
     educationTitle: string;
+    certificationsTitle: string;
     skillsTitle: string;
     stackTitle: string;
     stackHint: string;
@@ -80,6 +81,11 @@ export type Translations = {
       period: string;
       city: string;
       logo: string;
+    }>;
+    certifications: Array<{
+      name: string;
+      issuer: string;
+      year: string;
     }>;
     skills: string[];
   };
@@ -107,11 +113,11 @@ export const DICTIONARY: Record<Locale, Translations> = {
       langSwitch: "Passer en français",
     },
     hero: {
-      greeting: "Hey 👋, I'm Jules",
+      greeting: "Hey, I'm Jules",
       titleLine1: "Cloud & DevOps Architect",
-      titleLine2: "& Software Engineer",
+      titleLine2: "and AI Systems Engineer",
       description:
-        "Architecting resilient cloud platforms, automated CI/CD pipelines, and high-performance digital systems.",
+        "Designing resilient cloud platforms, autonomous agent runtimes, automated CI/CD pipelines, and high-performance digital systems.",
       viewWork: "View My Work",
       contact: "Contact",
       portraitAlt: "Jules portrait",
@@ -120,22 +126,78 @@ export const DICTIONARY: Record<Locale, Translations> = {
       badge: "Projects",
       headline: "My projects",
       description:
-        "From scalable cloud infrastructure to full-stack applications, a selection of work I've built and delivered.",
+        "From cloud infrastructure and autonomous AI agent architectures to full stack software, a selection of work shipped to production.",
       pageTitle: "My recent work",
       pageDescription:
-        "Cloud architectures, automated pipelines, and full-stack applications shipped with care.",
+        "Cloud platforms, autonomous agent runtimes, automated pipelines, and full stack systems shipped with precision.",
       viewMore: "View all projects",
       viewCode: "Source code",
       viewLive: "Live preview",
       confidential: "Confidential",
       items: [
         {
+          id: "hermes",
+          tag: "AUTONOMOUS AI",
+          title: "Hermes Autonomous Agent Daemon",
+          description:
+            "Self-hosted autonomous AI agent runtime deployed on Oracle Cloud with web dashboard, SQLite persistence, tool registries, and automated execution loops.",
+          meta: "Oracle Cloud, Dokploy, Traefik, Docker and Hermes Agent",
+          image: "/assets/projects/hermes.svg",
+          imageAlt: "Hermes Agent Dashboard",
+          imageRatio: 16 / 9,
+          previewUrl: "https://hermes.julesroyet.dev",
+          githubUrl: "",
+          confidential: false,
+        },
+        {
+          id: "omniroute",
+          tag: "AI GATEWAY",
+          title: "Omniroute Intelligent AI Model Router",
+          description:
+            "High-performance AI model gateway with sub-15ms routing, Redis semantic caching, latency-aware failover, and OpenAI and Anthropic protocol translation.",
+          meta: "Node.js, Redis, Traefik, Dokploy and Cloudflare",
+          image: "/assets/projects/omniroute.svg",
+          imageAlt: "Omniroute Gateway Architecture",
+          imageRatio: 16 / 9,
+          previewUrl: "https://omniroute.julesroyet.dev",
+          githubUrl: "",
+          confidential: false,
+        },
+        {
+          id: "m2c-flows",
+          tag: "ORANGE M2C",
+          title: "M2C Flows : SI Digital Twin",
+          description:
+            "Stateless web platform mapping multi-tier IT dependencies, simulating cloud migrations to Azure and measuring inter-datacenter latency impacts for Orange DSI.",
+          meta: "Orange DSI, Azure, GitLab Pages and On-Premise",
+          image: "/assets/projects/m2c-flows.svg",
+          imageAlt: "M2C Flows Digital Twin",
+          imageRatio: 16 / 9,
+          previewUrl: "",
+          githubUrl: "",
+          confidential: true,
+        },
+        {
+          id: "opencode-harness",
+          tag: "DEVELOPER TOOLS",
+          title: "Agentic Engineering Runtime & Harness",
+          description:
+            "Custom local runtime for OpenCode and Claude Code featuring Rust-based RTK token compression, persistent session memory, and MCP orchestration.",
+          meta: "TypeScript, Rust, RTK, OpenCode and Claude Code",
+          image: "/assets/projects/opencode-harness.svg",
+          imageAlt: "Agentic Engineering Harness",
+          imageRatio: 16 / 9,
+          previewUrl: "",
+          githubUrl: "",
+          confidential: false,
+        },
+        {
           id: "shopeen",
           tag: "ORANGE",
           title: "Enterprise Carbon Footprint Calculator",
           description:
-            "Confidential internal web application estimating the environmental impact and CO2 production of Orange's IT infrastructure.",
-          meta: "Orange • Spring Boot, Kotlin, Svelte & MongoDB",
+            "Confidential internal platform estimating the environmental impact and CO2 production of Orange online retail IT infrastructure.",
+          meta: "Orange, Spring Boot, Kotlin, Svelte and MongoDB",
           image: "/assets/projects/shopeen.webp",
           imageAlt: "Shopeen ecological footprint calculator",
           imageRatio: 1922 / 950,
@@ -148,8 +210,8 @@ export const DICTIONARY: Record<Locale, Translations> = {
           tag: "ENSEIRB",
           title: "Real-Time Gaming & Casino Platform",
           description:
-            "Full-stack web application simulating an online casino with multiplayer websocket synchronization and interactive games.",
-          meta: "School Project • Vue.js, Node.js, Socket.io, Express & SQLite",
+            "Full stack web application simulating an online casino with multiplayer WebSocket synchronization and interactive gaming logic.",
+          meta: "School Project, Vue.js, Node.js, Socket.io, Express and SQLite",
           image: "/assets/projects/stakeirb.webp",
           imageAlt: "Stak'eirb gaming platform screenshot",
           imageRatio: 780 / 585,
@@ -158,26 +220,12 @@ export const DICTIONARY: Record<Locale, Translations> = {
           confidential: false,
         },
         {
-          id: "automatisms",
-          tag: "CDG33",
-          title: "SMS Campaign Automation Backoffice",
-          description:
-            "Confidential administrative platform designed for scheduled SMS broadcasts, campaign dispatching, and contact management.",
-          meta: "CDG33 • Symfony, PHP, MySQL & Apache",
-          image: "/assets/projects/automatisms.webp",
-          imageAlt: "AutomatiSMS management console",
-          imageRatio: 2188 / 1156,
-          previewUrl: "",
-          githubUrl: "",
-          confidential: true,
-        },
-        {
           id: "iplocator",
           tag: "NETWORKING",
           title: "IP Geolocation & Network Intelligence",
           description:
             "Real-time IP lookup application providing geographic pinpointing, ISP analysis, and interactive map integration.",
-          meta: "Vue.js, Express, MongoDB & OpenAPI Swagger",
+          meta: "Vue.js, Express, MongoDB and OpenAPI Swagger",
           image: "/assets/projects/iplocator.webp",
           imageAlt: "IP Locator web interface",
           imageRatio: 3022 / 1646,
@@ -186,12 +234,26 @@ export const DICTIONARY: Record<Locale, Translations> = {
           confidential: false,
         },
         {
+          id: "automatisms",
+          tag: "CDG33",
+          title: "SMS Campaign Automation Backoffice",
+          description:
+            "Administrative web platform designed for scheduled SMS broadcasts, campaign dispatching, and automated contact management.",
+          meta: "CDG33, Symfony, PHP, MySQL and Apache",
+          image: "/assets/projects/automatisms.webp",
+          imageAlt: "AutomatiSMS management console",
+          imageRatio: 2188 / 1156,
+          previewUrl: "",
+          githubUrl: "",
+          confidential: true,
+        },
+        {
           id: "mijotons",
           tag: "MOBILE",
           title: "Mijotons Smart Grocery & Recipe App",
           description:
             "Native Android application managing grocery lists, supermarket geolocation with OpenStreetMap, and anti-waste recipe suggestions.",
-          meta: "Android Studio, Java, MySQL & OpenStreetMap",
+          meta: "Android Studio, Java, MySQL and OpenStreetMap",
           image: "/assets/projects/mijotons.webp",
           imageAlt: "Mijotons mobile application",
           imageRatio: 4164 / 2736,
@@ -204,8 +266,8 @@ export const DICTIONARY: Record<Locale, Translations> = {
           tag: "PORTFOLIO",
           title: "Personal Portfolio & Interactive Showcase",
           description:
-            "Modern developer portfolio built with Next.js 16, OGL shaders, Matter.js physics sandbox, and bilingue internationalization.",
-          meta: "Next.js 16, React 19, Tailwind CSS v4 & TypeScript",
+            "Modern developer portfolio built with Next.js 16, OGL shaders, Matter.js physics sandbox, and bilingual internationalization.",
+          meta: "Next.js 16, React 19, Tailwind CSS v4 and TypeScript",
           image: "/assets/projects/portfolio.webp",
           imageAlt: "Jules Royet Portfolio showcase",
           imageRatio: 3024 / 1288,
@@ -217,94 +279,119 @@ export const DICTIONARY: Record<Locale, Translations> = {
     },
     about: {
       pageTitle: "About",
-      bioTitle: "Hello! I'm Jules Royet.",
+      bioTitle: "Hello, I'm Jules Royet.",
       bioP1:
-        "A Cloud & DevOps Architect and Software Engineer graduated from ENSEIRB-MATMECA, passionate about building reliable cloud platforms, automated workflows, and modern web applications. With more than 3 years of hands-on experience, I bridge system architecture, automation, and full-stack development.",
+        "Cloud & DevOps Architect and Software Engineer graduated from ENSEIRB-MATMECA. I design resilient cloud platforms, automated CI/CD pipelines, and agentic AI systems. With over 3 years of hands-on experience, I connect system architecture, developer tooling, and reliable production engineering.",
       bioP2:
-        "Currently working at Orange as a Cloud & DevOps Architect, I design scalable cloud architectures, optimize deployment pipelines, and promote green code practices. I also explore cybersecurity, with a strong interest in SOC operations, penetration testing, and ethical hacking on Root-Me.",
+        "Currently working at Orange as a Cloud & DevOps Architect, I guide application migrations toward Azure and Orange private cloud infrastructures. I define target architectures with Azure Container Apps, AKS, and WAF v2, while automating workflows with custom AI agents and digital twin tooling. I also practice defensive cybersecurity on Root-Me and build autonomous AI platforms.",
       bioP3:
-        "Outside of cloud engineering, I follow the latest tech and security breakthroughs, experiment with creative frontend technologies, and enjoy sharing knowledge with engineering teams.",
+        "Outside enterprise systems, I run my own cloud infrastructure on Oracle Cloud with Dokploy and Traefik, deploy autonomous agents like Hermes, optimize token consumption with custom Rust tools, and experiment with creative frontend technologies.",
       experienceTitle: "Experience",
       showMore: "Show {count} more",
       showLess: "Show less",
       educationTitle: "Education",
+      certificationsTitle: "Certifications",
       skillsTitle: "Areas of expertise",
       stackTitle: "Stack & Tools",
-      stackHint: "Interactive physics sandbox — drag and play with tools",
+      stackHint: "Interactive physics sandbox: drag and play with tools",
       resetStack: "Reset stack",
       experiences: [
         {
           company: "Orange",
           role: "Cloud & DevOps Architect",
-          period: "Sept. 2025 – Present",
+          period: "Sept. 2025 to Present",
           logo: "/assets/companies/logo-orange.webp",
           description:
-            "Designing and implementing cloud infrastructure solutions and DevOps practices to optimize deployment pipelines, ensure scalability, and enhance system reliability.",
+            "Guiding application migrations to Azure and Orange private cloud. Target architecture design with ACA, AKS, WAF v2, VNet and Private Endpoints. Technical architecture dossiers (DAT), FinOps governance, and AI automation tooling including M2C Flows and Claude Code with Obsidian memory.",
         },
         {
           company: "Orange",
           role: "Software Engineer (Apprenticeship)",
-          period: "Sept. 2022 – Aug. 2025",
+          period: "Sept. 2022 to Aug. 2025",
           logo: "/assets/companies/logo-orange.webp",
           description:
-            "Developed an internal ecological impact calculator and optimized sustainable business applications through full-stack development, CI/CD pipelines, and agile practices.",
+            "Full stack development on the Orange online store serving over 600,000 yearly visitors with Spring Boot, Kotlin, Svelte and MongoDB. Integrated GPT-4o and LiteLLM pipelines cutting product publishing time by 75%. Automated testing with JUnit, Hurl, Cypress and GitLab CI/CD on Kubernetes.",
         },
         {
           company: "Market Control",
           role: "Software Engineer Intern",
-          period: "May 2023 – Aug. 2023",
+          period: "May 2023 to Aug. 2023",
           logo: "/assets/companies/logo-market-control.webp",
           description:
-            "Developed an enterprise web platform with OpenUI5, implemented automated testing, CI/CD workflows, and managed deployment on Docker and SAP BTP.",
+            "Modernized legacy commercial tracking systems into responsive OpenUI5 web platforms in Barcelona. Achieved 40% page load reduction, 87% test coverage with Opa5, Docker containerization, and SAP BTP cloud deployments.",
         },
         {
           company: "CDG33",
           role: "Developer & Project Manager",
-          period: "Apr. 2022 – Jun. 2022",
+          period: "Apr. 2022 to Jun. 2022",
           logo: "/assets/companies/logo-cdg33.webp",
           description:
-            "Designed and developed a web application for scheduled SMS broadcasts with an administrative interface and conducted a ChatBot POC.",
+            "Delivered a Symfony web application for scheduled SMS dispatching with administrative console (1,000+ weekly messages) and conducted an AI chatbot proof of concept.",
         },
       ],
       educations: [
         {
           school: "ENSEIRB-MATMECA",
           degree: "Master of Science in Computer Science & Networks",
-          period: "2022 – 2025",
+          period: "2022 to 2025",
           city: "Bordeaux, France",
           logo: "/assets/schools/logo-enseirb-matmeca.webp",
         },
         {
           school: "IUT de Bayonne (UPPA)",
           degree: "Bachelor of Technology in Computer Science (DUT)",
-          period: "2020 – 2022",
+          period: "2020 to 2022",
           city: "Bayonne, France",
           logo: "/assets/schools/logo-iut-bayonne.webp",
         },
       ],
+      certifications: [
+        {
+          name: "AZ-900: Microsoft Azure Fundamentals",
+          issuer: "Microsoft",
+          year: "2025",
+        },
+        {
+          name: "Infrastructure Automation with Terraform",
+          issuer: "HashiCorp",
+          year: "2025",
+        },
+        {
+          name: "AWS Cloud Technical Essentials",
+          issuer: "Amazon Web Services",
+          year: "2025",
+        },
+        {
+          name: "TOEIC: C1 Level (Full Professional)",
+          issuer: "ETS Global",
+          year: "2024 to 2026",
+        },
+      ],
       skills: [
-        "Cloud Architecture",
-        "DevOps & CI/CD",
+        "Cloud Architecture (Azure, GCP, OCI)",
+        "Autonomous AI Agents (Hermes, OpenCode)",
+        "AI Gateways & Model Routing (Omniroute, LiteLLM)",
+        "Docker & Kubernetes (ACA, AKS)",
         "Infrastructure as Code (Terraform)",
-        "Docker & Kubernetes",
-        "Backend (Java, Spring, Kotlin)",
-        "Frontend (React, Vue.js, TypeScript)",
-        "Cybersecurity & SOC",
+        "CI/CD & DevSecOps (GitLab, GitHub Actions)",
+        "Backend (Java, Spring Boot, Kotlin, Node.js)",
+        "Frontend (TypeScript, React, Next.js, Svelte)",
+        "Databases (Cosmos DB, MongoDB, PostgreSQL)",
+        "Cybersecurity & CTF (Root-Me, DevSecOps)",
         "Linux & Shell Scripting",
         "Green IT & Eco-Design",
-        "Agile & Scrum",
       ],
     },
     contact: {
       headline: "Let's connect",
       description:
-        "Always open to discussing cloud architecture challenges, DevOps practices, innovative systems, or new opportunities. Reach out anytime!",
+        "Always open to discussing cloud architecture challenges, autonomous AI systems, DevOps practices, or innovative engineering. Reach out anytime.",
       buttonIdle: "Contact",
       buttonCopy: "Copy {email}",
       buttonCopied: "Email copied",
       seeProjects: "See projects",
       downloadResume: "Download Resume",
-      builtWith: "2026 © Jules Royet • Built with Next.js",
+      builtWith: "2026 © Jules Royet, Built with Next.js",
       rights: "Cloud & DevOps Architect",
     },
   },
@@ -318,11 +405,11 @@ export const DICTIONARY: Record<Locale, Translations> = {
       langSwitch: "Switch to English",
     },
     hero: {
-      greeting: "Salut 👋, moi c'est Jules",
+      greeting: "Salut, moi c'est Jules",
       titleLine1: "Architecte Cloud & DevOps",
-      titleLine2: "& Ingénieur Logiciel",
+      titleLine2: "et Ingénieur Systèmes IA",
       description:
-        "Conception d'architectures cloud résilientes, de pipelines CI/CD automatisés et de systèmes numériques performants.",
+        "Conception d'architectures cloud résilientes, de runtimes d'agents autonomes, de pipelines CI/CD et de systèmes logiciels performants.",
       viewWork: "Découvrir mes projets",
       contact: "Me contacter",
       portraitAlt: "Portrait de Jules",
@@ -331,22 +418,78 @@ export const DICTIONARY: Record<Locale, Translations> = {
       badge: "Projets",
       headline: "Mes projets",
       description:
-        "Des infrastructures cloud aux applications web et mobiles, une sélection de projets conçus et déployés.",
+        "Des infrastructures cloud aux agents d'IA autonomes et applications logicielles, une sélection de systèmes mis en production.",
       pageTitle: "Mes réalisations",
       pageDescription:
-        "Infrastructures cloud, pipelines automatisés et applications logicielles développées avec rigueur.",
+        "Architectures cloud, plateformes d'IA agentiques, chaînes d'intégration continue et applications développées avec rigueur.",
       viewMore: "Voir tous les projets",
       viewCode: "Code source",
       viewLive: "Démo en direct",
       confidential: "Confidentiel",
       items: [
         {
+          id: "hermes",
+          tag: "IA AUTONOME",
+          title: "Démon d'Agent Autonome Hermes",
+          description:
+            "Plateforme d'agent IA autonome auto-hébergée sur Oracle Cloud avec dashboard web, persistance SQLite, registre d'outils et boucles d'exécution planifiées.",
+          meta: "Oracle Cloud, Dokploy, Traefik, Docker et Hermes Agent",
+          image: "/assets/projects/hermes.svg",
+          imageAlt: "Dashboard Agent Hermes",
+          imageRatio: 16 / 9,
+          previewUrl: "https://hermes.julesroyet.dev",
+          githubUrl: "",
+          confidential: false,
+        },
+        {
+          id: "omniroute",
+          tag: "PASSERELLE IA",
+          title: "Passerelle de Routage d'IA Omniroute",
+          description:
+            "Passerelle d'inférence de modèles d'IA haute performance avec routage sous 15ms, cache sémantique Redis, bascule dynamique et compatibilité OpenAI et Anthropic.",
+          meta: "Node.js, Redis, Traefik, Dokploy et Cloudflare",
+          image: "/assets/projects/omniroute.svg",
+          imageAlt: "Architecture Passerelle Omniroute",
+          imageRatio: 16 / 9,
+          previewUrl: "https://omniroute.julesroyet.dev",
+          githubUrl: "",
+          confidential: false,
+        },
+        {
+          id: "m2c-flows",
+          tag: "ORANGE M2C",
+          title: "M2C Flows : Jumeau Numérique SI",
+          description:
+            "Application web stateless cartographiant les dépendances multi-couches du SI, simulant les migrations vers Azure et analysant les impacts de latence pour la DSI Orange.",
+          meta: "Orange DSI, Azure, GitLab Pages et On-Premise",
+          image: "/assets/projects/m2c-flows.svg",
+          imageAlt: "Jumeau Numérique M2C Flows",
+          imageRatio: 16 / 9,
+          previewUrl: "",
+          githubUrl: "",
+          confidential: true,
+        },
+        {
+          id: "opencode-harness",
+          tag: "OUTILLAGE DEV",
+          title: "Harness d'Ingénierie Agentique OpenCode",
+          description:
+            "Environnement d'exécution local pour OpenCode et Claude Code avec compresseur de tokens RTK en Rust, mémoire de session persistante et MCPs Dokploy et Cloudflare.",
+          meta: "TypeScript, Rust, RTK, OpenCode et Claude Code",
+          image: "/assets/projects/opencode-harness.svg",
+          imageAlt: "Harness d'Ingénierie Agentique",
+          imageRatio: 16 / 9,
+          previewUrl: "",
+          githubUrl: "",
+          confidential: false,
+        },
+        {
           id: "shopeen",
           tag: "ORANGE",
           title: "Calculateur d'empreinte carbone SI",
           description:
-            "Application interne confidentielle estimant l'impact écologique et les émissions de CO2 de l'infrastructure informatique d'Orange.",
-          meta: "Orange • Spring Boot, Kotlin, Svelte & MongoDB",
+            "Application interne confidentielle estimant l'impact écologique et les émissions de CO2 de l'infrastructure e-commerce d'Orange.",
+          meta: "Orange, Spring Boot, Kotlin, Svelte et MongoDB",
           image: "/assets/projects/shopeen.webp",
           imageAlt: "Calculateur d'empreinte écologique Shopeen",
           imageRatio: 1922 / 950,
@@ -357,10 +500,10 @@ export const DICTIONARY: Record<Locale, Translations> = {
         {
           id: "stakeirb",
           tag: "ENSEIRB",
-          title: "Plateforme de jeux & casino temps réel",
+          title: "Plateforme de jeux et casino temps réel",
           description:
             "Application web répliquant un casino en ligne avec gestion multijoueur via WebSockets et jeux interactifs synchronisés.",
-          meta: "Projet d'école • Vue.js, Node.js, Socket.io, Express & SQLite",
+          meta: "Projet d'école, Vue.js, Node.js, Socket.io, Express et SQLite",
           image: "/assets/projects/stakeirb.webp",
           imageAlt: "Capture d'écran plateforme Stak'eirb",
           imageRatio: 780 / 585,
@@ -369,26 +512,12 @@ export const DICTIONARY: Record<Locale, Translations> = {
           confidential: false,
         },
         {
-          id: "automatisms",
-          tag: "CDG33",
-          title: "Backoffice de diffusion de campagnes SMS",
-          description:
-            "Application web confidentielle d'administration pour la planification et l'envoi programmé de SMS pour le CDG33.",
-          meta: "CDG33 • Symfony, PHP, MySQL & Apache",
-          image: "/assets/projects/automatisms.webp",
-          imageAlt: "Console de gestion AutomatiSMS",
-          imageRatio: 2188 / 1156,
-          previewUrl: "",
-          githubUrl: "",
-          confidential: true,
-        },
-        {
           id: "iplocator",
           tag: "RÉSEAU",
-          title: "Géolocalisation & analyse réseau IP",
+          title: "Géolocalisation et analyse réseau IP",
           description:
             "Service d'analyse d'adresses IP fournissant les coordonnées géographiques, l'identification FAI et une carte interactive.",
-          meta: "Vue.js, Express, MongoDB & OpenAPI Swagger",
+          meta: "Vue.js, Express, MongoDB et OpenAPI Swagger",
           image: "/assets/projects/iplocator.webp",
           imageAlt: "Interface web IP Locator",
           imageRatio: 3022 / 1646,
@@ -397,12 +526,26 @@ export const DICTIONARY: Record<Locale, Translations> = {
           confidential: false,
         },
         {
+          id: "automatisms",
+          tag: "CDG33",
+          title: "Backoffice de diffusion de campagnes SMS",
+          description:
+            "Application web d'administration pour la planification et l'envoi programmé de plus de 1000 SMS hebdomadaires.",
+          meta: "CDG33, Symfony, PHP, MySQL et Apache",
+          image: "/assets/projects/automatisms.webp",
+          imageAlt: "Console de gestion AutomatiSMS",
+          imageRatio: 2188 / 1156,
+          previewUrl: "",
+          githubUrl: "",
+          confidential: true,
+        },
+        {
           id: "mijotons",
           tag: "MOBILE",
-          title: "Application mobile Mijotons & Recettes",
+          title: "Application mobile Mijotons et Recettes",
           description:
             "Application Android native pour la gestion de listes de courses, repérage de magasins via OpenStreetMap et suggestions culinaires.",
-          meta: "Android Studio, Java, MySQL & OpenStreetMap",
+          meta: "Android Studio, Java, MySQL et OpenStreetMap",
           image: "/assets/projects/mijotons.webp",
           imageAlt: "Application mobile Mijotons",
           imageRatio: 4164 / 2736,
@@ -413,10 +556,10 @@ export const DICTIONARY: Record<Locale, Translations> = {
         {
           id: "portfolio",
           tag: "PORTFOLIO",
-          title: "Portfolio personnel & vitrine interactive",
+          title: "Portfolio personnel et vitrine interactive",
           description:
             "Portfolio moderne conçu avec Next.js 16, shaders OGL, bac à sable physique Matter.js et bascule bilingue instantanée.",
-          meta: "Next.js 16, React 19, Tailwind CSS v4 & TypeScript",
+          meta: "Next.js 16, React 19, Tailwind CSS v4 et TypeScript",
           image: "/assets/projects/portfolio.webp",
           imageAlt: "Vitrine du portfolio de Jules Royet",
           imageRatio: 3024 / 1288,
@@ -428,94 +571,119 @@ export const DICTIONARY: Record<Locale, Translations> = {
     },
     about: {
       pageTitle: "À propos",
-      bioTitle: "Bonjour ! Je suis Jules Royet.",
+      bioTitle: "Bonjour, je suis Jules Royet.",
       bioP1:
-        "Architecte Cloud & DevOps et Ingénieur Logiciel diplômé de l'ENSEIRB-MATMECA, passionné par la conception de plateformes cloud fiables, l'automatisation de workflows et le développement logiciel moderne. Avec plus de 3 ans d'expérience, j'unis architecture système, automatisation et développement full-stack.",
+        "Architecte Cloud & DevOps et Ingénieur Logiciel diplômé de l'ENSEIRB-MATMECA. Je conçois des plateformes cloud résilientes, des pipelines d'intégration continue automatisés et des runtimes d'IA agentiques. Avec plus de 3 ans d'expérience pratique, j'assure la liaison entre architecture système, outillage développeur et fiabilité opérationnelle.",
       bioP2:
-        "Actuellement chez Orange en tant qu'Architecte Cloud & DevOps, je conçois des architectures résilientes, optimise les chaînes de déploiement et promeut l'écoconception logicielle. J'explore également la cybersécurité, avec un intérêt marqué pour les opérations SOC et le hacking éthique sur Root-Me.",
+        "Actuellement chez Orange en tant qu'Architecte Cloud & DevOps, j'accompagne la migration des applications du SI vers Azure et les infrastructures de cloud privé Orange. Je définis les architectures cibles (Azure Container Apps, AKS, WAF v2), les dossiers techniques DAT et l'outillage de migration assisté par l'IA. Je m'investis également dans la cybersécurité défensive sur Root-Me et le pilotage de systèmes agentiques.",
       bioP3:
-        "En dehors de l'ingénierie cloud, je reste à l'affût des dernières avancées technologiques et de sécurité, j'expérimente avec le frontend créatif et j'aime partager mes connaissances avec les équipes.",
+        "En parallèle des projets d'entreprise, j'administre ma propre infrastructure cloud sur VPS Oracle avec Dokploy et Traefik, déploie des agents autonomes comme Hermes, optimise la consommation de tokens par des outils écrits en Rust et conçois des interfaces frontend créatives.",
       experienceTitle: "Expérience",
       showMore: "Afficher {count} de plus",
       showLess: "Réduire",
       educationTitle: "Formation",
+      certificationsTitle: "Certifications",
       skillsTitle: "Domaines d'expertise",
       stackTitle: "Stack & Outils",
-      stackHint: "Bac à sable physique interactif — déplacez les outils",
+      stackHint: "Bac à sable physique interactif : déplacez les outils",
       resetStack: "Réinitialiser la stack",
       experiences: [
         {
           company: "Orange",
           role: "Architecte Cloud & DevOps",
-          period: "Sept. 2025 – Présent",
+          period: "Sept. 2025 à aujourd'hui",
           logo: "/assets/companies/logo-orange.webp",
           description:
-            "Conception et mise en œuvre de solutions d'infrastructure cloud et de pratiques DevOps pour optimiser les pipelines, garantir la scalabilité et renforcer la fiabilité des systèmes.",
+            "Accompagnement des migrations applicatives vers Azure et le cloud privé Orange. Définition de l'architecture cible avec ACA, AKS, WAF v2, VNet et Private Endpoints. Consolidation des DAT, préparation des comités FinOps et développement d'outils d'automatisation IA comme M2C Flows et Claude Code avec mémoire Obsidian.",
         },
         {
           company: "Orange",
           role: "Ingénieur Logiciel (Apprentissage)",
-          period: "Sept. 2022 – Août 2025",
+          period: "Sept. 2022 à Août 2025",
           logo: "/assets/companies/logo-orange.webp",
           description:
-            "Développement d'un calculateur d'impact écologique interne et optimisation d'applications métiers durables via le full-stack, l'intégration continue et l'agilité.",
+            "Développement full stack sur la boutique en ligne Orange (plus de 600 000 visiteurs par an) en Spring Boot, Kotlin, Svelte et MongoDB. Intégration de pipelines d'IA générative (GPT-4o, LiteLLM) réduisant de 75% le temps de publication des fiches produits. Tests automatisés JUnit, Hurl, Cypress et déploiement CI/CD GitLab sur Kubernetes.",
         },
         {
           company: "Market Control",
           role: "Ingénieur Logiciel Stagiaire",
-          period: "Mai 2023 – Août 2023",
+          period: "Mai 2023 à Août 2023",
           logo: "/assets/companies/logo-market-control.webp",
           description:
-            "Développement d'une plateforme web avec OpenUI5, tests automatisés, chaînes CI/CD et déploiement conteneurisé sur Docker et SAP BTP.",
+            "Modernisation d'un système commercial legacy PHP vers OpenUI5 et SAP BTP à Barcelone. Réduction de 40% des temps de chargement, couverture de tests automatisés Opa5 à 87%, conteneurisation Docker et intégration continue avec GitHub Actions.",
         },
         {
           company: "CDG33",
-          role: "Développeur & Chef de Projet",
-          period: "Avr. 2022 – Juin 2022",
+          role: "Développeur et Chef de Projet",
+          period: "Avr. 2022 à Juin 2022",
           logo: "/assets/companies/logo-cdg33.webp",
           description:
-            "Conception et développement d'une application web d'envois programmés de SMS avec interface d'administration et POC de ChatBot pour le site public.",
+            "Conception et livraison d'une application web Symfony d'envois programmés de SMS avec console d'administration (+1000 messages hebdomadaires) et réalisation d'un démonstrateur de chatbot d'assistance.",
         },
       ],
       educations: [
         {
           school: "ENSEIRB-MATMECA",
-          degree: "Diplôme d'Ingénieur Informatique & Réseaux",
-          period: "2022 – 2025",
+          degree: "Diplôme d'Ingénieur Informatique et Réseaux",
+          period: "2022 à 2025",
           city: "Bordeaux, France",
           logo: "/assets/schools/logo-enseirb-matmeca.webp",
         },
         {
           school: "IUT de Bayonne (UPPA)",
-          degree: "DUT Informatique (Diplôme Universitaire de Technologie)",
-          period: "2020 – 2022",
+          degree: "DUT Informatique",
+          period: "2020 à 2022",
           city: "Bayonne, France",
           logo: "/assets/schools/logo-iut-bayonne.webp",
         },
       ],
+      certifications: [
+        {
+          name: "AZ-900: Microsoft Azure Fundamentals",
+          issuer: "Microsoft",
+          year: "2025",
+        },
+        {
+          name: "Infrastructure Automation with Terraform",
+          issuer: "HashiCorp",
+          year: "2025",
+        },
+        {
+          name: "AWS Cloud Technical Essentials",
+          issuer: "Amazon Web Services",
+          year: "2025",
+        },
+        {
+          name: "TOEIC : Score C1 (Anglais courant)",
+          issuer: "ETS Global",
+          year: "2024 à 2026",
+        },
+      ],
       skills: [
-        "Architecture Cloud",
-        "DevOps & CI/CD",
+        "Architecture Cloud (Azure, GCP, OCI)",
+        "Agents IA Autonomes (Hermes, OpenCode)",
+        "Passerelles & Routage IA (Omniroute, LiteLLM)",
+        "Docker & Kubernetes (ACA, AKS)",
         "Infrastructure as Code (Terraform)",
-        "Docker & Kubernetes",
-        "Backend (Java, Spring, Kotlin)",
-        "Frontend (React, Vue.js, TypeScript)",
-        "Cybersécurité & SOC",
+        "CI/CD & DevSecOps (GitLab, GitHub Actions)",
+        "Backend (Java, Spring Boot, Kotlin, Node.js)",
+        "Frontend (TypeScript, React, Next.js, Svelte)",
+        "Bases de Données (Cosmos DB, MongoDB, PostgreSQL)",
+        "Cybersécurité & CTF (Root-Me, DevSecOps)",
         "Linux & Scripts Shell",
         "Green IT & Écoconception",
-        "Méthodologie Agile & Scrum",
       ],
     },
     contact: {
       headline: "Prenons contact",
       description:
-        "Toujours ouvert aux échanges sur l'architecture cloud, les pratiques DevOps, les systèmes innovants ou de nouvelles opportunités. N'hésitez pas !",
+        "Toujours ouvert aux échanges sur l'architecture cloud, les agents d'IA autonomes, les pratiques DevOps ou de nouvelles opportunités d'ingénierie. N'hésitez pas.",
       buttonIdle: "Me contacter",
       buttonCopy: "Copier {email}",
       buttonCopied: "Email copié",
       seeProjects: "Voir les projets",
       downloadResume: "Télécharger mon CV",
-      builtWith: "2026 © Jules Royet • Conçu avec Next.js",
+      builtWith: "2026 © Jules Royet, Conçu avec Next.js",
       rights: "Architecte Cloud & DevOps",
     },
   },

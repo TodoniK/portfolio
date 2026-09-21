@@ -11,6 +11,10 @@ import {
   Sparkles,
   Leaf,
   Dices,
+  Bot,
+  Network,
+  Cloud,
+  Terminal,
 } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 import Image from "next/image";
@@ -19,6 +23,10 @@ import { FadeIn } from "@/components/ui/motion-primitives";
 import { useLanguage } from "@/lib/i18n";
 
 const PROJECT_ICONS: Record<string, ComponentType<{ className?: string }>> = {
+  hermes: Bot,
+  omniroute: Network,
+  "m2c-flows": Cloud,
+  "opencode-harness": Terminal,
   shopeen: Leaf,
   stakeirb: Dices,
   automatisms: MessageSquare,
@@ -172,9 +180,9 @@ function ProjectCard({
         </div>
 
         <div className="flex flex-col gap-2 px-1 pb-1">
-          <h3 className="text-[19px] font-medium leading-[1.25] tracking-tight text-foreground sm:text-[21px]">
+          <h2 className="text-[19px] font-medium leading-[1.25] tracking-tight text-foreground sm:text-[21px]">
             {project.title}
-          </h3>
+          </h2>
           <p className="text-[14px] leading-relaxed tracking-tight text-foreground/70 sm:text-[15px]">
             {project.description}
           </p>

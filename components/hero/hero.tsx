@@ -14,9 +14,9 @@ export function Hero(): ReactNode {
 
   return (
     <section className="relative w-full">
-      <div className="mx-auto w-full max-w-275 px-6 pt-44 pb-24 sm:px-10 sm:pt-56 sm:pb-32">
-        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-8">
-          <FadeIn className="flex flex-col gap-4">
+      <div className="mx-auto w-full max-w-275 px-6 pt-36 pb-20 sm:px-10 sm:pt-48 sm:pb-28">
+        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-8 lg:gap-12">
+          <FadeIn className="flex flex-col gap-4 md:col-span-7">
             <div className="flex items-center gap-2">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -27,24 +27,24 @@ export function Hero(): ReactNode {
               </p>
             </div>
 
-            <h1 className="text-[2.65rem] font-medium leading-[1.08] tracking-tight text-foreground md:text-[2.5rem] lg:text-[3.5rem]">
-              <span className="block whitespace-nowrap">
+            <h1 className="text-[2.25rem] font-medium leading-[1.1] tracking-tight text-foreground sm:text-[2.75rem] lg:text-[3.25rem]">
+              <span className="block break-words">
                 {t.hero.titleLine1}
               </span>
-              <span className="block whitespace-nowrap text-foreground/80">
+              <span className="block break-words text-foreground/80">
                 {t.hero.titleLine2}
               </span>
             </h1>
 
-            <p className="max-w-[34ch] text-[20px] leading-[1.45] tracking-tight text-foreground/65 sm:text-[22px]">
+            <p className="max-w-[34ch] text-[18px] leading-[1.5] tracking-tight text-foreground/65 sm:text-[20px]">
               {t.hero.description}
             </p>
 
             <HeroCtas />
           </FadeIn>
 
-          <ScaleUnblur className="flex justify-stretch md:justify-end">
-            <div className="relative aspect-square w-full md:max-w-105 overflow-hidden rounded-4xl border border-foreground/8 bg-background p-1.5 shadow-sm">
+          <ScaleUnblur className="flex justify-center md:col-span-5 md:justify-end">
+            <div className="relative aspect-[4/5] w-full max-w-[300px] sm:max-w-[350px] overflow-hidden rounded-4xl border border-foreground/8 bg-background p-1.5 shadow-sm">
               <div className="relative h-full w-full overflow-hidden rounded-[1.6rem]">
                 <PortraitMorph
                   srcA={PORTRAIT_SRC}

@@ -102,6 +102,32 @@ function SocialIcon({
   const props = isExternal
     ? { target: "_blank", rel: "noopener noreferrer" }
     : {};
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        aria-label={label}
+        title={label}
+        className="border-foreground/8 hover:border-foreground/20 focus-ring inline-flex h-11 w-11 items-center justify-center rounded-xl border bg-background text-foreground/75 transition-colors hover:text-foreground hover:bg-foreground/5"
+        {...props}
+      >
+        {LucideIcon ? (
+          <LucideIcon className="h-4 w-4" strokeWidth={2.25} aria-hidden="true" />
+        ) : imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt=""
+            width={16}
+            height={16}
+            aria-hidden="true"
+            unoptimized={imageSrc.startsWith("https://cdn.simpleicons.org")}
+            className="max-h-[16px] max-w-[16px] object-contain dark:invert"
+          />
+        ) : null}
+      </a>
+    );
+  }
+
   return (
     <Link
       href={href}

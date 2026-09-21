@@ -25,14 +25,23 @@ export const siteConfig = {
     "Kubernetes",
     "Docker",
     "CI/CD",
+    "Autonomous AI Agents",
+    "Hermes Agent",
+    "Omniroute",
+    "OpenCode",
+    "Claude Code",
+    "Azure",
     "Java",
     "Spring Boot",
     "Kotlin",
     "TypeScript",
     "React",
     "Next.js",
+    "Cybersecurity",
     "ENSEIRB-MATMECA",
     "Orange",
+    "Bordeaux",
+    "Nice",
   ],
 } as const;
 
@@ -90,9 +99,15 @@ export const baseMetadata: Metadata = {
     creator: siteConfig.creator,
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
     shortcut: "/icon.png",
-    apple: "/apple-icon.png",
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.svg", type: "image/svg+xml" },
+    ],
   },
   manifest: "/site.webmanifest",
 };

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg-hermes" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0d14"/>
+      <stop offset="100%" stop-color="#121826"/>
+    </linearGradient>
+    <linearGradient id="accent-hermes" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <pattern id="grid-hermes" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg-hermes)"/>
+  <rect width="1600" height="900" fill="url(#grid-hermes)"/>
+
+  <!-- Window Frame -->
+  <g transform="translate(100, 75)">
+    <rect width="1400" height="750" rx="16" fill="#0f1523" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    
+    <!-- Top Bar -->
+    <path d="M 0 16 Q 0 0 16 0 L 1384 0 Q 1400 0 1400 16 L 1400 56 L 0 56 Z" fill="#151d30"/>
+    <circle cx="32" cy="28" r="6" fill="#ef4444"/>
+    <circle cx="52" cy="28" r="6" fill="#f59e0b"/>
+    <circle cx="72" cy="28" r="6" fill="#10b981"/>
+    
+    <text x="700" y="34" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="14" text-anchor="middle" font-weight="500">hermes-agent.julesroyet.dev:9119 (autonomous daemon)</text>
+
+    <!-- Sidebar -->
+    <rect x="0" y="56" width="300" height="694" fill="#111827" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <text x="30" y="100" fill="#64748b" font-family="ui-monospace, monospace" font-size="12" font-weight="700" letter-spacing="1">AGENT WORKSPACES</text>
+    
+    <rect x="20" y="120" width="260" height="42" rx="8" fill="rgba(59,130,246,0.12)" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+    <circle cx="42" cy="141" r="5" fill="#3b82f6"/>
+    <text x="60" y="146" fill="#f8fafc" font-family="ui-monospace, monospace" font-size="13" font-weight="600">production-cluster-01</text>
+    
+    <rect x="20" y="172" width="260" height="42" rx="8" fill="transparent"/>
+    <circle cx="42" cy="193" r="5" fill="#64748b"/>
+    <text x="60" y="198" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">telemetry-audit-daemon</text>
+    
+    <rect x="20" y="224" width="260" height="42" rx="8" fill="transparent"/>
+    <circle cx="42" cy="245" r="5" fill="#64748b"/>
+    <text x="60" y="250" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">cron-remediation-loop</text>
+
+    <text x="30" y="320" fill="#64748b" font-family="ui-monospace, monospace" font-size="12" font-weight="700" letter-spacing="1">EXECUTION STATUS</text>
+    <rect x="20" y="340" width="260" height="120" rx="8" fill="#161f33" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    <text x="36" y="370" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">Daemon uptime: 23h 48m</text>
+    <text x="36" y="396" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="12">Memory state: synced (SQLite)</text>
+    <text x="36" y="422" fill="#10b981" font-family="ui-monospace, monospace" font-size="12">Tool calls today: 1,842</text>
+    <text x="36" y="446" fill="#38bdf8" font-family="ui-monospace, monospace" font-size="12">Active subagents: 4 running</text>
+
+    <!-- Main Content Area -->
+    <g transform="translate(330, 80)">
+      <!-- Agent Step Card -->
+      <rect x="0" y="0" width="1030" height="180" rx="12" fill="#131b2e" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <rect x="20" y="20" width="100" height="26" rx="6" fill="rgba(59,130,246,0.2)"/>
+      <text x="70" y="37" fill="#60a5fa" font-family="ui-monospace, monospace" font-size="12" text-anchor="middle" font-weight="600">THOUGHT LOOP</text>
+      <text x="135" y="38" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">Iterative reasoning and environment inspection</text>
+      
+      <text x="24" y="80" fill="#e2e8f0" font-family="ui-monospace, monospace" font-size="15" font-weight="500">plan: inspect oracle vps containers, verify dokploy health, parse reverse-proxy logs</text>
+      <text x="24" y="110" fill="#64748b" font-family="ui-monospace, monospace" font-size="13">→ subagent launched with persistent tools: docker, bash, curl, fs_read, fs_edit</text>
+      <text x="24" y="138" fill="#10b981" font-family="ui-monospace, monospace" font-size="13">✔ state verified: 8 containers running, zero restart flags in last 72 hours</text>
+
+      <!-- Terminal logs -->
+      <rect x="0" y="210" width="1030" height="420" rx="12" fill="#0b0f19" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="25" y="245" fill="#38bdf8" font-family="ui-monospace, monospace" font-size="13">hermes@oracle-node:~$</text>
+      <text x="205" y="245" fill="#f8fafc" font-family="ui-monospace, monospace" font-size="13">hermes run --autonomous --model anthropic/claude-3-7-sonnet</text>
+      
+      <text x="25" y="280" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">[2026-09-21 14:32:01] Loading tool registry: 48 tools registered across 6 providers</text>
+      <text x="25" y="306" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">[2026-09-21 14:32:02] Connected to SQLite local context storage (/opt/data/hermes.db)</text>
+      <text x="25" y="332" fill="#10b981" font-family="ui-monospace, monospace" font-size="12">[2026-09-21 14:32:04] Task accepted: Multi-cloud automated architecture sync</text>
+      <text x="25" y="358" fill="#f59e0b" font-family="ui-monospace, monospace" font-size="12">[2026-09-21 14:32:05] ToolCall: dokploy_overview-services() -> returned 8 services healthy</text>
+      <text x="25" y="384" fill="#64748b" font-family="ui-monospace, monospace" font-size="12">[2026-09-21 14:32:08] Omniroute gateway ping: 14ms latency | Redis cached: 94.2%</text>
+      <text x="25" y="410" fill="#38bdf8" font-family="ui-monospace, monospace" font-size="12">[2026-09-21 14:32:12] Synthesis completed: 0 security alerts, certificates valid, ingress active</text>
+
+      <rect x="25" y="440" width="980" height="150" rx="8" fill="#111827" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="45" y="475" fill="#a855f7" font-family="ui-monospace, monospace" font-size="13" font-weight="600">AUTONOMOUS HARNESS METRICS</text>
+      <text x="45" y="505" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">Host: Oracle Cloud VPS (Bordeaux &amp; Nice Link) • Orchestration: Dokploy &amp; Traefik</text>
+      <text x="45" y="533" fill="#94a3b8" font-family="ui-monospace, monospace" font-size="13">Endpoints: https://hermes.julesroyet.dev (Dashboard) + https://hermes-api.julesroyet.dev</text>
+      <text x="45" y="561" fill="#10b981" font-family="ui-monospace, monospace" font-size="13">Integration: Claude Code + OpenCode custom plugin hooks for automated task resolution</text>
+    </g>
+  </g>
+</svg>

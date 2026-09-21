@@ -23,9 +23,9 @@ export function Experience(): ReactNode {
 
   return (
     <div className="flex flex-col gap-3">
-      <h3 className="text-foreground text-[15px] font-semibold tracking-tight">
+      <h2 className="text-foreground text-[15px] font-semibold tracking-tight">
         {t.about.experienceTitle}
-      </h3>
+      </h2>
       <div
         className={`border-foreground/5 bg-foreground/2 dark:bg-foreground/5 relative overflow-hidden rounded-4xl border px-2 pt-2 sm:px-4 sm:pt-4 ${
           open ? "pb-2 sm:pb-4" : "pb-0"

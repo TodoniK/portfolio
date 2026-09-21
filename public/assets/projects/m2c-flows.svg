@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <linearGradient id="bg-m2c" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <pattern id="grid-m2c" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(249,115,22,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg-m2c)"/>
+  <rect width="1600" height="900" fill="url(#grid-m2c)"/>
+
+  <g transform="translate(100, 80)">
+    <!-- Header -->
+    <rect width="1400" height="90" rx="14" fill="#1c1917" stroke="rgba(249,115,22,0.3)" stroke-width="1.5"/>
+    <text x="40" y="52" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="26" font-weight="700">M2C Flows : Jumeau Numérique du Système d'Information</text>
+    <rect x="1170" y="28" width="190" height="34" rx="17" fill="rgba(249,115,22,0.15)" stroke="rgba(249,115,22,0.4)" stroke-width="1"/>
+    <text x="1265" y="50" fill="#f97316" font-family="ui-monospace, monospace" font-size="13" font-weight="600" text-anchor="middle">ORANGE MOVE TO CLOUD</text>
+
+    <!-- Topology Canvas -->
+    <rect y="120" width="1400" height="620" rx="16" fill="#141416" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+    <!-- Tier 1: On-Premise Legacy SI -->
+    <g transform="translate(60, 160)">
+      <rect width="360" height="540" rx="12" fill="#1c1917" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text x="30" y="40" fill="#f97316" font-family="ui-monospace, monospace" font-size="14" font-weight="700">ON-PREMISE PÉRENNE</text>
+      
+      <g transform="translate(20, 60)">
+        <rect width="320" height="90" rx="8" fill="#292524"/>
+        <text x="20" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Mainframe &amp; Socle Legacy</text>
+        <text x="20" y="60" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="12">Base DB2, batchs C, liaisons SNA</text>
+      </g>
+
+      <g transform="translate(20, 170)">
+        <rect width="320" height="90" rx="8" fill="#292524"/>
+        <text x="20" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Socle Mercury (SoPaaS / SoCaaS)</text>
+        <text x="20" y="60" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="12">Cloud privé OrangeIaaS &amp; VNet privé</text>
+      </g>
+
+      <g transform="translate(20, 280)">
+        <rect width="320" height="120" rx="8" fill="#292524"/>
+        <text x="20" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Boutique en ligne (E-Commerce)</text>
+        <text x="20" y="60" fill="#10b981" font-family="ui-monospace, monospace" font-size="12">600 000+ visiteurs / an</text>
+        <text x="20" y="85" fill="#a8a29e" font-family="ui-monospace, monospace" font-size="12">Spring Boot, Kotlin, Svelte, Mongo</text>
+      </g>
+    </g>
+
+    <!-- Center Flow Connectors -->
+    <g transform="translate(450, 250)">
+      <rect width="500" height="360" rx="12" fill="#18181b" stroke="rgba(249,115,22,0.3)" stroke-width="1.5"/>
+      <text x="30" y="45" fill="#f97316" font-family="ui-monospace, monospace" font-size="14" font-weight="700">SIMULATION &amp; ANALYSE DE LATENCE</text>
+      
+      <text x="30" y="90" fill="#e4e4e7" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15">Graphe des dépendances applicatives multi-couches</text>
+      <text x="30" y="125" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="13">• Modélisation matrices de flux &amp; building blocks</text>
+      <text x="30" y="155" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="13">• Calcul d'impact latence inter-datacenter</text>
+      <text x="30" y="185" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="13">• Validation FinOps avant passage en comité</text>
+      <text x="30" y="215" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="13">• Contrôle DAT, HA/PRA et observabilité SLO</text>
+
+      <rect x="30" y="250" width="440" height="70" rx="8" fill="#27272a"/>
+      <text x="20" y="32" fill="#38bdf8" font-family="ui-monospace, monospace" font-size="13" font-weight="600">GOUVERNANCE DES DÉCISIONS</text>
+      <text x="20" y="54" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="12">Design Authority → Comité FinOps → Comité d'aiguillage</text>
+    </g>
+
+    <!-- Tier 2: Target Cloud Azure -->
+    <g transform="translate(980, 160)">
+      <rect width="360" height="540" rx="12" fill="#0c1e3d" stroke="rgba(59,130,246,0.3)" stroke-width="1"/>
+      <text x="30" y="40" fill="#3b82f6" font-family="ui-monospace, monospace" font-size="14" font-weight="700">AZURE CLOUD CIBLE</text>
+
+      <g transform="translate(20, 60)">
+        <rect width="320" height="90" rx="8" fill="#132a54"/>
+        <text x="20" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Conteneurs &amp; Ingress WAF</text>
+        <text x="20" y="60" fill="#93c5fd" font-family="ui-monospace, monospace" font-size="12">Azure Container Apps, AKS, App Gateway</text>
+      </g>
+
+      <g transform="translate(20, 170)">
+        <rect width="320" height="90" rx="8" fill="#132a54"/>
+        <text x="20" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Réseau &amp; Sécurité Zéro-Trust</text>
+        <text x="20" y="60" fill="#93c5fd" font-family="ui-monospace, monospace" font-size="12">VNet privé, Private Endpoints, Key Vault</text>
+      </g>
+
+      <g transform="translate(20, 280)">
+        <rect width="320" height="120" rx="8" fill="#132a54"/>
+        <text x="20" y="35" fill="#ffffff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Données &amp; Télémétrie</text>
+        <text x="20" y="60" fill="#93c5fd" font-family="ui-monospace, monospace" font-size="12">Cosmos DB, Azure Monitor, Event Hub</text>
+        <text x="20" y="85" fill="#10b981" font-family="ui-monospace, monospace" font-size="12">IaC Terraform automatisé</text>
+      </g>
+    </g>
+  </g>
+</svg>
