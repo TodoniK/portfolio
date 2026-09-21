@@ -1,0 +1,21 @@
+{
+  "name": "Jules Royet - Portfolio",
+  "short_name": "Jules Royet",
+  "description": "Portfolio of Jules Royet, Cloud & DevOps Architect and Software Engineer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0066FF",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
