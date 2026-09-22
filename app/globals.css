@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+.portrait-star-border { background: color-mix(in srgb, var(--foreground) 15%, transparent); }
+.portrait-star { position: absolute; width: 300%; height: 55%; border-radius: 50%; background: radial-gradient(circle, #b98148, transparent 16%); }
+.portrait-star-top { top: -10px; left: -250%; }
+.portrait-star-bottom { bottom: -10px; right: -250%; }
+.portrait-hint-touch { display: none; }
+@keyframes star-movement-top { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: .3; } }
+@keyframes star-movement-bottom { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: .3; } }
+@media (prefers-reduced-motion: no-preference) {
+  .portrait-star-top { animation: star-movement-top 5s linear infinite alternate; }
+  .portrait-star-bottom { animation: star-movement-bottom 5s linear infinite alternate; }
+}
+@media (hover: none) { .portrait-hint-touch { display: inline; } .portrait-hint-mouse { display: none; } }
+@media (prefers-reduced-motion: reduce), (forced-colors: active) { .portrait-star { display: none; } }
+
+@keyframes content-enter { from { opacity: .8; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes content-scale { from { opacity: .8; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: no-preference) {
+  .motion-enter { animation: content-enter .8s cubic-bezier(.22,1,.36,1) backwards; }
+  .motion-scale { animation: content-scale 1s cubic-bezier(.22,1,.36,1) backwards; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .expertise-polaroid { transition: rotate 200ms ease, translate 200ms ease; }
+  .expertise-polaroid:hover { rotate: 0deg !important; translate: 0 -6px; }
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {

@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import NextImage from "next/image";
-import { Renderer, Program, Mesh, Triangle, Transform, Texture } from "ogl";
+import type { Texture } from "ogl";
+import { useReducedMotion } from "@/lib/motion";
+import { useLanguage } from "@/lib/i18n";
 
 export type PortraitMorphProps = {
   srcA: string;
@@ -121,8 +123,13 @@ export function PortraitMorph({
   alt,
   className,
 }: PortraitMorphProps): ReactNode {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLButtonElement | null>(null);
   const [ready, setReady] = useState(false);
+  const [enabled, setEnabled] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const wakeRef = useRef<() => void>(() => {});
+  const reducedMotion = useReducedMotion();
+  const { locale } = useLanguage();
   const hoverRef = useRef(false);
   const progressRef = useRef(0);
   const originRef = useRef<[number, number]>([0.5, 0.5]);
@@ -131,18 +138,25 @@ export function PortraitMorph({
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
-
+    if (!container || !enabled || reducedMotion) return;
+    let cancelled = false;
+    let dispose: (() => void) | undefined;
+    void import("ogl").then(({ Renderer, Program, Mesh, Triangle, Transform, Texture }) => {
+    if (cancelled) return;
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      dpr: Math.min(window.devicePixelRatio || 1, 1.5),
     });
     const gl = renderer.gl;
     const canvas = gl.canvas as HTMLCanvasElement;
     canvas.style.width = "100%";
     canvas.style.height = "100%";
     canvas.style.display = "block";
+    canvas.style.position = "absolute";
+    canvas.style.inset = "0";
+    canvas.style.pointerEvents = "none";
+    canvas.setAttribute("aria-hidden", "true");
     container.appendChild(canvas);
 
     const scene = new Transform();
@@ -224,17 +238,26 @@ export function PortraitMorph({
       program.uniforms.uImageSize.value = imageSize;
 
       renderer.render({ scene });
+      if (Math.abs(target - progressRef.current) > 0.001) raf = requestAnimationFrame(tick);
+      else { progressRef.current = target; raf = 0; }
+    };
+    let loaded = false;
+    wakeRef.current = () => {
+      if (!running || !loaded || raf) return;
+      last = performance.now();
       raf = requestAnimationFrame(tick);
     };
 
     Promise.all([loadImage(srcA, texA), loadImage(srcB, texB)])
       .then(() => {
+        if (!running) return;
+        loaded = true;
         setReady(true);
         last = performance.now();
         tick();
       })
       .catch(() => {
-        setReady(false);
+        if (running) setReady(false);
       });
 
     const computeEdgeDirection = (x: number, y: number): [number, number] => {
@@ -250,6 +273,7 @@ export function PortraitMorph({
     };
 
     const onPointerEnter = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = 1 - (e.clientY - rect.top) / rect.height;
@@ -257,8 +281,10 @@ export function PortraitMorph({
       directionRef.current = computeEdgeDirection(x, y);
       lastPointerRef.current = { x, y, t: performance.now() };
       hoverRef.current = true;
+      wakeRef.current();
     };
     const onPointerLeave = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = 1 - (e.clientY - rect.top) / rect.height;
@@ -268,8 +294,10 @@ export function PortraitMorph({
         number,
       ];
       hoverRef.current = false;
+      wakeRef.current();
     };
     const onPointerMove = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = 1 - (e.clientY - rect.top) / rect.height;
@@ -289,8 +317,9 @@ export function PortraitMorph({
     container.addEventListener("pointerleave", onPointerLeave);
     container.addEventListener("pointermove", onPointerMove);
 
-    return () => {
+    dispose = () => {
       running = false;
+      wakeRef.current = () => {};
       cancelAnimationFrame(raf);
       ro.disconnect();
       container.removeEventListener("pointerenter", onPointerEnter);
@@ -300,26 +329,40 @@ export function PortraitMorph({
       if (ext) ext.loseContext();
       if (canvas.parentNode === container) container.removeChild(canvas);
     };
-  }, [srcA, srcB]);
+    }).catch(() => { if (!cancelled) setReady(false); });
+    return () => { cancelled = true; dispose?.(); };
+  }, [srcA, srcB, enabled, reducedMotion]);
 
   return (
-    <div
+    <button
       ref={containerRef}
-      role="img"
-      aria-label={alt}
-      className={className}
+      type="button"
+      aria-label={locale === "fr" ? "Changer le portrait de Jules Royet" : "Change Jules Royet’s portrait"}
+      aria-pressed={selected}
+      onClick={() => {
+        setEnabled(true);
+        hoverRef.current = !selected;
+        setSelected(!selected);
+        originRef.current = [0.5, 0.5];
+        directionRef.current = [1, 0];
+        wakeRef.current();
+      }}
+      onPointerEnter={event => { if (event.pointerType === "mouse") { setEnabled(true); hoverRef.current = true; wakeRef.current(); } }}
+      onPointerLeave={event => { if (event.pointerType === "mouse") { hoverRef.current = false; wakeRef.current(); } }}
+      className={`focus-ring cursor-pointer touch-manipulation ${className ?? ""}`}
       style={{ position: "relative", width: "100%", height: "100%" }}
     >
-      {!ready ? (
+      {(!ready || reducedMotion) ? (
         <NextImage
-          src={srcA}
+          src={selected ? srcB : srcA}
           alt={alt}
           fill
           priority
+          sizes="(min-width: 640px) 350px, 300px"
           draggable={false}
           className="select-none object-cover object-top"
         />
       ) : null}
-    </div>
+    </button>
   );
 }

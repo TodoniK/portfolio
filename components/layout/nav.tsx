@@ -3,7 +3,7 @@
 import { Moon, Sun } from "lucide-react";
 import { motion } from "motion/react";
 import { useTheme } from "next-themes";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/ui/localized-link";
 import { usePathname } from "next/navigation";
 import {
   useEffect,
@@ -104,7 +104,7 @@ function NavThemeToggle(): ReactNode {
 }
 
 export function Nav(): ReactNode {
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/^\/en(?=\/|$)/, "") || "/";
   const { t } = useLanguage();
   const listRef = useRef<HTMLUListElement>(null);
   const itemRefs = useRef<Array<HTMLLIElement | null>>([]);

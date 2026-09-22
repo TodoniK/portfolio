@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 68" fill="none">
+  <defs>
+    <linearGradient id="g-cup" x1="40" y1="36" x2="40" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4A2818"/><stop offset="100%" stop-color="#221208"/></linearGradient>
+    <linearGradient id="g-roof" x1="40" y1="10" x2="40" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#D88E3E"/><stop offset="100%" stop-color="#A46228"/></linearGradient>
+    <radialGradient id="g-shadow" cx="40" cy="66" r="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#3B2314" stop-opacity="0.15"/><stop offset="100%" stop-color="#3B2314" stop-opacity="0"/></radialGradient>
+    <filter id="f-depth" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#1A0A04" flood-opacity="0.22"/></filter>
+  </defs>
+  <ellipse cx="40" cy="66" rx="22" ry="3.5" fill="url(#g-shadow)"/>
+  <path d="M 68 43 C 81 42 81 58 67 56" stroke="#221208" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <path d="M 68 43 C 79.5 42 79.5 57 67 56" stroke="#4E2818" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <path d="M 14 36 L 66 36 Q 70.5 36 70.5 40.5 C 70.5 47.5 69 55 66 63 Q 65 64.5 62.5 64.5 L 17.5 64.5 Q 15 64.5 14 63 C 11 55 9.5 47.5 9.5 40.5 Q 9.5 36 14 36 Z" fill="url(#g-cup)" filter="url(#f-depth)"/>
+  <path d="M 23.5 36 Q 22 36 22 34.5 L 22 26.5 Q 22 24.5 23.58 23.27 L 37.24 12.65 Q 40 10.5 42.76 12.65 L 56.42 23.27 Q 58 24.5 58 26.5 L 58 34.5 Q 58 36 56.5 36 Z" fill="url(#g-roof)" filter="url(#f-depth)"/>
+  <rect x="31.5" y="24.5" width="17" height="11" rx="2" fill="#FAF6F1"/>
+  <line x1="31.5" y1="28.2" x2="48.5" y2="28.2" stroke="#D8C4B0" stroke-width="0.7"/>
+  <circle cx="33.9" cy="26.3" r="1.1" fill="#3B2314" opacity="0.75"/><circle cx="36.8" cy="26.3" r="1.1" fill="#7C4A2D" opacity="0.85"/><circle cx="39.7" cy="26.3" r="1.1" fill="#C07A3A"/>
+  <rect x="33" y="30" width="10" height="1.2" rx="0.6" fill="#C07A3A" opacity="0.3"/><rect x="33" y="32.2" width="7" height="1.2" rx="0.6" fill="#C07A3A" opacity="0.18"/>
+  <line x1="14" y1="36" x2="66" y2="36" stroke="#5A3020" stroke-width="1.1" stroke-linecap="round" opacity="0.5"/>
+  <path d="M 36.5 9 C 34.5 7 38.5 5 36.5 3" stroke="#C07A3A" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.45"/><path d="M 40 8.5 C 38 6.5 42 4.5 40 2.5" stroke="#C07A3A" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.3"/><path d="M 43.5 9 C 41.5 7 45.5 5 43.5 3" stroke="#C07A3A" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.18"/>
+</svg>

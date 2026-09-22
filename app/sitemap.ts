@@ -1,73 +1,12 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/metadata";
-
-const PROJECT_SLUGS = [
-  "hermes",
-  "omniroute",
-  "m2c-flows",
-  "opencode-harness",
-  "shopeen",
-  "stakeirb",
-  "iplocator",
-  "automatisms",
-  "mijotons",
-  "portfolio",
-];
+import { PROJECT_ARTICLES } from "@/lib/projects-data";
+import { localePath } from "@/lib/locale";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = siteConfig.url;
-
-  const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-      alternates: {
-        languages: {
-          en: `${baseUrl}`,
-          fr: `${baseUrl}`,
-        },
-      },
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-      alternates: {
-        languages: {
-          en: `${baseUrl}/projects`,
-          fr: `${baseUrl}/projects`,
-        },
-      },
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-      alternates: {
-        languages: {
-          en: `${baseUrl}/about`,
-          fr: `${baseUrl}/about`,
-        },
-      },
-    },
-  ];
-
-  const projectRoutes: MetadataRoute.Sitemap = PROJECT_SLUGS.map((slug) => ({
-    url: `${baseUrl}/projects/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-    alternates: {
-      languages: {
-        en: `${baseUrl}/projects/${slug}`,
-        fr: `${baseUrl}/projects/${slug}`,
-      },
-    },
-  }));
-
-  return [...staticRoutes, ...projectRoutes];
+  const paths = ["/", "/about", "/projects", "/contact", "/expertises/cloud-devops", "/expertises/developpement-logiciel", "/expertises/systemes-ia", ...Object.keys(PROJECT_ARTICLES).map(slug => `/projects/${slug}`)];
+  return paths.flatMap(path => (["fr", "en"] as const).map(locale => ({
+    url: siteConfig.url + localePath(path, locale),
+    alternates: { languages: { fr: siteConfig.url + path, en: siteConfig.url + localePath(path, "en"), "x-default": siteConfig.url + path } },
+  })));
 }

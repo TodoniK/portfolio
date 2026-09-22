@@ -1,0 +1,197 @@
+{
+	"rootme": {
+		"source": "https://www.root-me.org/IMG/logo/siteon0.svg",
+		"file": "rootme.svg",
+		"sha256": "22274ccde7967333dda89650437f2149bbb77c282dad472afc98a32561e9197d"
+	},
+	"opencode": {
+		"source": "https://raw.githubusercontent.com/anomalyco/opencode/HEAD/packages/console/app/src/asset/brand/opencode-logo-light-square.svg",
+		"file": "opencode.svg",
+		"sha256": "b1c48d82ebd304eab820658387642bcf4c9b8350d6860894d0fe21ddca25ef3f"
+	},
+	"hermes": {
+		"source": "https://raw.githubusercontent.com/NousResearch/hermes-agent/HEAD/website/static/img/favicon.svg",
+		"file": "hermes.svg",
+		"sha256": "3b69843e19b42602b2a2723e7dd058c4b391cceef1caa1f46c19bb80ca88b260"
+	},
+	"docker": {
+		"source": "https://raw.githubusercontent.com/docker/docs/HEAD/assets/icons/Whale.svg",
+		"file": "docker.svg",
+		"sha256": "8a395df2fd644ae59bc49e2f58b4eaa6bc1a5f4484eb00f532d033123ae2e920"
+	},
+	"kubernetes": {
+		"source": "https://raw.githubusercontent.com/kubernetes/kubernetes/HEAD/logo/logo.svg",
+		"file": "kubernetes.svg",
+		"sha256": "a8f6c3b81e588eb0eee4b5ae707ad11b16d0c5ce132719871e559eed0e61e6bf"
+	},
+	"typescript": {
+		"source": "https://raw.githubusercontent.com/microsoft/TypeScript-Website/HEAD/packages/typescriptlang-org/static/branding/ts-logo-128.svg",
+		"file": "typescript.svg",
+		"sha256": "25e995fa85ae9ff6b5749f4ffeb21b2fe71d74e9b8d8db8eac4b9732cd9ef287"
+	},
+	"nodedotjs": {
+		"source": "https://raw.githubusercontent.com/nodejs/nodejs.org/HEAD/apps/site/public/static/logos/nodejsHex.svg",
+		"file": "nodedotjs.svg",
+		"sha256": "e4c8de546b2462ad9497679c55609701144ffacd8e18ac17a7f7f7b795de9fe7"
+	},
+	"svelte": {
+		"source": "https://raw.githubusercontent.com/sveltejs/branding/HEAD/svelte-logo.svg",
+		"file": "svelte.svg",
+		"sha256": "87df40b8fbb4afb4d720b517c369f7e5f23fb818efc62ad581cb734765c54e1a"
+	},
+	"vuedotjs": {
+		"source": "https://vuejs.org/logo.svg",
+		"file": "vuedotjs.svg",
+		"sha256": "6f97b1f82a6dafdda0b53c347bdfb0b74cb3bf1d73ce8e40bbbb914115235886"
+	},
+	"dokploy": {
+		"source": "https://dokploy.com/icon.svg",
+		"file": "dokploy.svg",
+		"sha256": "abd20f654d191308333726faefc261c79f7f80173b976f4f13a7ff6690e3006e"
+	},
+	"kotlin": {
+		"source": "https://kotlinlang.org/images/favicon/favicon.svg",
+		"file": "kotlin.svg",
+		"sha256": "275ff90601e51cb193ced27b025a62772bb04d563bf1d6a4bc5ec484da195b79"
+	},
+	"symfony": {
+		"source": "https://symfony.com/favicons/favicon.svg",
+		"file": "symfony.svg",
+		"sha256": "5a417dddd3877adf8b413a59e05ba24a3cbbcd3f8b824475b16564a3a720f9c8"
+	},
+	"traefikproxy": {
+		"source": "https://traefik.io/favicon.svg",
+		"file": "traefikproxy.svg",
+		"sha256": "d99f08b7e4616fa19cabe2444989420894d79348fa044aac309af3c9c66e8602"
+	},
+	"rust": {
+		"source": "https://rust-lang.org/static/images/rust-logo-blk.svg",
+		"file": "rust.svg",
+		"sha256": "6d6e0fd29e2015bec5ca9bdbdc11ede1e84fb792c560599b58e564346825a229"
+	},
+	"github": {
+		"source": "https://github.githubassets.com/favicons/favicon.svg",
+		"file": "github.svg",
+		"sha256": "6a9577cd4f7fa6b75bde1025af85b944e9dd1388373b55ccba6e9f80ac2eae60"
+	},
+	"tailwindcss": {
+		"source": "https://tailwindcss.com/favicons/safari-pinned-tab.svg",
+		"file": "tailwindcss.svg",
+		"sha256": "b65882e4b9224cbbf535938e056a32697254b91539fc07bc59f1d87cb09453c0"
+	},
+	"socketdotio": {
+		"source": "https://socket.io/images/logo.svg",
+		"file": "socketdotio.svg",
+		"sha256": "21513677f5470d9371dcb9e3e88e68145c7340a9a964581eb3290e5523eb1ee5"
+	},
+	"php": {
+		"source": "https://www.php.net/favicon.svg?v=2",
+		"file": "php.svg",
+		"sha256": "bdd0db9fd2a20c792644ef5ef00cea36cf6f6fd9cf4e1c4b833761678eda5570"
+	},
+	"express": {
+		"source": "https://expressjs.com/favicon.svg",
+		"file": "express.svg",
+		"sha256": "aa2a703c4d0f5564771b093d097c67c09ac5a7bd6e68c39a7eb7f18d853924df"
+	},
+	"android": {
+		"source": "https://developer.android.com/static/images/logos/android.svg",
+		"file": "android.svg",
+		"sha256": "c9ff410faf0f1cfcb76e8bdd3bee4694209c43ab65aff0c1fb1cecb62306e1ef"
+	},
+	"react": {
+		"source": "https://react.dev/safari-pinned-tab.svg",
+		"file": "react.svg",
+		"sha256": "601ef169b830baca70947c31fc6aaa784a06ad43a5bef33438eec922d408045b"
+	},
+	"nextdotjs": {
+		"source": "https://nextjs.org/_next/static/immutable/media/nextjs-logotype-light.00-_80jv8_dct.svg",
+		"file": "nextdotjs.svg",
+		"sha256": "e3b1507c8524d45c3e02faf086d37b8421e420d875eb9ff179e0a379204c6d6a"
+	},
+	"springboot": {
+		"source": "https://spring.io/img/projects/spring-boot.svg",
+		"file": "springboot.svg",
+		"sha256": "8f9ccd66abde74dd74fde03541f4295bf5e55242b502167b38deeb6bee69c145"
+	},
+	"python": {
+		"source": "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/files/python-logo-only.svg",
+		"file": "python.svg",
+		"sha256": "baec8662a1461c2cacc326b54d2727cb2f1ce07ba02d00f5b826d035104f649f"
+	},
+	"postgresql": {
+		"source": "https://wiki.postgresql.org/images/a/a4/PostgreSQL_logo.3colors.svg",
+		"file": "postgresql.svg",
+		"sha256": "51f93e19516081fc7d6fe6ab9bbab07abe5f7819e28016eefacea6dea691bc54"
+	},
+	"cloudflare": {
+		"source": "https://www.cloudflare.com/logo.svg",
+		"file": "cloudflare.svg",
+		"sha256": "c9ec1d5d5e4b0924666756a70179395c26b010372f8d7eec3539575281cebf1b"
+	},
+	"sqlite": {
+		"source": "https://sqlite.org/images/sqlite370_banner.svg",
+		"file": "sqlite.svg",
+		"sha256": "462c4ce8229b585dd6880cd308b121d9de63eb619db05e469598594e80d7b151"
+	},
+	"mongodb": {
+		"source": "https://webimages.mongodb.com/_com_assets/cms/kuyjf3vea2hg34taa-horizontal_default_slate_blue.svg",
+		"file": "mongodb.svg",
+		"sha256": "9f5435c8be18a834b2c2f8c4c03f117a997646c660fd6f28e3b6869a1bc2fcc1"
+	},
+	"redis": {
+		"source": "https://raw.githubusercontent.com/redis/redis-website/HEAD/assets/icons/logo.svg",
+		"file": "redis.svg",
+		"sha256": "a67dc854323a15e48cd49b56c44204d192a8a4f073190b43681fc4d7e9f3c255"
+	},
+	"terraform": {
+		"source": "https://raw.githubusercontent.com/hashicorp/design-system/HEAD/packages/flight-icons/svg-original/terraform-color-24.svg",
+		"file": "terraform.svg",
+		"sha256": "5d5f29ff8141e63a145fe1fe59553b33aa028736ecde21db55b23e988f7897d9"
+	},
+	"gitlab": {
+		"source": "https://about.gitlab.com/images/press/gitlab-logo-100-rgb.svg",
+		"file": "gitlab.svg",
+		"sha256": "5ef94eb73c9720560c1741ed616754769350c70ba8651a4419cc6b3fd956f96d"
+	},
+	"claude": {
+		"source": "https://mintcdn.com/claude-code/c5r9_6tjPMzFdDDT/logo/light.svg",
+		"file": "claude.svg",
+		"sha256": "07171085b9b06105caa40e2e2889a1acfa46dd64b4e2cee46e69ca7cd67992e0"
+	},
+	"aws": {
+		"source": "https://raw.githubusercontent.com/aws/aws-toolkit-vscode/HEAD/packages/core/resources/aws-logo.svg",
+		"file": "aws.svg",
+		"sha256": "c79803322f329c5b49646d7a1995be66aa7160e4973ef4aaad789a78c29b172c"
+	},
+	"azure": {
+		"source": "https://raw.githubusercontent.com/microsoft/azuredatastudio/HEAD/extensions/azurecore/resources/azure.svg",
+		"file": "azure.svg",
+		"sha256": "5abb12a7b7a845f2968ae14df95c6aa9109ddcba6f634ed57278914998754395"
+	},
+	"oracle": {
+		"source": "https://raw.githubusercontent.com/oracle/oci-designer-toolkit/HEAD/okitclassic/okitserver/static/svg/oracle.svg",
+		"file": "oracle.svg",
+		"sha256": "27a758a0a299ad6416843c7f08126d8786f9b700db7a742f1cf7387735c7e35c"
+	},
+	"javascript": {
+		"source": "https://raw.githubusercontent.com/voodootikigod/logo.js/1544bdeed6d618a6cfe4f0650d04ab8d9cfa76d9/js.svg",
+		"file": "javascript.svg",
+		"sha256": "a70a3d8d36ea6b0e614a04ec30d5a4fb2bf36d515492cb84050ded2b84d14393"
+	},
+	"java": {
+		"source": "https://raw.githubusercontent.com/devicons/devicon/HEAD/icons/java/java-original.svg",
+		"file": "java.svg",
+		"sha256": "7582e518a9c02425f97155e5a3bd39d1a3a7d421b78caf9c8df7443dad3edc5d"
+	},
+	"mysql": {
+		"source": "https://raw.githubusercontent.com/devicons/devicon/HEAD/icons/mysql/mysql-original.svg",
+		"file": "mysql.svg",
+		"sha256": "f73fa5d6b9da33fbf540ff96f5360c24b6d29d883ecfe6fcaecf89a8d3456067"
+	},
+	"linux": {
+		"source": "https://raw.githubusercontent.com/devicons/devicon/HEAD/icons/linux/linux-original.svg",
+		"file": "linux.svg",
+		"sha256": "cf50ae4a263c6142963fad3561f7cb0311d0d41cc6189eadfb34f81a8a36acb0"
+	}
+}

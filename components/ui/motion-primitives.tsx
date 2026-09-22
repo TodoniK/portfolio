@@ -1,9 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
 import type { ReactNode } from "react";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function FadeIn({
   children,
@@ -17,14 +14,12 @@ export function FadeIn({
   className?: string;
 }): ReactNode {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration, delay, ease: EASE }}
-      className={className}
+    <div
+      style={{ animationDuration: `${duration}s`, animationDelay: `${delay}s` }}
+      className={`motion-enter ${className ?? ""}`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -40,14 +35,11 @@ export function ScaleUnblur({
   className?: string;
 }): ReactNode {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.7, filter: "blur(20px)" }}
-      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-      transition={{ duration, delay, ease: EASE }}
-      style={{ transformOrigin: "center" }}
-      className={className}
+    <div
+      style={{ animationDuration: `${duration}s`, animationDelay: `${delay}s`, transformOrigin: "center" }}
+      className={`motion-scale ${className ?? ""}`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

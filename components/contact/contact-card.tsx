@@ -1,19 +1,22 @@
 "use client";
 
-import { Mail, Shield, FileText } from "lucide-react";
+import { Mail, FileText } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/ui/localized-link";
 import type { ReactNode } from "react";
 import { ContactCardCtas } from "./contact-card-ctas";
 import { FadeIn } from "@/components/ui/motion-primitives";
 import { ShaderFlow } from "../shaders/shader-flow";
 import { useLanguage } from "@/lib/i18n";
+import { motion } from "motion/react";
+import { useReducedMotion } from "@/lib/motion";
 
 const CARD_FADE_MASK =
   "radial-gradient(ellipse 90% 110% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.92) 40%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.4) 90%, rgba(0,0,0,0.15) 100%)";
 
 export function ContactCard(): ReactNode {
   const { t } = useLanguage();
+  const reducedMotion = useReducedMotion();
 
   return (
     <section className="mx-auto my-12 w-full max-w-275 px-6 sm:my-20 sm:px-10">
@@ -57,12 +60,12 @@ export function ContactCard(): ReactNode {
                   <SocialIcon
                     href="https://github.com/todonik"
                     label="GitHub"
-                    imageSrc="https://cdn.simpleicons.org/github"
+                    imageSrc="/assets/brands/github.svg"
                   />
                   <SocialIcon
-                    href="https://www.root-me.org/ROYET?lang=fr#6d64628f42c7d83514cfbbcf25d78e75"
+                    href="https://www.root-me.org/ROYET"
                     label="Root-Me (Cybersecurity)"
-                    lucideIcon={Shield}
+                    imageSrc="/assets/brands/rootme.svg"
                   />
                   <SocialIcon
                     href="/resumes.pdf"
@@ -72,8 +75,14 @@ export function ContactCard(): ReactNode {
                 </div>
                 <div className="flex flex-col items-center gap-1 text-center">
                   <p className="text-[13px] tracking-tight text-foreground/75 font-medium">
-                    {t.contact.builtWith}
+                    {new Date().getFullYear()} © Jules Royet
                   </p>
+                  <a href="https://www.casa-mocha.fr/" className="group focus-ring mt-2 inline-flex max-w-full items-center gap-2 rounded-lg px-2 py-2 text-[13px] leading-relaxed text-foreground/80 underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-foreground">
+                    <motion.span initial={false} whileInView={reducedMotion ? {} : { scale: [0.85, 1.08, 1], rotate: [-8, 3, 0] }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="inline-flex h-9 w-10 shrink-0 items-center justify-center rounded-lg bg-[#faf6f1]">
+                      <Image src="/assets/brands/casa-mocha.svg" alt="" width={32} height={28} className="motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:-rotate-6 motion-safe:group-hover:scale-110 motion-safe:group-focus-visible:-rotate-6" />
+                    </motion.span>
+                    <span>Vibe codé, hébergé et maintenu par Casa Mocha</span>
+                  </a>
                   <p className="text-[12px] tracking-tight text-foreground/50">
                     {t.contact.rights}
                   </p>

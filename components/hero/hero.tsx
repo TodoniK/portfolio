@@ -5,12 +5,13 @@ import { HeroCtas } from "./hero-ctas";
 import { FadeIn, ScaleUnblur } from "@/components/ui/motion-primitives";
 import { PortraitMorph } from "./portrait-morph";
 import { useLanguage } from "@/lib/i18n";
+import { StarBorder } from "@/components/ui/star-border";
 
 const PORTRAIT_SRC = "/jules-base.webp";
 const PORTRAIT_HOVER_SRC = "/jules-hey.webp";
 
 export function Hero(): ReactNode {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   return (
     <section className="relative w-full">
@@ -43,8 +44,8 @@ export function Hero(): ReactNode {
             <HeroCtas />
           </FadeIn>
 
-          <ScaleUnblur className="flex justify-center md:col-span-5 md:justify-end">
-            <div className="relative aspect-[4/5] w-full max-w-[300px] sm:max-w-[350px] overflow-hidden rounded-4xl border border-foreground/8 bg-background p-1.5 shadow-sm">
+          <ScaleUnblur className="flex flex-col items-center gap-4 md:col-span-5 md:items-end">
+            <StarBorder>
               <div className="relative h-full w-full overflow-hidden rounded-[1.6rem]">
                 <PortraitMorph
                   srcA={PORTRAIT_SRC}
@@ -52,7 +53,11 @@ export function Hero(): ReactNode {
                   alt={t.hero.portraitAlt}
                 />
               </div>
-            </div>
+            </StarBorder>
+            <p className="portrait-hint w-full max-w-[300px] text-center text-xs tracking-wide text-foreground/75 sm:max-w-[350px]">
+              <span className="portrait-hint-mouse">{locale === "fr" ? "Survole ou clique pour changer de portrait" : "Hover or click to change the portrait"}</span>
+              <span className="portrait-hint-touch">{locale === "fr" ? "Touche la photo pour changer de portrait" : "Tap the photo to change the portrait"}</span>
+            </p>
           </ScaleUnblur>
         </div>
       </div>

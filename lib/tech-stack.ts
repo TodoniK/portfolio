@@ -1,7 +1,9 @@
+import brandSources from "@/public/assets/brands/sources.json";
+
 export type TechChip = {
   name: string;
   slug?: string;
-  iconUrl?: string;
+  iconUrl?: string | undefined;
   bg: string;
   fg: string;
 };
@@ -9,12 +11,12 @@ export type TechChip = {
 export const TECH_REGISTRY: Record<string, TechChip> = {
   Docker: { name: "Docker", slug: "docker", bg: "#1362b8", fg: "#ffffff" },
   Kubernetes: { name: "Kubernetes", slug: "kubernetes", bg: "#2557c7", fg: "#ffffff" },
-  Azure: { name: "Azure", iconUrl: "/assets/icons/azure.svg", bg: "#0062a8", fg: "#ffffff" },
-  AWS: { name: "AWS", iconUrl: "/assets/icons/aws.svg", bg: "#232F3E", fg: "#ffffff" },
-  "Oracle Cloud": { name: "Oracle Cloud", iconUrl: "/assets/icons/oracle.svg", bg: "#b83824", fg: "#ffffff" },
-  Dokploy: { name: "Dokploy", iconUrl: "/assets/icons/dokploy.svg", bg: "#0f172a", fg: "#ffffff" },
-  Cloudflare: { name: "Cloudflare", iconUrl: "/assets/icons/cloudflare.svg", bg: "#9a3412", fg: "#ffffff" },
-  "Hermes Agent": { name: "Hermes Agent", iconUrl: "/assets/icons/hermes.svg", bg: "#4338ca", fg: "#ffffff" },
+  Azure: { name: "Azure", slug: "azure", bg: "#0062a8", fg: "#ffffff" },
+  AWS: { name: "AWS", slug: "aws", bg: "#232F3E", fg: "#ffffff" },
+  "Oracle Cloud": { name: "Oracle Cloud", slug: "oracle", bg: "#b83824", fg: "#ffffff" },
+  Dokploy: { name: "Dokploy", slug: "dokploy", bg: "#0f172a", fg: "#ffffff" },
+  Cloudflare: { name: "Cloudflare", slug: "cloudflare", bg: "#9a3412", fg: "#ffffff" },
+  "Hermes Agent": { name: "Hermes Agent", slug: "hermes", bg: "#4338ca", fg: "#ffffff" },
   Terraform: { name: "Terraform", slug: "terraform", bg: "#6d28d9", fg: "#ffffff" },
   Linux: { name: "Linux", slug: "linux", bg: "#FCC624", fg: "#000000" },
   "Spring Boot": { name: "Spring Boot", slug: "springboot", bg: "#2e7d32", fg: "#ffffff" },
@@ -35,8 +37,8 @@ export const TECH_REGISTRY: Record<string, TechChip> = {
   Symfony: { name: "Symfony", slug: "symfony", bg: "#000000", fg: "#ffffff" },
   Rust: { name: "Rust", slug: "rust", bg: "#000000", fg: "#ffffff" },
   Android: { name: "Android", slug: "android", bg: "#3DDC84", fg: "#000000" },
-  OpenCode: { name: "OpenCode", iconUrl: "/icon.svg", bg: "#0066FF", fg: "#ffffff" },
-  "Claude Code": { name: "Claude Code", slug: "anthropic", bg: "#b45309", fg: "#ffffff" },
+  OpenCode: { name: "OpenCode", slug: "opencode", bg: "#0066FF", fg: "#ffffff" },
+  "Claude Code": { name: "Claude Code", slug: "claude", bg: "#b45309", fg: "#ffffff" },
   GitLab: { name: "GitLab", slug: "gitlab", bg: "#c2410c", fg: "#ffffff" },
   GitHub: { name: "GitHub", slug: "github", bg: "#181717", fg: "#ffffff" },
   SQLite: { name: "SQLite", slug: "sqlite", bg: "#003B57", fg: "#ffffff" },
@@ -45,19 +47,17 @@ export const TECH_REGISTRY: Record<string, TechChip> = {
   MySQL: { name: "MySQL", slug: "mysql", bg: "#1d5b9f", fg: "#ffffff" },
   "Socket.io": { name: "Socket.io", slug: "socketdotio", bg: "#010101", fg: "#ffffff" },
   "Express.js": { name: "Express.js", slug: "express", bg: "#000000", fg: "#ffffff" },
-  Java: { name: "Java", slug: "openjdk", bg: "#c2410c", fg: "#ffffff" },
+  Java: { name: "Java", slug: "java", bg: "#c2410c", fg: "#ffffff" },
 };
 
 export function getTechChip(name: string): TechChip {
   const clean = name.trim();
-  if (TECH_REGISTRY[clean]) {
-    return TECH_REGISTRY[clean];
-  }
-  // Fallback
-  return {
+  const chip = TECH_REGISTRY[clean] ?? {
     name: clean,
-    slug: clean.toLowerCase().replace(/[^a-z0-9]/g, ""),
     bg: "#27272a",
     fg: "#ffffff",
   };
+  const slug = chip.slug ?? chip.iconUrl?.split("/").pop()?.replace(".svg", "");
+  const source = slug ? (brandSources as Record<string, { file: string }>)[slug] : undefined;
+  return { ...chip, iconUrl: source ? `/assets/brands/${source.file}` : undefined };
 }

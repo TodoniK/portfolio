@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/ui/localized-link";
 import { FadeIn } from "@/components/ui/motion-primitives";
 import { useLanguage } from "@/lib/i18n";
 import { getTechChip } from "@/lib/tech-stack";
@@ -224,19 +224,19 @@ function ProjectCard({
                 color: chip.fg,
               }}
             >
-              <span
+              {chip.iconUrl && <span
                 className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white/95 p-0.5 shadow-2xs"
                 aria-hidden="true"
               >
                 <Image
-                  src={chip.iconUrl ?? `https://cdn.simpleicons.org/${chip.slug}`}
+                  src={chip.iconUrl}
                   alt=""
                   width={12}
                   height={12}
                   unoptimized
                   className="h-3 w-3 object-contain"
                 />
-              </span>
+              </span>}
               <span>{chip.name}</span>
             </span>
           ))}

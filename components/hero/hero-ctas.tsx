@@ -2,7 +2,7 @@
 
 import { ArrowRight, FileText } from "lucide-react";
 import { LayoutGroup, motion } from "motion/react";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/ui/localized-link";
 import type { ReactNode } from "react";
 import { useLanguage } from "@/lib/i18n";
 import { ContactButton } from "@/components/contact/contact-button";

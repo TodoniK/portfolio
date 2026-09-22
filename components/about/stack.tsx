@@ -4,37 +4,12 @@ import { RotateCcw } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useLanguage } from "@/lib/i18n";
+import { getTechChip, type TechChip } from "@/lib/tech-stack";
+import { useReducedMotion } from "@/lib/motion";
 
-type Chip = {
-  label: string;
-  slug: string;
-  bg: string;
-  fg: string;
-  iconUrl?: string;
-};
+type Chip = TechChip & { label: string };
 
-const CHIPS: Chip[] = [
-  { label: "Docker", slug: "docker", bg: "#2496ED", fg: "#ffffff" },
-  { label: "Kubernetes", slug: "kubernetes", bg: "#2557c7", fg: "#ffffff" },
-  { label: "Azure", slug: "azure", bg: "#0078D4", fg: "#ffffff", iconUrl: "/assets/icons/azure.svg" },
-  { label: "AWS", slug: "aws", bg: "#232F3E", fg: "#ffffff", iconUrl: "/assets/icons/aws.svg" },
-  { label: "Oracle Cloud", slug: "oracle", bg: "#C74634", fg: "#ffffff", iconUrl: "/assets/icons/oracle.svg" },
-  { label: "Dokploy", slug: "dokploy", bg: "#0f172a", fg: "#ffffff", iconUrl: "/assets/icons/dokploy.svg" },
-  { label: "Cloudflare", slug: "cloudflare", bg: "#F38020", fg: "#ffffff", iconUrl: "/assets/icons/cloudflare.svg" },
-  { label: "Hermes Agent", slug: "hermes", bg: "#4f46e5", fg: "#ffffff", iconUrl: "/assets/icons/hermes.svg" },
-  { label: "Terraform", slug: "terraform", bg: "#7b3db8", fg: "#ffffff" },
-  { label: "Linux", slug: "linux", bg: "#FCC624", fg: "#000000" },
-  { label: "Java", slug: "openjdk", bg: "#ED8B00", fg: "#ffffff" },
-  { label: "Spring Boot", slug: "springboot", bg: "#6DB33F", fg: "#ffffff" },
-  { label: "Kotlin", slug: "kotlin", bg: "#6935f0", fg: "#ffffff" },
-  { label: "TypeScript", slug: "typescript", bg: "#2468b1", fg: "#ffffff" },
-  { label: "React", slug: "react", bg: "#61DAFB", fg: "#0a0a0a" },
-  { label: "Next.js", slug: "nextdotjs", bg: "#111111", fg: "#ffffff" },
-  { label: "Python", slug: "python", bg: "#275c87", fg: "#ffffff" },
-  { label: "PostgreSQL", slug: "postgresql", bg: "#2d52b9", fg: "#ffffff" },
-  { label: "GitHub", slug: "github", bg: "#181717", fg: "#ffffff" },
-  { label: "Tailwind CSS", slug: "tailwindcss", bg: "#06B6D4", fg: "#0a0a0a" },
-];
+const CHIPS: Chip[] = ["Docker", "Kubernetes", "Azure", "AWS", "Oracle Cloud", "Dokploy", "Cloudflare", "Hermes Agent", "Terraform", "Linux", "Java", "Spring Boot", "Kotlin", "TypeScript", "React", "Next.js", "Python", "PostgreSQL", "GitHub", "Tailwind CSS"].map(label => ({ ...getTechChip(label), label }));
 
 const CHIP_RADIUS = 14;
 const ICON_RADIUS = 10;
@@ -53,16 +28,21 @@ export function Stack(): ReactNode {
   const chipRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [resetKey, setResetKey] = useState(0);
   const { t } = useLanguage();
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const container = containerRef.current;
     const measure = measureRef.current;
-    if (!container || !measure) return;
+    if (!container || !measure || reducedMotion) return;
 
     let cancelled = false;
     let cleanup: (() => void) | undefined;
 
-    void (async () => {
+    let started = false;
+    const visibility = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting || started) return;
+      started = true;
+      void (async () => {
       const Matter = await import("matter-js");
       if (cancelled) return;
 
@@ -165,10 +145,11 @@ export function Stack(): ReactNode {
       });
 
       const runner = Runner.create();
-      Runner.run(runner, engine);
+      let running = false;
 
       let raf = 0;
       const tick = (): void => {
+        if (!running) return;
         for (let i = 0; i < states.length; i++) {
           const s = states[i];
           const el = chipRefs.current[i];
@@ -178,7 +159,18 @@ export function Stack(): ReactNode {
         }
         raf = requestAnimationFrame(tick);
       };
-      raf = requestAnimationFrame(tick);
+      let intersecting = true;
+      const syncRunning = () => {
+        const next = intersecting && document.visibilityState === "visible";
+        if (next === running) return;
+        running = next;
+        if (running) { Runner.run(runner, engine); raf = requestAnimationFrame(tick); }
+        else { Runner.stop(runner); cancelAnimationFrame(raf); }
+      };
+      const observer = new IntersectionObserver(([entry]) => { intersecting = Boolean(entry?.isIntersecting); syncRunning(); });
+      observer.observe(container);
+      document.addEventListener("visibilitychange", syncRunning);
+      syncRunning();
 
       const onResize = (): void => {
         const newW = container.clientWidth;
@@ -203,19 +195,31 @@ export function Stack(): ReactNode {
       ro.observe(container);
 
       cleanup = () => {
+        running = false;
+        observer.disconnect();
+        document.removeEventListener("visibilitychange", syncRunning);
+        const handlers = mouse as unknown as Record<string, EventListener>;
+        for (const [event, handler] of [["mousemove", "mousemove"], ["mousedown", "mousedown"], ["mouseup", "mouseup"], ["wheel", "mousewheel"], ["touchmove", "mousemove"], ["touchstart", "mousedown"], ["touchend", "mouseup"]]) {
+          if (handlers[handler!]) container.removeEventListener(event!, handlers[handler!]!);
+        }
         cancelAnimationFrame(raf);
         ro.disconnect();
         Runner.stop(runner);
         World.clear(world, false);
         Engine.clear(engine);
       };
-    })();
+      })();
+    }, { rootMargin: "150px" });
+    visibility.observe(container);
 
     return () => {
       cancelled = true;
+      visibility.disconnect();
       cleanup?.();
     };
-  }, [resetKey]);
+  }, [resetKey, reducedMotion]);
+
+  if (reducedMotion) return <section className="flex flex-col gap-3"><h2 className="text-[15px] font-semibold">{t.about.stackTitle}</h2><ul className="flex flex-wrap gap-2">{CHIPS.map(chip => <li key={chip.label}><ChipPill chip={chip} /></li>)}</ul></section>;
 
   return (
     <div className="flex flex-col gap-3">
@@ -287,21 +291,21 @@ function ChipPill({ chip }: { chip: Chip }): ReactNode {
         borderRadius: `${CHIP_RADIUS}px`,
       }}
     >
-      <span
+      {chip.iconUrl && <span
         className="inline-flex h-7 w-7 items-center justify-center bg-white/95"
         style={{ borderRadius: `${ICON_RADIUS}px` }}
         aria-hidden="true"
       >
         <Image
-          src={chip.iconUrl ?? `https://cdn.simpleicons.org/${chip.slug}`}
+          src={chip.iconUrl}
           alt=""
           width={16}
           height={16}
           unoptimized
-          className="h-4 w-4"
+          className="h-4 w-4 object-contain"
           draggable={false}
         />
-      </span>
+      </span>}
       <span>{chip.label}</span>
     </div>
   );

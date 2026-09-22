@@ -1,100 +1,33 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useRef, useSyncExternalStore, type ReactNode } from "react";
-import { DottedPattern } from "@/components/ui/dotted-pattern";
+import Image from "next/image";
+import { useLanguage } from "@/lib/i18n";
+import { motion } from "motion/react";
+import { useReducedMotion } from "@/lib/motion";
 
-type Polaroid = {
-  id: string;
-  rotate: number;
-};
+const cards = [
+  { fr: "Cloud", en: "Cloud", detail: "Azure · Kubernetes", image: "/assets/brands/kubernetes.svg", rotate: -8 },
+  { fr: "DevOps", en: "DevOps", detail: "Docker · CI/CD", image: "/assets/brands/docker.svg", rotate: 6 },
+  { fr: "Logiciel", en: "Software", detail: "TypeScript · React", image: "/assets/brands/typescript.svg", rotate: -4 },
+  { fr: "Systèmes IA", en: "AI systems", detail: "Hermes · OpenCode", image: "/assets/brands/hermes.svg", rotate: 7 },
+  { fr: "Cybersécurité", en: "Cybersecurity", detail: "Root-Me · CTF", image: "/assets/brands/rootme.svg", rotate: -6 },
+  { fr: "Ingénieur", en: "Engineer", detail: "ENSEIRB-MATMECA", image: "/assets/schools/logo-enseirb-matmeca.webp", rotate: 5 },
+] as const;
 
-const PHOTOS: Polaroid[] = [
-  { id: "a", rotate: -8 },
-  { id: "b", rotate: 6 },
-  { id: "c", rotate: -4 },
-  { id: "d", rotate: 7 },
-  { id: "e", rotate: -6 },
-  { id: "f", rotate: 5 },
-];
-
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-function PolaroidCard({
-  photo,
-  index,
-}: {
-  photo: Polaroid;
-  index: number;
-  label?: string;
-}): ReactNode {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 220, damping: 18, mass: 0.6 });
-  const sy = useSpring(my, { stiffness: 220, damping: 18, mass: 0.6 });
-  const tx = useTransform(sx, (v) => `${v}px`);
-  const ty = useTransform(sy, (v) => `${v}px`);
-
-  const handleMove = (e: React.PointerEvent<HTMLDivElement>): void => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = e.clientX - cx;
-    const dy = e.clientY - cy;
-    const max = 18;
-    const k = 0.25;
-    mx.set(Math.max(-max, Math.min(max, dx * k)));
-    my.set(Math.max(-max, Math.min(max, dy * k)));
-  };
-
-  const handleLeave = (): void => {
-    mx.set(0);
-    my.set(0);
-  };
-
+export function PolaroidStrip() {
+  const { locale } = useLanguage();
+  const reducedMotion = useReducedMotion();
   return (
-    <motion.div
-      ref={ref}
-      onPointerMove={handleMove}
-      onPointerLeave={handleLeave}
-      initial={{ opacity: 0, y: -120, filter: "blur(18px)", rotate: photo.rotate }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: photo.rotate }}
-      transition={{
-        duration: 0.9,
-        delay: 0.05 + index * 0.08,
-        ease: EASE,
-      }}
-      style={{
-        x: tx,
-        y: ty,
-        rotate: photo.rotate,
-      }}
-      className="relative aspect-[3/4] w-[clamp(6rem,11vw,9rem)] shrink-0 overflow-hidden rounded-2xl border-6 border-neutral-300/40 bg-white p-1.5 dark:border-white/15 dark:bg-neutral-900 shadow-sm"
-    >
-      <DottedPattern className="relative h-full w-full overflow-hidden rounded-xl" />
-    </motion.div>
-  );
-}
-
-export function PolaroidStrip(): ReactNode {
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
-
-  if (!mounted) {
-    return <div aria-hidden="true" className="h-[clamp(8rem,15vw,12rem)] w-full" />;
-  }
-
-  return (
-    <div className="flex flex-wrap w-full items-start justify-center gap-1 px-4 sm:gap-1.5 sm:px-8">
-      {PHOTOS.map((photo, i) => (
-        <PolaroidCard key={photo.id} photo={photo} index={i} />
+    <ul aria-label={locale === "fr" ? "Expertises et formation" : "Expertise and education"} className="flex w-full flex-wrap items-start justify-center gap-3 px-6 py-5 sm:gap-2 sm:px-8">
+      {cards.map(card => (
+        <motion.li initial={false} animate={reducedMotion ? {} : { y: [-12, 0], scale: [0.95, 1] }} transition={{ duration: 0.45 }} key={card.en} style={{ rotate: `${card.rotate}deg` }} className="expertise-polaroid flex aspect-[3/4] w-[clamp(7rem,11vw,9rem)] shrink-0 flex-col rounded-2xl border-4 border-neutral-200 bg-white p-2 text-neutral-900 shadow-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100">
+          <div className="flex flex-1 items-center justify-center rounded-lg bg-neutral-100 p-4">
+            <Image src={card.image} alt="" width={64} height={64} sizes="64px" className="h-14 w-14 object-contain" />
+          </div>
+          <p className="mt-3 text-center text-xs font-semibold">{card[locale]}</p>
+          <p className="mt-1 mb-1 text-center text-[10px] leading-relaxed">{card.detail}</p>
+        </motion.li>
       ))}
-    </div>
+    </ul>
   );
 }

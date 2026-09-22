@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
+import { localePath, type Locale } from "./locale";
 
 export const siteConfig = {
   name: "Jules Royet",
   title: "Jules Royet | Cloud & DevOps Architect",
   description:
-    "Cloud & DevOps Architect and Software Engineer. Designing resilient cloud platforms, automated CI/CD pipelines, and high-performance digital systems.",
-  url: "https://julesroyet.dev",
+    "Jules Royet, architecte Cloud et DevOps chez Orange. Ingénierie logicielle, infrastructures Azure et agents IA. Parcours et projets entre Bordeaux et Nice.",
+  url: "https://www.julesroyet.dev",
   ogImage: "/og-image.webp",
   creator: "@julesroyet",
   authors: [
     {
       name: "Jules Royet",
-      url: "https://julesroyet.dev",
+      url: "https://www.julesroyet.dev",
     },
   ],
   keywords: [
@@ -70,8 +71,9 @@ export const baseMetadata: Metadata = {
   alternates: {
     canonical: "/",
     languages: {
-      "en-US": "/",
-      "fr-FR": "/",
+      en: "/en",
+      fr: "/",
+      "x-default": "/",
     },
   },
   openGraph: {
@@ -118,27 +120,35 @@ export function createMetadata({
   path = "/",
   image,
   noIndex = false,
+  locale = "fr",
 }: {
   title?: string;
   description?: string;
   path?: string;
   image?: string;
   noIndex?: boolean;
+  locale?: Locale;
 }): Metadata {
-  const url = `${siteConfig.url}${path}`;
+  const canonical = localePath(path, locale);
+  const url = `${siteConfig.url}${canonical}`;
   const ogImage = image ?? siteConfig.ogImage;
 
   return {
     title,
     description,
     alternates: {
-      canonical: path,
+      canonical,
       languages: {
-        "en-US": path,
-        "fr-FR": path,
+        fr: path,
+        en: localePath(path, "en"),
+        "x-default": path,
       },
     },
     openGraph: {
+      type: "website",
+      siteName: siteConfig.name,
+      locale: locale === "fr" ? "fr_FR" : "en_US",
+      alternateLocale: [locale === "fr" ? "en_US" : "fr_FR"],
       title: title ? `${title} | ${siteConfig.name}` : siteConfig.title,
       description: description ?? siteConfig.description,
       url,
