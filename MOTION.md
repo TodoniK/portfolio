@@ -1,43 +1,42 @@
-# MOTION.md — Control Plane
+# MOTION.md — Kinetic, Apple-like
 
 ## Narrative Role of Motion
 
-Le mouvement raconte un déploiement : démarrage (splash), mise en service des sections (pending → healthy), trafic qui circule (fond vidéo, filets qui se tracent). Il guide l'ordre de lecture et ne cache jamais le contenu.
+Le texte bouge pour être lu : le nom apparaît lettre par lettre, la phrase du hero change de mot, le manifeste s'allume au fil de la lecture. Le mouvement reste doux (ressorts légers), jamais gratuit.
 
 ## Scroll Experience
 
-- Défilement doux Lenis sur pointeur fin uniquement, natif au tactile.
-- Hero : en scrollant, le nom se compresse (`wdth 125 → 62`) et la vidéo se rétracte dans un cadre de 4 px de rayon (scrub GSAP).
-- Manifeste : révélation par groupes de trois mots, opacité 0.14 → 1, scrubée.
-- Expertises : panneau épinglé à défilement horizontal sur desktop (≥ 1024 px), cartes empilées en `position: sticky` sur mobile.
-- Parcours : la ligne du journal se trace avec la progression, chaque entrée passe à l'état `healthy`.
-- Entrées génériques : `animation-timeline: view()` quand supporté, sinon IntersectionObserver.
+- Lenis sur pointeur fin, défilement natif au tactile.
+- Hero : le texte s'efface vers le haut, l'écran vidéo grandit (0.86 → 1) et ses coins se resserrent.
+- ScrollVelocity : deux bandeaux de mots en sens opposé, accélérés par la vitesse de scroll.
+- Manifeste : groupes de trois mots qui passent du gris au noir (couleur, pas opacité, pour le contraste AA).
+- Titres : mots qui montent d'un masque. Cartes : apparition par IntersectionObserver.
+- Expertises : piste horizontale épinglée sur desktop, liste empilée sur mobile.
+- Journal : la ligne bleue se trace avec la progression. Chiffres : comptage unique.
 
 ## Hero Video Behavior
 
-- Boucle 8 s, 16:9 desktop et 9:16 mobile via `<source media>`, WebM AV1 puis MP4 H.264, poster AVIF prioritaire pour le LCP.
-- `muted playsinline loop`, lancée après le chargement, mise en pause hors écran, bouton pause visible (WCAG 2.2.2).
-- Non téléchargée sous mouvement réduit ou `Save-Data`.
+- Poster AVIF prioritaire, vidéo WebM AV1 / MP4 H.264 attachée après le chargement, en pause hors écran, bouton pause visible.
+- Non chargée sous mouvement réduit ou Save-Data.
 
 ## Transitions
 
-- Splash : journal de démarrage de 4 lignes, 1,1 s max, première visite de la session uniquement. Le contenu est rendu dessous.
-- Changement de page : rideau encre qui monte (380 ms, `cubic-bezier(.7,0,.2,1)`) avec la route cible en mono et une barre de progression, puis redescend sur la nouvelle page (420 ms). Pages préchargées au survol.
-- 404 : traceroute qui s'imprime ligne par ligne puis `* * *` et le chiffre 404 qui se compose.
+- Splash, première visite : memoji qui apparaît puis « Bonjour / Hello / Hola », environ 2 s, le contenu est rendu dessous.
+- Changement de page : voile blanc dépoli avec memoji, nom de la destination et barre de progression bleue (340 ms), puis fondu à l'arrivée.
 
 ## Micro-interactions
 
-- Curseur : point 6 px + anneau 36 px en `mix-blend-mode: difference`, interpolation ressort. Au survol d'un lien l'anneau grossit, sur une carte projet il affiche « Ouvrir ».
-- Boutons : soulignement qui se trace de gauche à droite, flèche qui se décale de 4 px.
-- Cartes : la tuile se zoome à 1.04, l'état passe en `healthy`.
-- Copie d'e-mail : retour textuel annoncé via `aria-live`.
+- TargetCursor : quatre crochets qui tournent au repos et se verrouillent sur les liens, boutons et cartes, avec un libellé (« Ouvrir », « Me faire signe »). Pointeur fin uniquement, en `difference`.
+- Memoji : suit le pointeur en 3D, fait signe au clic avec une bulle « Salut ! ».
+- Boutons magnétiques, pression à 0.97 au clic. Cartes : lumière qui suit le pointeur, légère élévation.
+- 404 : la graisse des chiffres suit le pointeur ou le doigt (TextPressure).
 
 ## Fallback prefers-reduced-motion
 
-Sous `reduce` : pas de splash, pas de rideau, pas de Lenis, pas de scrub, pas de vidéo (poster seul), pas de curseur personnalisé. Tout le contenu est visible immédiatement. Les états de survol restent en changement de couleur instantané.
+Pas de splash, pas de voile, pas de Lenis, pas de scrub, pas de vidéo, pas de curseur personnalisé, pas de rotation de mots. Tout est visible immédiatement.
 
 ## Performance Budget
 
-- Uniquement `transform`, `opacity`, `clip-path` et `font-variation-settings` sur l'élément hero.
-- JS avant interaction sur l'accueil < 80 Ko compressés, GSAP chargé après le premier rendu.
-- Aucune tâche longue > 50 ms au chargement, vidéos < 2 Mo, 60 fps visés sur un téléphone milieu de gamme.
+- Uniquement `transform`, `opacity`, `filter` et `color` animés. Hero sans opacité de départ (LCP).
+- Pas de runtime React : les composants React Bits sont portés en TypeScript natif.
+- GSAP et Lenis chargés en différé, au repos du navigateur.

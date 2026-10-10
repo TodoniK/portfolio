@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<style>html,body{margin:0;background:#0F1011}canvas{display:block}</style>
+<style>html,body{margin:0;background:#000}canvas{display:block}</style>
 </head>
 <body>
 <canvas id="c"></canvas>
@@ -14,7 +14,7 @@ const W = +q.get("w") || 1920, H = +q.get("h") || 1080, DUR = +q.get("dur") || 8
 const c = document.getElementById("c"); c.width = W; c.height = H;
 const g = c.getContext("2d");
 const TAU = Math.PI * 2;
-const C = { ink: "#0F1011", ink2: "#1A1C1E", rule: "#2A2D30", paper: "#F1EEE6", muted: "#A3A099", signal: "#FF4F1A", healthy: "#3FCF8E" };
+const C = { ink: "#000000", ink2: "#1D1D1F", rule: "#2C2C2E", paper: "#F5F5F7", muted: "#86868B", signal: "#2997FF", healthy: "#30D158" };
 
 function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
 // Closed-form damped spring from 0 to 1, pure function of elapsed time.
@@ -33,12 +33,12 @@ function bg() {
 }
 function vignette(strength = 0.85) {
   const r = g.createRadialGradient(W * 0.62, H * 0.42, Math.min(W, H) * 0.15, W * 0.5, H * 0.5, Math.max(W, H) * 0.75);
-  r.addColorStop(0, "rgba(15,16,17,0)"); r.addColorStop(1, `rgba(15,16,17,${strength})`);
+  r.addColorStop(0, "rgba(0,0,0,0)"); r.addColorStop(1, `rgba(0,0,0,${strength})`);
   g.fillStyle = r; g.fillRect(0, 0, W, H);
 }
 function grain(t, alpha = 0.035) {
   const R = rng(Math.floor(t * 30) + 7);
-  g.fillStyle = `rgba(241,238,230,${alpha})`;
+  g.fillStyle = `rgba(245,245,247,${alpha})`;
   const n = Math.floor(W * H / 1400);
   for (let i = 0; i < n; i++) g.fillRect(R() * W, R() * H, 1, 1);
 }
@@ -73,7 +73,7 @@ function hero(t) {
     const a = P(topo.nodes[i]), b = P(topo.nodes[j]);
     const d = Math.hypot((a.x + b.x) / 2 - cx, (a.y + b.y) / 2 - cy);
     const lit = Math.exp(-((d - wave) ** 2) / (2 * (90 * S) ** 2));
-    g.strokeStyle = lit > 0.05 ? `rgba(255,79,26,${0.12 + lit * 0.5})` : "rgba(163,160,153,0.13)";
+    g.strokeStyle = lit > 0.05 ? `rgba(41,151,255,${0.12 + lit * 0.5})` : "rgba(134,134,139,0.13)";
     g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke();
   });
   topo.packets.forEach((p) => {
@@ -81,7 +81,7 @@ function hero(t) {
     const u = loopPhase(t, p.k, p.off);
     for (let s = 0; s < 6; s++) {
       const v = u - s * 0.025; if (v < 0) continue;
-      g.fillStyle = `rgba(241,238,230,${0.75 * (1 - s / 6)})`;
+      g.fillStyle = `rgba(245,245,247,${0.75 * (1 - s / 6)})`;
       const r = (2.2 - s * 0.25) * S;
       g.beginPath(); g.arc(a.x + (b.x - a.x) * v, a.y + (b.y - a.y) * v, r, 0, TAU); g.fill();
     }
@@ -92,12 +92,12 @@ function hero(t) {
     const passed = since > 0 && wave < Math.hypot(W, H) * 0.89;
     const s = passed ? spring(since * 1.2) : 0;
     const base = n.hub ? 4.5 : 2.4;
-    g.fillStyle = passed && since < 1.6 ? C.signal : passed ? C.healthy : "rgba(163,160,153,0.55)";
+    g.fillStyle = passed && since < 1.6 ? C.signal : passed ? C.healthy : "rgba(134,134,139,0.55)";
     if (passed && since >= 1.6) g.globalAlpha = clamp(1 - (since - 1.6) / 3, 0.35, 1);
     g.beginPath(); g.arc(p.x, p.y, (base + s * 1.4) * S, 0, TAU); g.fill(); g.globalAlpha = 1;
     if (n.hub) {
       const ph = loopPhase(t, 2, n.r);
-      g.strokeStyle = `rgba(241,238,230,${0.35 * (1 - ph)})`;
+      g.strokeStyle = `rgba(245,245,247,${0.35 * (1 - ph)})`;
       g.beginPath(); g.arc(p.x, p.y, (6 + ph * 38) * S, 0, TAU); g.stroke();
     }
   });
@@ -123,12 +123,12 @@ function cloud(t) {
       const threshold = (i + z * 0.33) / (cols * rows);
       const on = load * 0.72 + 0.12 - threshold;
       const s = clamp(spring(on * 4, 16, 0.5), 0, 1.15);
-      g.strokeStyle = "rgba(163,160,153,0.16)"; g.strokeRect(cx, cy, cw, ch);
+      g.strokeStyle = "rgba(134,134,139,0.16)"; g.strokeRect(cx, cy, cw, ch);
       if (s > 0.01) {
         const sw = (cw - 16 * S) * s, sh = (ch - 16 * S) * s;
         const fresh = on < 0.06;
         g.strokeStyle = fresh ? C.signal : C.healthy; g.lineWidth = 1.5 * S;
-        g.fillStyle = fresh ? "rgba(255,79,26,0.28)" : "rgba(63,207,142,0.16)";
+        g.fillStyle = fresh ? "rgba(41,151,255,0.28)" : "rgba(48,209,88,0.16)";
         g.fillRect(cx + (cw - sw) / 2, cy + (ch - sh) / 2, sw, sh);
         g.strokeRect(cx + (cw - sw) / 2, cy + (ch - sh) / 2, sw, sh);
         g.fillStyle = fresh ? C.signal : C.healthy;
@@ -157,7 +157,7 @@ function ai(t) {
   const n = 4;
   g.lineWidth = 1 * S;
   for (let ring = 1; ring <= 3; ring++) {
-    g.strokeStyle = "rgba(163,160,153,0.12)"; g.beginPath(); g.arc(cx, cy, R0 * ring / 2.2, 0, TAU); g.stroke();
+    g.strokeStyle = "rgba(134,134,139,0.12)"; g.beginPath(); g.arc(cx, cy, R0 * ring / 2.2, 0, TAU); g.stroke();
   }
   for (let i = 0; i < n; i++) {
     const birth = i * 0.6 + 0.3; // seconds within loop
@@ -166,7 +166,7 @@ function ai(t) {
     const ang = TAU * (i / n) + TAU * t / DUR;
     const r = R0 * (0.55 + 0.35 * (i % 2)) * grow;
     const x = cx + Math.cos(ang) * r, y = cy + Math.sin(ang) * r;
-    g.strokeStyle = `rgba(241,238,230,${0.25 * grow})`; g.beginPath(); g.moveTo(cx, cy); g.lineTo(x, y); g.stroke();
+    g.strokeStyle = `rgba(245,245,247,${0.25 * grow})`; g.beginPath(); g.moveTo(cx, cy); g.lineTo(x, y); g.stroke();
     for (let k = 0; k < 3; k++) {
       const u = loopPhase(t, 3, i * 0.21 + k / 3); const out = u < 0.5;
       const v = out ? u * 2 : (1 - u) * 2;
@@ -176,17 +176,17 @@ function ai(t) {
     for (let k = 0; k < 3; k++) {
       const a2 = TAU * (k / 3) - TAU * 2 * t / DUR + i;
       const tx = x + Math.cos(a2) * 46 * S * grow, ty = y + Math.sin(a2) * 46 * S * grow;
-      g.strokeStyle = `rgba(163,160,153,${0.25 * grow})`; g.lineWidth = 1 * S;
+      g.strokeStyle = `rgba(134,134,139,${0.25 * grow})`; g.lineWidth = 1 * S;
       g.beginPath(); g.moveTo(x, y); g.lineTo(tx, ty); g.stroke();
       const hit = loopPhase(t, 6, i * 0.13 + k * 0.31) < 0.18;
-      g.fillStyle = hit ? C.signal : "rgba(241,238,230,0.7)"; g.globalAlpha = grow;
+      g.fillStyle = hit ? C.signal : "rgba(245,245,247,0.7)"; g.globalAlpha = grow;
       g.fillRect(tx - 4 * S, ty - 4 * S, 8 * S, 8 * S); g.globalAlpha = 1;
     }
     g.fillStyle = C.ink2; g.strokeStyle = C.healthy; g.lineWidth = 2 * S;
     g.beginPath(); g.arc(x, y, 16 * S * grow, 0, TAU); g.fill(); g.stroke();
   }
   const pulse = loopPhase(t, 4);
-  g.strokeStyle = `rgba(255,79,26,${0.6 * (1 - pulse)})`; g.lineWidth = 2 * S;
+  g.strokeStyle = `rgba(41,151,255,${0.6 * (1 - pulse)})`; g.lineWidth = 2 * S;
   g.beginPath(); g.arc(cx, cy, (28 + pulse * 70) * S, 0, TAU); g.stroke();
   g.fillStyle = C.signal; g.beginPath(); g.arc(cx, cy, 26 * S, 0, TAU); g.fill();
   g.fillStyle = C.ink; g.beginPath(); g.arc(cx, cy, 10 * S, 0, TAU); g.fill();
@@ -205,13 +205,13 @@ function software(t) {
     const start = i / total, prog = clamp((typing - start) * total);
     const fade = t > DUR - 0.8 ? clamp((DUR - t) / 0.8) : 1;
     const y = pad + i * lh;
-    g.fillStyle = "rgba(163,160,153,0.35)"; g.fillRect(pad - 44 * S, y, 18 * S, 8 * S);
+    g.fillStyle = "rgba(134,134,139,0.35)"; g.fillRect(pad - 44 * S, y, 18 * S, 8 * S);
     const segs = 1 + Math.floor(R() * 3);
     let x = pad + indent;
     for (let s = 0; s < segs; s++) {
       const kw = s === 0 && i % 4 === 0;
       const sw = kw ? Math.min(70 * S, w / segs - 10 * S) : w / segs - 10 * S, vis = clamp(prog * segs - s) * sw;
-      g.fillStyle = kw ? `rgba(255,79,26,${0.9 * fade})` : `rgba(241,238,230,${(s % 2 ? 0.4 : 0.75) * fade})`;
+      g.fillStyle = kw ? `rgba(41,151,255,${0.9 * fade})` : `rgba(245,245,247,${(s % 2 ? 0.4 : 0.75) * fade})`;
       g.fillRect(x, y, vis, 10 * S); x += sw + 10 * S;
     }
     if (prog > 0 && prog < 1 && Math.floor(t * 4) % 2 === 0) { g.fillStyle = C.signal; g.fillRect(pad + indent + w * prog, y - 6 * S, 9 * S, 22 * S); }

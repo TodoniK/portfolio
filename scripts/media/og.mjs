@@ -10,8 +10,8 @@ const dist = join(root, "dist");
 const out = join(dist, "og");
 mkdirSync(out, { recursive: true });
 const b64 = (f) => readFileSync(join(root, f)).toString("base64");
-const archivo = b64("src/assets/fonts/archivo.woff2");
-const mono = b64("src/assets/fonts/jetbrains-mono.woff2");
+const inter = b64("src/assets/fonts/inter.woff2");
+const memoji = `data:image/png;base64,${b64("src/assets/portraits/memoji.png")}`;
 const bgCache = new Map();
 async function bg(file) {
   if (!bgCache.has(file)) bgCache.set(file, `data:image/jpeg;base64,${(await sharp(join(root, file)).resize({ width: 1200 }).jpeg({ quality: 82 }).toBuffer()).toString("base64")}`);
@@ -31,18 +31,18 @@ for (const file of walk(dist)) {
   const title = decode(html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "Jules Royet").replace(/\s*\|\s*Jules Royet$/, "").replace(/^Jules Royet \|\s*/, "");
   const path = "/" + relative(dist, file).replace(/\.html$/, "").replace(/(^|\/)index$/, "");
   const project = path.match(/projects\/([\w-]+)$/)?.[1];
-  const image = await bg(project && existsSync(join(root, `src/assets/tiles/${project}.png`)) ? `src/assets/tiles/${project}.png` : "src/assets/video/hero-16x9.png");
+  const image = project ? await bg(`src/assets/tiles/${project}.png`) : "";
+  const dark = Boolean(project);
   await page.setContent(`<html><head><style>
-@font-face{font-family:A;src:url(data:font/woff2;base64,${archivo});font-weight:100 900;font-stretch:62% 125%}
-@font-face{font-family:M;src:url(data:font/woff2;base64,${mono});font-weight:100 800}
-*{margin:0;box-sizing:border-box}body{width:1200px;height:630px;background:#0F1011 url(${image}) center/cover;color:#F1EEE6;font-family:A;position:relative}
-.s{position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,16,17,.96) 0%,rgba(15,16,17,.82) 55%,rgba(15,16,17,.35) 100%)}
-.c{position:absolute;inset:56px 64px;display:flex;flex-direction:column;justify-content:space-between}
-.k{font-family:M;font-size:22px;letter-spacing:.08em;text-transform:uppercase;color:#A3A099;display:flex;gap:18px;align-items:center}
-.k b{width:34px;height:34px;background:#FF4F1A;color:#0F1011;display:grid;place-items:center;border-radius:4px;font:820 15px A;font-stretch:80%}
-h1{font-size:${title.length > 48 ? 64 : 80}px;font-weight:800;font-stretch:78%;line-height:.95;letter-spacing:-.02em;text-transform:uppercase;max-width:900px}
-.f{font-family:M;font-size:20px;letter-spacing:.06em;color:#A3A099}.f span{color:#FF4F1A}
-</style></head><body><div class="s"></div><div class="c"><p class="k"><b>JR</b>julesroyet.dev${esc(path === "/" ? "" : path)}</p><h1>${esc(title)}</h1><p class="f"><span>●</span> Jules Royet · Cloud &amp; DevOps · AI systems</p></div></body></html>`);
+@font-face{font-family:I;src:url(data:font/woff2;base64,${inter});font-weight:100 900}
+*{margin:0;box-sizing:border-box}body{width:1200px;height:630px;font-family:I;position:relative;overflow:hidden;-webkit-font-smoothing:antialiased;
+background:${dark ? "#000" : "radial-gradient(120% 100% at 50% 0%,#fff 0%,#f5f5f7 60%,#e8e8ed 100%)"};color:${dark ? "#f5f5f7" : "#1d1d1f"}}
+.img{position:absolute;right:-60px;top:70px;width:560px;border-radius:22px;box-shadow:0 40px 80px -30px rgba(0,0,0,.5)}
+.c{position:absolute;left:72px;top:64px;bottom:64px;width:${dark ? 620 : 1000}px;display:flex;flex-direction:column;justify-content:space-between}
+.k{display:flex;align-items:center;gap:16px;font-size:26px;font-weight:600;color:${dark ? "#a1a1a6" : "#6e6e73"}}.k img{width:56px;height:56px}
+h1{font-size:${title.length > 44 ? 62 : 78}px;font-weight:700;line-height:1;letter-spacing:-.045em}
+.f{font-size:24px;font-weight:500;color:${dark ? "#a1a1a6" : "#6e6e73"}}.f b{background:linear-gradient(90deg,#0090f7,#ba62fc,#f2416b);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+</style></head><body>${dark ? `<img class="img" src="${image}">` : ""}<div class="c"><p class="k"><img src="${memoji}">julesroyet.dev${esc(path === "/" ? "" : path)}</p><h1>${esc(title)}</h1><p class="f"><b>Jules Royet</b> · Cloud &amp; DevOps · AI systems</p></div></body></html>`);
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: join(out, `${og}.jpg`), type: "jpeg", quality: 82 });
   n++;

@@ -16,7 +16,9 @@ Site vitrine personnel, environ 35 pages statiques en deux langues. Audience : r
 
 - **Astro 7 en sortie statique.** Zéro JS par défaut, collections de contenu typées, View Transitions natives. Rejeté : Next.js export (runtime React sur chaque page), SvelteKit (moins de gains pour un site sans état).
 - **Workers Static Assets sans script.** Recommandation actuelle de Cloudflare pour les nouveaux projets. `not_found_handling: 404-page`, `html_handling: drop-trailing-slash`. Les en-têtes passent par `_headers`. Rejeté : Pages (en maintenance), Vercel (fournisseur supplémentaire).
-- **Animations : CSS d'abord, GSAP + ScrollTrigger + Lenis en îlot différé.** Les entrées et effets de scroll simples utilisent `animation-timeline: view()` avec repli. GSAP sert aux séquences complexes. Tout est désactivé sous `prefers-reduced-motion`.
+- **Direction visuelle minimaliste façon Apple (révision du 2026-10-10).** La première direction « Control Plane » a été rejetée par l'utilisateur. Inter Variable seule, blanc / gris / noir, bleu d'action, memoji comme signature.
+- **Composants React Bits portés en TypeScript natif.** TargetCursor, RotatingText, ScrollVelocity, TextPressure, SpotlightCard, Magnet. Rejeté : `@astrojs/react` (environ 60 Ko de runtime, pénalise le mobile).
+- **Animations : GSAP + ScrollTrigger + Lenis en import différé, apparitions par IntersectionObserver.** `animation-timeline: view()` est abandonné : le minifieur CSS le fusionne dans le raccourci `animation`, que Chrome rejette. Tout est désactivé sous `prefers-reduced-motion`.
 - **Vidéos motion design en code.** Une page HTML expose `seek(t)` déterministe, Playwright capture chaque image, ffmpeg encode en AV1 (WebM) et H.264 (MP4) avec poster AVIF. Ressorts en forme fermée pour garder `seek(t)` pur.
 - **Images via `astro:assets` (sharp).** AVIF + WebP, `srcset` multi-largeurs, dimensions explicites contre le CLS.
 - **i18n par routes.** FR à la racine, EN sous `/en`, contenu FR/EN dans les mêmes fichiers de données pour garantir la parité.

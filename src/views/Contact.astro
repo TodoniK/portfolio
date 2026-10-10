@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import CopyEmail from "../components/CopyEmail.astro";
-import Arrow from "../components/Arrow.astro";
 import { UI, SITE, href, type Locale } from "../data/site";
 import { breadcrumb, PERSON_ID } from "../data/schema";
 
@@ -40,32 +39,31 @@ const schema = [
 <Base locale={locale} title={c.title} description={c.description} schema={schema}>
   <PageHero locale={locale} kicker={`${ui.contactKicker} · ${ui.location}`} title={c.h1} lead={c.intro} crumbs={[[ui.nav.contact, href(locale, "/contact")]]}>
     <div class="cta">
-      <a class="btn" href={`mailto:${SITE.email}`}>{ui.writeMe} <Arrow dir="up-right" /></a>
+      <a class="btn" href={`mailto:${SITE.email}`} data-magnet>{ui.writeMe}</a>
       <CopyEmail locale={locale} />
     </div>
   </PageHero>
-  <section class="section">
+  <section class="section-tight">
     <div class="wrap cards">
-      <article class="box reveal"><p class="mono num">01</p><h2 class="h3">{c.jobT}</h2><p class="muted">{c.job}</p><a class="inline-link" href={href(locale, "/about")}>{c.bg}</a></article>
-      <article class="box reveal"><p class="mono num">02</p><h2 class="h3">{c.freeT}</h2><p class="muted">{c.free}</p><a class="inline-link" href={href(locale, "/projects")}>{ui.allProjects}</a></article>
-      <article class="box reveal">
-        <p class="mono num">03</p><h2 class="h3">{locale === "fr" ? "Ailleurs" : "Elsewhere"}</h2>
-        <ul role="list" class="mono social">
-          <li><a class="link" href={SITE.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
-          <li><a class="link" href={SITE.github} rel="me noopener" target="_blank">GitHub</a></li>
-          <li><a class="link" href={SITE.rootme} rel="me noopener" target="_blank">Root-Me</a></li>
-          <li><a class="link" href={SITE.cv} type="application/pdf">CV (PDF)</a></li>
+      <article class="card box reveal" data-spotlight><p class="num">01</p><h2 class="h3">{c.jobT}</h2><p class="muted">{c.job}</p><a class="chev" href={href(locale, "/about")}>{c.bg}</a></article>
+      <article class="card box reveal" data-spotlight><p class="num">02</p><h2 class="h3">{c.freeT}</h2><p class="muted">{c.free}</p><a class="chev" href={href(locale, "/projects")}>{ui.allProjects}</a></article>
+      <article class="card box reveal" data-spotlight>
+        <p class="num">03</p><h2 class="h3">{locale === "fr" ? "Ailleurs" : "Elsewhere"}</h2>
+        <ul role="list" class="social">
+          <li><a class="chev" href={SITE.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
+          <li><a class="chev" href={SITE.github} rel="me noopener" target="_blank">GitHub</a></li>
+          <li><a class="chev" href={SITE.rootme} rel="me noopener" target="_blank">Root-Me</a></li>
+          <li><a class="chev" href={SITE.cv} type="application/pdf">CV (PDF)</a></li>
         </ul>
       </article>
     </div>
   </section>
 </Base>
 <style>
-  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
-  .cards { display: grid; gap: 1rem; }
-  .box { border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 3vw, 2.25rem); display: grid; gap: 1rem; align-content: start; }
-  .num { color: var(--accent); }
-  .social { display: grid; gap: 0.5rem; }
-  .social a { text-decoration: none; }
+.cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.75rem; }
+  .cards { display: grid; gap: 0.75rem; }
+  .box { padding: clamp(1.75rem, 3vw, 2.5rem); display: grid; gap: 0.9rem; align-content: start; border-radius: var(--r-lg); }
+  .num { font-size: var(--t-sm); font-weight: 600; color: var(--blue-link); }
+  .social { display: grid; }
   @media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
 </style>

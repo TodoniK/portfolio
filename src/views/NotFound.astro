@@ -1,46 +1,36 @@
 ---
 import Base from "../layouts/Base.astro";
-import Arrow from "../components/Arrow.astro";
+import Memoji from "../components/Memoji.astro";
 import { UI, href, type Locale } from "../data/site";
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const ui = UI[locale];
-const hops: Array<[string, string, string]> = [
-  ["1", "edge.cloudflare", "0.42 ms"],
-  ["2", "bdx1.julesroyet.dev", "3.18 ms"],
-  ["3", "nce1.julesroyet.dev", "9.06 ms"],
-  ["4", "* * *", locale === "fr" ? "délai dépassé" : "request timed out"],
-  ["5", "* * *", locale === "fr" ? "délai dépassé" : "request timed out"],
-];
 ---
 <Base locale={locale} title={`404 · ${ui.notFoundTitle}`} description={ui.notFoundText} noindex og="home">
-  <section class="nf on-ink grain">
+  <section class="nf">
     <div class="wrap inner">
-      <pre class="trace mono" aria-hidden="true"><span class="cmd">$ traceroute julesroyet.dev<span class="path"></span></span>{hops.map(([n, host, ms], i) => (<span class:list={["hop", `t${i}`, { lost: host.startsWith("*") }]}>{n.padStart(2, " ")}  {host.padEnd(22, " ")} {ms}</span>))}</pre>
-      <h1 class="code"><span class="d d1">4</span><span class="d d2">0</span><span class="d d3">4</span><span class="visually-hidden"> · {ui.notFoundTitle}</span></h1>
-      <p class="lead">{ui.notFoundTitle}. <span class="muted">{ui.notFoundText}</span></p>
+      <Memoji locale={locale} size={96} />
+      <h1 class="code" data-pressure aria-label={`404, ${ui.notFoundTitle}`}><span>4</span><span>0</span><span>4</span></h1>
+      <p class="req small muted" aria-hidden="true">GET <span class="path" data-404-path></span> → 404</p>
+      <p class="title">{ui.notFoundTitle}.</p>
+      <p class="lead">{ui.notFoundText}</p>
       <div class="cta">
-        <a class="btn" href={href(locale, "/")}>{ui.notFoundHome} <Arrow /></a>
-        <a class="btn btn--ghost" href={href(locale, "/projects")}>{ui.allProjects} <Arrow /></a>
+        <a class="btn" href={href(locale, "/")} data-magnet>{ui.notFoundHome}</a>
+        <a class="chev" href={href(locale, "/projects")}>{ui.allProjects}</a>
       </div>
     </div>
   </section>
 </Base>
 <style>
-  .nf { min-height: 100svh; display: grid; align-items: center; }
-  .inner { padding-block: calc(var(--header-h) + 3rem) 4rem; display: grid; gap: 2rem; }
-  .trace { font-size: clamp(0.7rem, 2.6vw, 0.875rem); line-height: 1.8; color: var(--muted-ink); white-space: pre; overflow-x: auto; display: grid; }
-  .cmd { color: var(--paper); }
-  .path { color: var(--signal); }
-  .hop { opacity: 0; animation: hop 0.01s steps(1) forwards; }
-  .t0 { animation-delay: 0.35s; } .t1 { animation-delay: 0.7s; } .t2 { animation-delay: 1.05s; } .t3 { animation-delay: 1.6s; } .t4 { animation-delay: 2.15s; }
-  .lost { color: var(--signal); }
-  @keyframes hop { to { opacity: 1; } }
-  .code { font-size: clamp(7rem, 38vw, 26rem); font-weight: 860; line-height: 0.8; letter-spacing: -0.05em; display: flex; }
-  .d { display: inline-block; animation: d-in 1.2s var(--ease-out) backwards, wobble 6s var(--ease-io) 3.4s infinite; }
-  .d1 { animation-delay: 2.3s, 3.4s; } .d2 { animation-delay: 2.45s, 3.6s; color: var(--signal); } .d3 { animation-delay: 2.6s, 3.8s; }
-  @keyframes d-in { from { opacity: 0; transform: translateY(40%); font-stretch: 125%; filter: blur(12px); } to { font-stretch: 62%; } }
-  .d { font-stretch: 62%; }
-  @keyframes wobble { 0%, 100% { font-stretch: 62%; } 50% { font-stretch: 100%; } }
-  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .nf { min-height: 100svh; display: grid; align-items: center; text-align: center; }
+  .inner { padding-block: calc(var(--header-h) + 2rem) 3rem; display: grid; justify-items: center; gap: 1rem; }
+  /* weight reacts to the pointer (port of React Bits TextPressure, scripts/app.ts) */
+  .code { display: flex; justify-content: center; gap: 0.02em; font-size: clamp(8rem, 42vw, 22rem); font-weight: 200; letter-spacing: -0.06em; line-height: 0.85; }
+  .code span { display: inline-block; width: 0.64em; text-align: center; font-variant-numeric: tabular-nums; animation: blur-in 1.1s var(--ease-out) backwards; }
+  .code span:nth-child(2) { animation-delay: 0.08s; background: linear-gradient(135deg, #0090f7, #ba62fc 50%, #f2416b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .code span:nth-child(3) { animation-delay: 0.16s; }
+  .req { font-variant-numeric: tabular-nums; }
+  .path { color: var(--fg); }
+  .lead { margin-inline: auto; }
+  .cta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.5rem 1.5rem; margin-top: 0.75rem; }
 </style>

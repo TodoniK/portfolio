@@ -6,13 +6,5 @@ const ui = UI[Astro.props.locale];
 
 <button class="btn btn--ghost copy" type="button" data-copy={SITE.email} data-copied={ui.copied} hidden>
   <span data-copy-label>{ui.copy}</span>
-  <span class="mono addr">{SITE.email}</span>
 </button>
 <span class="visually-hidden" aria-live="polite" data-copy-status></span>
-
-<style>
-  .copy { text-transform: none; }
-  .copy [data-copy-label] { text-transform: uppercase; }
-  .addr { display: none; letter-spacing: 0; text-transform: none; opacity: 0.7; }
-  @media (min-width: 640px) { .addr { display: inline; } }
-</style>

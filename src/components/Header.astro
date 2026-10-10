@@ -1,95 +1,95 @@
 ---
+import { Image } from "astro:assets";
+import memoji from "../assets/portraits/memoji.png";
 import { UI, href, alternatePath, type Locale } from "../data/site";
 interface Props { locale: Locale; path: string }
 const { locale, path } = Astro.props;
 const ui = UI[locale];
 const other: Locale = locale === "fr" ? "en" : "fr";
+const switchHref = /\/404$/.test(path) ? href(other, "/") : alternatePath(path, other);
 const links = [
   { key: "/projects", label: ui.nav.projects },
   { key: "/about", label: ui.nav.about },
   { key: "/contact", label: ui.nav.contact },
 ];
-const switchHref = /\/404$/.test(path) ? href(other, "/") : alternatePath(path, other);
 const current = (key: string) => path === href(locale, key) || path.startsWith(`${href(locale, key)}/`);
 ---
 
-<header class="header on-ink">
+<header class="header">
   <div class="bar">
     <a class="brand" href={href(locale, "/")} aria-label={`Jules Royet, ${ui.nav.home}`}>
-      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><rect width="32" height="32" rx="4" fill="#FF4F1A"></rect><text x="16" y="21" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="13" letter-spacing="-0.5" fill="#0F1011">JR</text></svg>
-      <span class="mono">Jules Royet</span>
+      <Image src={memoji} alt="" width={28} height={28} widths={[28, 56]} sizes="28px" format="avif" loading="eager" />
+      <span>Jules Royet</span>
     </a>
     <nav class="nav" aria-label={locale === "fr" ? "Navigation principale" : "Main navigation"}>
       <ul role="list">
-        {links.map((l) => (
-          <li><a class="mono link" href={href(locale, l.key)} aria-current={current(l.key) ? "page" : undefined}>{l.label}</a></li>
-        ))}
+        {links.map((l) => <li><a href={href(locale, l.key)} aria-current={current(l.key) ? "page" : undefined}>{l.label}</a></li>)}
       </ul>
     </nav>
     <div class="tools">
-      <span class="pill status">{ui.status}</span>
-      <a class="mono lang" href={switchHref} hreflang={other} lang={other} aria-label={ui.langLabel}>{ui.langShort}</a>
-      <button class="menu-btn mono" popovertarget="menu" aria-haspopup="dialog">{ui.menu}</button>
+      <a class="lang" href={switchHref} hreflang={other} lang={other} aria-label={ui.langLabel}>{ui.langShort}</a>
+      <button class="menu-btn" popovertarget="menu" aria-haspopup="dialog" aria-label={ui.menu}>
+        <span></span><span></span>
+      </button>
     </div>
   </div>
-  <div id="menu" class="menu on-ink grain" popover role="dialog" aria-label={ui.menu}>
+  <div id="menu" class="menu" popover role="dialog" aria-label={ui.menu}>
     <div class="menu-top">
-      <span class="mono muted">{ui.location}</span>
-      <button class="mono" popovertarget="menu" popovertargetaction="hide">{ui.close}</button>
+      <span class="small muted">{ui.location}</span>
+      <button popovertarget="menu" popovertargetaction="hide" class="close" aria-label={ui.close}><span></span><span></span></button>
     </div>
     <ul role="list">
-      <li><a href={href(locale, "/")}><span class="mono">00</span>{ui.nav.home}</a></li>
-      {links.map((l, i) => (
-        <li><a href={href(locale, l.key)} aria-current={current(l.key) ? "page" : undefined}><span class="mono">0{i + 1}</span>{l.label}</a></li>
-      ))}
+      <li><a href={href(locale, "/")}>{ui.nav.home}</a></li>
+      {links.map((l) => <li><a href={href(locale, l.key)} aria-current={current(l.key) ? "page" : undefined}>{l.label}</a></li>)}
     </ul>
-    <a class="mono lang-big" href={switchHref} hreflang={other} lang={other}>{ui.langLabel}</a>
+    <a class="chev" href={switchHref} hreflang={other} lang={other}>{ui.langLabel}</a>
   </div>
 </header>
 
 <style>
-  .header { position: fixed; inset: 0 0 auto; z-index: 50; background: transparent; }
+  .header { position: fixed; inset: 0 0 auto; z-index: 50; }
   .bar {
-    display: flex; align-items: center; gap: 1.5rem; height: var(--header-h);
-    padding-inline: var(--gutter);
-    background: color-mix(in srgb, var(--ink) 72%, transparent);
-    -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2);
-    border-bottom: 1px solid color-mix(in srgb, var(--rule-ink) 70%, transparent);
+    display: flex; align-items: center; gap: 1.5rem; height: var(--header-h); padding-inline: var(--gutter);
+    background: rgb(251 251 253 / 0.78); -webkit-backdrop-filter: saturate(1.8) blur(20px); backdrop-filter: saturate(1.8) blur(20px);
+    border-bottom: 1px solid rgb(0 0 0 / 0.06);
   }
-  .brand { display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-  .brand .mono { font-size: 0.8125rem; }
+  .bar, .nav a, .lang { transition: background-color 0.4s var(--ease), border-color 0.4s, color 0.3s; }
+  :global(.header-dark) .bar { background: rgb(22 22 23 / 0.78); border-bottom-color: rgb(255 255 255 / 0.08); color: #f5f5f7; }
+  :global(.header-dark) .nav a, :global(.header-dark) .lang { color: rgb(255 255 255 / 0.8); }
+  :global(.header-dark) .nav a:hover, :global(.header-dark) .nav a[aria-current="page"] { color: #fff; }
+  :global(.header-dark) .lang:hover { background: rgb(255 255 255 / 0.1); }
+  .brand { display: inline-flex; align-items: center; gap: 0.6rem; font-size: var(--t-sm); font-weight: 600; letter-spacing: -0.01em; min-height: 2.75rem; }
+  .brand :global(img) { width: 28px; height: 28px; transition: transform 0.5s var(--spring); }
+  .brand:hover :global(img) { transform: rotate(-10deg) scale(1.08); }
   .nav { margin-inline: auto; display: none; }
-  .nav ul { display: flex; gap: 2rem; }
-  .nav a { text-decoration: none; padding-block: 0.75rem; }
-  .nav a[aria-current="page"] { color: var(--signal); }
-  .tools { display: flex; align-items: center; gap: 1rem; margin-left: auto; }
-  .status { display: none; }
-  .lang, .menu-btn { min-height: 2.75rem; min-width: 2.75rem; display: inline-grid; place-items: center; text-decoration: none; border: 1px solid var(--line); border-radius: var(--radius); padding-inline: 0.75rem; }
-  .lang:hover, .menu-btn:hover { border-color: var(--signal); color: var(--signal); }
-  @media (min-width: 900px) {
-    .nav { display: block; }
-    .tools { margin-left: 0; }
-    .menu-btn { display: none; }
-    .status { display: inline-flex; }
-  }
+  .nav ul { display: flex; gap: 2.25rem; }
+  .nav a { font-size: var(--t-xs); color: rgb(0 0 0 / 0.8); padding-block: 0.9rem; transition: color 0.2s; }
+  .nav a:hover { color: #000; }
+  .nav a[aria-current="page"] { color: #000; font-weight: 600; }
+  .tools { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; }
+  .lang { min-height: 2.75rem; min-width: 2.75rem; display: inline-grid; place-items: center; font-size: var(--t-xs); font-weight: 600; color: rgb(0 0 0 / 0.8); border-radius: var(--pill); }
+  .lang:hover { background: rgb(0 0 0 / 0.05); }
+  .menu-btn, .close { width: 2.75rem; height: 2.75rem; display: grid; place-content: center; gap: 6px; border-radius: var(--pill); }
+  .menu-btn span, .close span { display: block; width: 18px; height: 1.5px; background: currentColor; border-radius: 2px; }
+  .close span:first-child { transform: translateY(3.75px) rotate(45deg); }
+  .close span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+  @media (min-width: 900px) { .nav { display: block; } .tools { margin-left: 0; } .menu-btn { display: none; } }
 
   .menu {
     inset: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; border: 0; margin: 0;
-    padding: 1.25rem var(--gutter) 2rem; flex-direction: column;
-    transition: opacity 0.3s, translate 0.45s var(--ease-out), display 0.45s allow-discrete, overlay 0.45s allow-discrete;
-    opacity: 0; translate: 0 -2%;
+    padding: 0.5rem var(--gutter) 2.5rem; flex-direction: column; background: rgb(255 255 255 / 0.92);
+    -webkit-backdrop-filter: blur(30px) saturate(1.8); backdrop-filter: blur(30px) saturate(1.8); color: var(--black);
+    transition: opacity 0.35s var(--ease), display 0.35s allow-discrete, overlay 0.35s allow-discrete; opacity: 0;
   }
-  .menu:popover-open { display: flex; opacity: 1; translate: 0 0; }
-  @starting-style { .menu:popover-open { opacity: 0; translate: 0 -2%; } }
+  .menu:popover-open { display: flex; opacity: 1; }
+  @starting-style { .menu:popover-open { opacity: 0; } }
   .menu-top { display: flex; justify-content: space-between; align-items: center; min-height: 2.75rem; }
-  .menu-top button { min-height: 2.75rem; padding-inline: 0.75rem; border: 1px solid var(--line); border-radius: var(--radius); }
-  .menu ul { margin-block: auto; display: grid; gap: 0.25rem; }
-  .menu li a {
-    display: flex; align-items: baseline; gap: 1rem; text-decoration: none;
-    font-size: clamp(2.6rem, 13vw, 5rem); font-weight: 800; font-stretch: 75%; text-transform: uppercase; line-height: 1;
-    padding-block: 0.4rem; border-bottom: 1px solid var(--line);
-  }
-  .menu li a .mono { color: var(--signal); font-size: 0.75rem; }
-  .menu li a[aria-current="page"] { color: var(--signal); }
-  .lang-big { padding-block: 1rem; }
+  .menu ul { margin-top: 2.5rem; display: grid; gap: 0.35rem; }
+  .menu li a { display: block; font-size: 2rem; font-weight: 650; letter-spacing: -0.035em; padding-block: 0.3rem; }
+  .menu li { opacity: 0; transform: translateY(-8px); transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out); }
+  .menu:popover-open li { opacity: 1; transform: none; }
+  .menu:popover-open li:nth-child(2) { transition-delay: 40ms; } .menu:popover-open li:nth-child(3) { transition-delay: 80ms; } .menu:popover-open li:nth-child(4) { transition-delay: 120ms; }
+  @starting-style { .menu:popover-open li { opacity: 0; transform: translateY(-8px); } }
+  .menu li a[aria-current="page"] { color: var(--fg-2); }
+  .menu .chev { margin-top: auto; }
 </style>

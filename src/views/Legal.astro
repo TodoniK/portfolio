@@ -9,7 +9,7 @@ const fr = locale === "fr";
 ---
 <Base locale={locale} title={ui.legal} description={fr ? "Mentions légales du site julesroyet.dev : éditeur, hébergeur, données personnelles." : "Legal notice for julesroyet.dev: publisher, hosting provider, personal data."}>
   <PageHero locale={locale} kicker="julesroyet.dev" title={ui.legal} crumbs={[[ui.legal, href(locale, "/legal")]]} />
-  <section class="section">
+  <section class="section-tight">
     <div class="wrap prose">
       <h2 class="h3">{fr ? "Éditeur" : "Publisher"}</h2>
       <p>Jules Royet, {fr ? "particulier" : "private individual"}, Bordeaux, France. {fr ? "Contact" : "Contact"} : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. {fr ? "Directeur de la publication : Jules Royet." : "Publication director: Jules Royet."}</p>
@@ -27,6 +27,6 @@ const fr = locale === "fr";
   </section>
 </Base>
 <style>
-  .prose :global(h2) { margin-top: 2.5rem; margin-bottom: 0.75rem; }
+.prose :global(h2) { margin-top: 2.5rem; margin-bottom: 0.75rem; }
   .prose :global(h2:first-child) { margin-top: 0; }
 </style>

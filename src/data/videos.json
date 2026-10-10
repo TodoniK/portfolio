@@ -3,45 +3,45 @@
     "w": 1920,
     "h": 1080,
     "dur": 8,
-    "webm": "/video/hero-16x9.d785d956.webm",
-    "webmBytes": 208929,
-    "mp4": "/video/hero-16x9.e5d00ace.mp4",
-    "mp4Bytes": 603745
+    "webm": "/video/hero-16x9.4eae4560.webm",
+    "webmBytes": 227018,
+    "mp4": "/video/hero-16x9.aeb5c716.mp4",
+    "mp4Bytes": 539919
   },
   "hero-9x16": {
     "w": 1080,
     "h": 1920,
     "dur": 8,
-    "webm": "/video/hero-9x16.e3e0703e.webm",
-    "webmBytes": 202960,
-    "mp4": "/video/hero-9x16.4b7eea00.mp4",
-    "mp4Bytes": 598375
+    "webm": "/video/hero-9x16.ab468513.webm",
+    "webmBytes": 223957,
+    "mp4": "/video/hero-9x16.e4ded24c.mp4",
+    "mp4Bytes": 530077
   },
   "cloud": {
     "w": 960,
     "h": 720,
     "dur": 6,
-    "webm": "/video/cloud.beaed8f1.webm",
-    "webmBytes": 102657,
-    "mp4": "/video/cloud.7fe540aa.mp4",
-    "mp4Bytes": 148322
+    "webm": "/video/cloud.149bf34d.webm",
+    "webmBytes": 97648,
+    "mp4": "/video/cloud.bfd82f4d.mp4",
+    "mp4Bytes": 145939
   },
   "ai": {
     "w": 960,
     "h": 720,
     "dur": 6,
-    "webm": "/video/ai.e467e74d.webm",
-    "webmBytes": 98629,
-    "mp4": "/video/ai.dc829eab.mp4",
-    "mp4Bytes": 117176
+    "webm": "/video/ai.a8d7eab7.webm",
+    "webmBytes": 96100,
+    "mp4": "/video/ai.ef976786.mp4",
+    "mp4Bytes": 117486
   },
   "software": {
     "w": 960,
     "h": 720,
     "dur": 6,
-    "webm": "/video/software.5d1e4e67.webm",
-    "webmBytes": 18978,
-    "mp4": "/video/software.0ca25f09.mp4",
-    "mp4Bytes": 29142
+    "webm": "/video/software.22b3e958.webm",
+    "webmBytes": 18108,
+    "mp4": "/video/software.bf6ad91f.mp4",
+    "mp4Bytes": 25841
   }
 }

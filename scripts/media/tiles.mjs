@@ -11,8 +11,7 @@ const root = resolve(import.meta.dirname, "../..");
 const outDir = join(root, "src/assets/tiles");
 mkdirSync(outDir, { recursive: true });
 const font = (f) => readFileSync(join(root, "src/assets/fonts", f)).toString("base64");
-const archivo = font("archivo.woff2");
-const mono = font("jetbrains-mono.woff2");
+const inter = font("inter.woff2");
 const shots = { shopeen: "png", iplocator: "png", automatisms: "png", mijotons: "png", portfolio: "png", stakeirb: "jpg" };
 
 function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
@@ -45,26 +44,29 @@ async function html(item, article, i) {
     ? `data:image/jpeg;base64,${(await sharp(join(root, "src/assets/projects", `${item.id}.${shot}`)).resize({ width: 1640 }).jpeg({ quality: 90 }).toBuffer()).toString("base64")}`
     : null;
   const metric = article.metrics[0];
-  return `<!doctype html><html><head><meta charset="utf-8"><style>
-@font-face{font-family:A;src:url(data:font/woff2;base64,${archivo}) format("woff2");font-weight:100 900;font-stretch:62% 125%}
-@font-face{font-family:M;src:url(data:font/woff2;base64,${mono}) format("woff2");font-weight:100 800}
-*{box-sizing:border-box;margin:0}body{width:1600px;height:1000px;background:#0F1011;color:#F1EEE6;font-family:A;position:relative;overflow:hidden}
-.grid{position:absolute;inset:0;background-image:linear-gradient(#2A2D30 1px,transparent 1px),linear-gradient(90deg,#2A2D30 1px,transparent 1px);background-size:80px 80px;opacity:.9}
-.glyph{position:absolute;right:${src ? "-40px" : "40px"};top:${src ? "-60px" : "70px"};opacity:${src ? ".5" : "1"}}
-.edges line{stroke:#5C5A54;stroke-width:2}.route{fill:none;stroke:#FF4F1A;stroke-width:4;stroke-dasharray:14 10}
-.nodes circle{fill:#A3A099}.nodes .hot{fill:#FF4F1A}.nodes .ok{fill:#3FCF8E}
-.meta{position:absolute;left:80px;top:72px;font-family:M;font-size:26px;letter-spacing:.08em;text-transform:uppercase;color:#A3A099;display:flex;gap:28px}
-.meta b{color:#FF4F1A;font-weight:500}
-.name{position:absolute;left:72px;bottom:${src ? "86px" : "120px"};font-weight:820;font-stretch:${src ? "72%" : "88%"};font-size:${src ? 132 : 170}px;line-height:.86;letter-spacing:-.03em;max-width:${src ? "700px" : "1180px"};word-spacing:.12em;text-transform:uppercase}
-.kpi{position:absolute;left:80px;bottom:56px;font-family:M;font-size:26px;color:#A3A099;letter-spacing:.04em}.kpi span{color:#3FCF8E}
-.shot{position:absolute;right:72px;bottom:72px;width:820px;border:2px solid #2A2D30;border-radius:6px;background:#1A1C1E;overflow:hidden}
-.bar{height:38px;display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:2px solid #2A2D30}.bar i{width:12px;height:12px;border-radius:50%;background:#2A2D30}
-.shot img{display:block;width:100%;height:520px;object-fit:cover;object-position:top}
-</style></head><body><div class="grid"></div><div class="glyph">${glyph(item.id, src ? 900 : 760, src ? 760 : 620)}</div>
-<div class="meta"><b>${String(i + 1).padStart(2, "0")}</b><span>${item.tag}</span><span>${article.timeline.en}</span></div>
-<h1 class="name">${codename(item)}</h1>
-${src ? `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${src}"></div>` : `<p class="kpi">${metric.label.en} <span>${metric.value}</span></p>`}
-</body></html>`;
+  const css = `@font-face{font-family:I;src:url(data:font/woff2;base64,${inter}) format("woff2");font-weight:100 900}
+*{box-sizing:border-box;margin:0}body{width:1600px;height:1000px;font-family:I;position:relative;overflow:hidden;-webkit-font-smoothing:antialiased}`;
+  if (src) return `<!doctype html><html><head><meta charset="utf-8"><style>${css}
+body{background:radial-gradient(120% 90% at 50% 0%,#ffffff 0%,#f0f0f3 55%,#e3e4ea 100%)}
+.win{position:absolute;left:140px;right:140px;top:110px;border-radius:22px;background:#fff;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.06),0 50px 90px -30px rgba(0,0,0,.35)}
+.bar{height:52px;display:flex;align-items:center;gap:10px;padding:0 22px;background:#f6f6f8;border-bottom:1px solid rgba(0,0,0,.06)}
+.bar i{width:14px;height:14px;border-radius:50%}.bar i:nth-child(1){background:#ff5f57}.bar i:nth-child(2){background:#febc2e}.bar i:nth-child(3){background:#28c840}
+.url{margin-left:auto;margin-right:auto;font-size:20px;color:#6e6e73;background:#ececf0;padding:6px 28px;border-radius:10px;letter-spacing:-.01em}
+.win img{display:block;width:100%;height:760px;object-fit:cover;object-position:top}
+</style></head><body><div class="win"><div class="bar"><i></i><i></i><i></i><span class="url">${(item.previewUrl || "localhost").replace(/^https?:\/\//, "").replace(/\/$/, "")}</span></div><img src="${src}"></div></body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${css}
+body{background:#000;color:#f5f5f7}
+.glow{position:absolute;width:1100px;height:1100px;right:-200px;top:-420px;border-radius:50%;background:radial-gradient(circle,rgba(41,151,255,.32),rgba(186,98,252,.12) 45%,transparent 70%)}
+.glyph{position:absolute;right:60px;top:40px}
+.edges line{stroke:rgba(255,255,255,.2);stroke-width:2}.route{fill:none;stroke:#2997FF;stroke-width:4;stroke-linecap:round}
+.nodes circle{fill:rgba(255,255,255,.55)}.nodes .hot{fill:#2997FF}.nodes .ok{fill:#30D158}
+.meta{position:absolute;left:84px;bottom:90px;display:flex;flex-direction:column;gap:18px}
+.k{font-size:30px;font-weight:600;letter-spacing:.01em;color:#86868b;text-transform:uppercase;padding-left:6px}
+.name{font-weight:680;font-size:150px;line-height:.9;letter-spacing:-.05em;max-width:1200px;
+background:linear-gradient(180deg,#fff 30%,#a1a1a6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kpi{position:absolute;left:90px;top:80px;font-size:28px;color:#86868b}.kpi b{display:block;font-size:84px;font-weight:700;letter-spacing:-.05em;color:#f5f5f7}
+</style></head><body><div class="glow"></div><div class="glyph">${glyph(item.id, 860, 640)}</div>
+<div class="meta"><p class="k">${item.tag}</p><h1 class="name">${codename(item)}</h1></div><p class="kpi"><b>${metric.value}</b>${metric.label.en}</p></body></html>`;
 }
 const codename = (item) => ({ shopeen: "Shopeen", "m2c-flows": "M2C Flows", "opencode-harness": "OpenCode Harness", iplocator: "IP Locator", automatisms: "Automatisms", stakeirb: "Stakeirb", portfolio: "Portfolio" })[item.id] ?? item.title.split(" ")[0];
 

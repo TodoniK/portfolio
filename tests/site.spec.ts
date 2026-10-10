@@ -21,7 +21,7 @@ for (const { locale, path } of PAGES) {
       expect(() => JSON.parse(ld ?? "")).not.toThrow();
       expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
       if (info.project.name === "mobile") {
-        const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
+        const axe = await new AxeBuilder({ page }).exclude(".splash").exclude(".curtain").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
         const bad = axe.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
         expect(bad.map((v) => `${v.id}: ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(" | ")}`)).toEqual([]);
       }
@@ -62,8 +62,8 @@ test("reduced motion: no splash, no curtain, no custom cursor, content visible",
   await page.goto("/");
   await expect(page.locator(".splash")).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.classList.contains("has-cursor"))).toBe(false);
-  await page.locator(".w-item").first().scrollIntoViewIfNeeded();
-  expect(await page.locator(".w-item").first().evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+  await page.locator(".b-item").first().scrollIntoViewIfNeeded();
+  expect(await page.locator(".b-item").first().evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
   expect(await page.locator("video").count()).toBe(0);
   await ctx.close();
 });

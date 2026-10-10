@@ -1,4 +1,5 @@
 ---
+// Port of React Bits "LogoLoop": monochrome logos, hover pauses and reveals colour.
 import { UI, type Locale } from "../data/site";
 interface Props { locale: Locale }
 const ui = UI[Astro.props.locale];
@@ -12,30 +13,29 @@ const items: Array<[string, string]> = [
 ];
 const list = items.map(([name, file]) => ({ name, src: icons[`../assets/brands/${file}.svg`] }));
 ---
-<section class="stack on-ink" aria-labelledby="stack-title">
-  <h2 id="stack-title" class="visually-hidden">{ui.stackTitle}</h2>
-  <p class="mono label" aria-hidden="true">{ui.stackTitle}</p>
+<section class="stack" aria-labelledby="stack-title">
+  <div class="wrap"><h2 id="stack-title" class="eyebrow">{ui.stackTitle}</h2></div>
   <div class="viewport">
     {[0, 1].map((copy) => (
       <ul class="row" role="list" aria-hidden={copy === 1 ? "true" : undefined}>
-        {list.map((i) => (
-          <li class="mono">{i.src && <img src={i.src} alt="" width="22" height="22" loading="lazy" decoding="async" />}{i.name}</li>
-        ))}
+        {list.map((i) => <li>{i.src && <img src={i.src} alt="" width="28" height="28" loading="lazy" decoding="async" />}<span>{i.name}</span></li>)}
       </ul>
     ))}
   </div>
 </section>
 <style>
-  .stack { padding-block: 2.5rem; border-block: 1px solid var(--line); overflow: hidden; }
-  .label { padding-inline: var(--gutter); color: var(--fg-muted); margin-bottom: 1.5rem; }
-  .viewport { display: flex; width: max-content; animation: marquee 60s linear infinite; }
+  .stack { padding-block: clamp(3rem, 8vw, 5rem); overflow: hidden; }
+  .stack .eyebrow { margin-bottom: 2rem; }
+  .viewport { display: flex; width: max-content; animation: marquee 70s linear infinite; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
   .stack:hover .viewport { animation-play-state: paused; }
-  .row { display: flex; gap: 2.75rem; padding-right: 2.75rem; }
-  .row li { display: inline-flex; align-items: center; gap: 0.75rem; white-space: nowrap; font-size: 0.875rem; }
-  .row img { width: 22px; height: 22px; filter: grayscale(1) brightness(1.8) contrast(0.9); opacity: 0.85; }
+  .row { display: flex; gap: 3rem; padding-right: 3rem; }
+  .row li { display: inline-flex; align-items: center; gap: 0.75rem; white-space: nowrap; font-size: var(--t-body); font-weight: 500; color: var(--fg-2); transition: color 0.3s; }
+  .row img { width: 28px; height: 28px; filter: grayscale(1); opacity: 0.7; transition: filter 0.4s, opacity 0.4s, transform 0.4s var(--spring); }
+  .row li:hover { color: var(--fg); }
+  .row li:hover img { filter: none; opacity: 1; transform: scale(1.15); }
   @keyframes marquee { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) {
-    .viewport { width: auto; animation: none; }
+    .viewport { width: auto; animation: none; mask-image: none; }
     .row { flex-wrap: wrap; padding-inline: var(--gutter); gap: 1rem 2rem; }
     .row[aria-hidden="true"] { display: none; }
   }
