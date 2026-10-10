@@ -6,10 +6,18 @@ import Lenis from "lenis";
 gsap.registerPlugin(ScrollTrigger);
 
 /** Wraps words in spans, grouped by three (reads as phrases, not robotic word-by-word). */
+/** Keeps the original text for assistive tech in a visually hidden copy; the animated pieces are aria-hidden. */
+function srCopy(el: HTMLElement, text: string) {
+  const sr = document.createElement("span");
+  sr.className = "visually-hidden";
+  sr.textContent = text;
+  el.append(sr);
+}
+
 function splitWords(el: HTMLElement, group = 3) {
   const words = (el.textContent ?? "").trim().split(/\s+/);
-  el.setAttribute("aria-label", words.join(" "));
   el.textContent = "";
+  srCopy(el, words.join(" "));
   const spans: HTMLElement[] = [];
   for (let i = 0; i < words.length; i += group) {
     const s = document.createElement("span");
@@ -24,8 +32,18 @@ function splitWords(el: HTMLElement, group = 3) {
 
 function splitLines(el: HTMLElement) {
   const words = (el.textContent ?? "").trim().split(/\s+/);
-  el.setAttribute("aria-label", words.join(" "));
-  el.innerHTML = words.map((w) => `<span class="mask" aria-hidden="true"><span class="w">${w}</span></span>`).join(" ");
+  el.textContent = "";
+  words.forEach((w, i) => {
+    const mask = document.createElement("span");
+    mask.className = "mask";
+    mask.setAttribute("aria-hidden", "true");
+    const inner = document.createElement("span");
+    inner.className = "w";
+    inner.textContent = w;
+    mask.append(inner);
+    el.append(mask, i < words.length - 1 ? " " : "");
+  });
+  srCopy(el, words.join(" "));
   return [...el.querySelectorAll<HTMLElement>(".w")];
 }
 
@@ -52,8 +70,11 @@ export function init(finePointer: boolean) {
   /* manifesto: phrase-by-phrase reading, scrubbed */
   document.querySelectorAll<HTMLElement>("[data-words]").forEach((el) => {
     const spans = splitWords(el);
-    gsap.fromTo(spans, { opacity: 0.14 }, {
-      opacity: 1, stagger: 0.1, ease: "none",
+    // colour (not opacity) keeps unread phrases above WCAG AA contrast
+    const from = getComputedStyle(el).getPropertyValue("--fg-muted").trim() || "#5c5a54";
+    const to = getComputedStyle(el).color;
+    gsap.fromTo(spans, { color: from }, {
+      color: to, stagger: 0.1, ease: "none",
       scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 45%", scrub: true },
     });
   });

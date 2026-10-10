@@ -66,7 +66,7 @@ async function html(item, article, i) {
 ${src ? `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${src}"></div>` : `<p class="kpi">${metric.label.en} <span>${metric.value}</span></p>`}
 </body></html>`;
 }
-const codename = (item) => ({ "m2c-flows": "M2C Flows", "opencode-harness": "OpenCode Harness", iplocator: "IP Locator", automatisms: "Automatisms", stakeirb: "Stakeirb", portfolio: "Portfolio" })[item.id] ?? item.title.split(" ")[0];
+const codename = (item) => ({ shopeen: "Shopeen", "m2c-flows": "M2C Flows", "opencode-harness": "OpenCode Harness", iplocator: "IP Locator", automatisms: "Automatisms", stakeirb: "Stakeirb", portfolio: "Portfolio" })[item.id] ?? item.title.split(" ")[0];
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1600, height: 1000 } });

@@ -48,6 +48,7 @@ const schema = [
   .filters input { appearance: none; width: 0.6rem; height: 0.6rem; border-radius: 50%; border: 1px solid currentColor; margin: 0; }
   .filters input:checked { background: var(--signal); border-color: var(--signal); }
   .filters label:has(input:checked) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .filters label:has(input:checked) span { color: var(--muted-ink); }
   .filters label:has(input:focus-visible) { outline: 2px solid var(--signal); outline-offset: 2px; }
   .grid { display: grid; gap: clamp(3rem, 6vw, 4.5rem) clamp(1.25rem, 3vw, 2.5rem); }
   @media (min-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); } }

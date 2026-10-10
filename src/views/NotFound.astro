@@ -16,7 +16,7 @@ const hops: Array<[string, string, string]> = [
 <Base locale={locale} title={`404 · ${ui.notFoundTitle}`} description={ui.notFoundText} noindex og="home">
   <section class="nf on-ink grain">
     <div class="wrap inner">
-      <pre class="trace mono" aria-hidden="true"><span class="cmd">$ traceroute julesroyet.dev<span class="path"></span></span>{hops.map(([n, host, ms], i) => (<span class:list={["hop", `h${i}`, { lost: host.startsWith("*") }]}>{n.padStart(2, " ")}  {host.padEnd(22, " ")} {ms}</span>))}</pre>
+      <pre class="trace mono" aria-hidden="true"><span class="cmd">$ traceroute julesroyet.dev<span class="path"></span></span>{hops.map(([n, host, ms], i) => (<span class:list={["hop", `t${i}`, { lost: host.startsWith("*") }]}>{n.padStart(2, " ")}  {host.padEnd(22, " ")} {ms}</span>))}</pre>
       <h1 class="code"><span class="d d1">4</span><span class="d d2">0</span><span class="d d3">4</span><span class="visually-hidden"> · {ui.notFoundTitle}</span></h1>
       <p class="lead">{ui.notFoundTitle}. <span class="muted">{ui.notFoundText}</span></p>
       <div class="cta">
@@ -33,7 +33,7 @@ const hops: Array<[string, string, string]> = [
   .cmd { color: var(--paper); }
   .path { color: var(--signal); }
   .hop { opacity: 0; animation: hop 0.01s steps(1) forwards; }
-  .h0 { animation-delay: 0.35s; } .h1 { animation-delay: 0.7s; } .h2 { animation-delay: 1.05s; } .h3 { animation-delay: 1.6s; } .h4 { animation-delay: 2.15s; }
+  .t0 { animation-delay: 0.35s; } .t1 { animation-delay: 0.7s; } .t2 { animation-delay: 1.05s; } .t3 { animation-delay: 1.6s; } .t4 { animation-delay: 2.15s; }
   .lost { color: var(--signal); }
   @keyframes hop { to { opacity: 1; } }
   .code { font-size: clamp(7rem, 38vw, 26rem); font-weight: 860; line-height: 0.8; letter-spacing: -0.05em; display: flex; }

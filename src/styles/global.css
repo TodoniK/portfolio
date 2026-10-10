@@ -268,7 +268,7 @@ ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
 
 /* ---------- reduced motion: everything visible, nothing moving ---------- */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; filter: none; animation: none; }
   .is-splash .splash, .curtain { display: none; }
 }
