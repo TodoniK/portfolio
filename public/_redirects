@@ -1,0 +1,3 @@
+/assets/resume/resumes.pdf /resumes.pdf 301
+/fr / 301
+/fr/* /:splat 301

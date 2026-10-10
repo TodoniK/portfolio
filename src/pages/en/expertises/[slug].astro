@@ -1,0 +1,9 @@
+---
+import View from "../../../views/Expertise.astro";
+import { EXPERTISES, type ExpertiseSlug } from "../../../data/expertises";
+export function getStaticPaths() {
+  return Object.keys(EXPERTISES).map((slug) => ({ params: { slug } }));
+}
+const slug = Astro.params.slug as ExpertiseSlug;
+---
+<View locale="en" slug={slug} />

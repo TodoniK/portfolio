@@ -1,0 +1,58 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { UI, t, href, projects, CLUSTERS, CLUSTER_LABEL, SITE, type Locale } from "../data/site";
+import { breadcrumb } from "../data/schema";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const ui = UI[locale];
+const d = t(locale);
+const list = projects(locale);
+const meta = locale === "fr"
+  ? { title: "Projets cloud, DevOps, logiciel et agents IA", description: "Études de cas de Jules Royet : architectures cloud, développement logiciel, agents autonomes et automatisation. Décisions techniques et réalisations." }
+  : { title: "Cloud, DevOps, software and AI projects", description: "Engineering case studies by Jules Royet: cloud infrastructure, software development, autonomous agents and automation. Technical decisions and outcomes." };
+const schema = [
+  breadcrumb(locale, [[ui.nav.projects, href(locale, "/projects")]]),
+  {
+    "@type": "CollectionPage",
+    name: meta.title,
+    url: new URL(href(locale, "/projects"), SITE.url).href,
+    mainEntity: { "@type": "ItemList", itemListElement: list.map((p, i) => ({ "@type": "ListItem", position: i + 1, url: new URL(href(locale, `/projects/${p.id}`), SITE.url).href, name: p.title })) },
+  },
+];
+---
+<Base locale={locale} title={meta.title} description={meta.description} schema={schema}>
+  <PageHero locale={locale} kicker={ui.projectsCount(list.length)} title={d.projects.pageTitle} lead={d.projects.pageDescription} crumbs={[[ui.nav.projects, href(locale, "/projects")]]} />
+  <section class="section">
+    <div class="wrap">
+      <fieldset class="filters">
+        <legend class="mono muted">{ui.filterLabel}</legend>
+        <label class="mono"><input type="radio" name="f" value="all" checked /> {ui.filterAll} <span>{list.length}</span></label>
+        {CLUSTERS.map((c) => (
+          <label class="mono"><input type="radio" name="f" value={c.slug} /> {CLUSTER_LABEL[c.slug][locale]} <span>{list.filter((p) => p.clusters.includes(c.slug)).length}</span></label>
+        ))}
+      </fieldset>
+      <ol class="grid" role="list">
+        {list.map((p, i) => <li class="reveal" data-clusters={p.clusters.join(" ")}><ProjectCard project={p} locale={locale} headingLevel="h2" eager={i < 2} /></li>)}
+      </ol>
+    </div>
+  </section>
+</Base>
+<style>
+  .filters { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+  .filters legend { margin-bottom: 0.75rem; float: left; width: 100%; }
+  .filters label { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1rem; border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; transition: background-color 0.25s, color 0.25s, border-color 0.25s; }
+  .filters label span { color: var(--fg-muted); }
+  .filters input { appearance: none; width: 0.6rem; height: 0.6rem; border-radius: 50%; border: 1px solid currentColor; margin: 0; }
+  .filters input:checked { background: var(--signal); border-color: var(--signal); }
+  .filters label:has(input:checked) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .filters label:has(input:focus-visible) { outline: 2px solid var(--signal); outline-offset: 2px; }
+  .grid { display: grid; gap: clamp(3rem, 6vw, 4.5rem) clamp(1.25rem, 3vw, 2.5rem); }
+  @media (min-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  section:has(input[value="cloud-devops"]:checked) .grid li:not([data-clusters~="cloud-devops"]),
+  section:has(input[value="systemes-ia"]:checked) .grid li:not([data-clusters~="systemes-ia"]),
+  section:has(input[value="developpement-logiciel"]:checked) .grid li:not([data-clusters~="developpement-logiciel"]) { display: none; }
+</style>

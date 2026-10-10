@@ -1,0 +1,29 @@
+---
+import { Picture } from "astro:assets";
+import base from "../assets/portraits/jules-base.webp";
+import hey from "../assets/portraits/jules-hey.webp";
+import { UI, type Locale } from "../data/site";
+interface Props { locale: Locale; class?: string; eager?: boolean }
+const { locale, class: cls, eager = false } = Astro.props;
+const ui = UI[locale];
+const common = { formats: ["avif"] as const, fallbackFormat: "webp" as const, widths: [360, 560, 800], sizes: "(min-width: 900px) 30vw, 88vw", quality: 72 };
+---
+<figure class:list={["portrait", cls]}>
+  <button type="button" class="frame" data-portrait aria-pressed="false" aria-label={ui.portraitAlt}>
+    <Picture src={base} alt="" class="a" loading={eager ? "eager" : "lazy"} {...common} formats={[...common.formats]} />
+    <Picture src={hey} alt="" class="b" loading="lazy" {...common} formats={[...common.formats]} />
+    <span class="tag mono" aria-hidden="true">jules@bdx ~ $ <b>whoami</b></span>
+  </button>
+  <figcaption class="mono muted">{ui.portraitHint}</figcaption>
+</figure>
+<style>
+  .portrait { display: grid; gap: 0.75rem; max-width: 26rem; }
+  .frame { position: relative; display: block; width: 100%; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: #ecebe8; }
+  .frame :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transition: opacity 0.5s var(--ease-out), transform 0.8s var(--ease-out); }
+  .frame :global(img.b) { opacity: 0; transform: scale(1.03); }
+  .frame[aria-pressed="true"] :global(img.b) { opacity: 1; transform: none; }
+  @media (hover: hover) and (pointer: fine) { .frame:hover :global(img.b) { opacity: 1; transform: none; } }
+  .tag { position: absolute; left: 0.75rem; bottom: 0.75rem; padding: 0.35rem 0.6rem; background: var(--ink); color: var(--paper); border-radius: var(--radius); font-size: 0.6875rem; }
+  .tag b { color: var(--signal); font-weight: 500; }
+  figcaption { font-size: 0.6875rem; }
+</style>

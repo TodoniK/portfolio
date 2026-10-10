@@ -1,42 +1,44 @@
 {
   "name": "jules-portfolio",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "private": true,
+  "type": "module",
   "author": "Jules Royet",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.mjs",
-    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx,.mjs --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,json,css,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,json,css,md}\"",
-    "typecheck": "tsc --noEmit"
+    "dev": "astro dev",
+    "build": "astro check && astro build && node scripts/media/og.mjs && node scripts/build/headers.mjs",
+    "preview": "wrangler dev",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "media:tiles": "node scripts/media/tiles.mjs",
+    "media:video": "node scripts/media/video.mjs",
+    "media:og": "node scripts/media/og.mjs",
+    "test": "playwright test",
+    "lighthouse": "node scripts/quality/lighthouse.mjs",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.5.0",
-    "@vercel/speed-insights": "^1.2.0",
-    "lenis": "^1.3.23",
-    "lucide-react": "^0.562.0",
-    "matter-js": "^0.20.0",
-    "motion": "^12.23.26",
-    "next": "16.1.1",
-    "next-themes": "^0.4.6",
-    "ogl": "^1.0.11",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "@astrojs/check": "^0.9.10",
+    "astro": "^7.3.8",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/matter-js": "^0.20.2",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.1",
-    "prettier": "^3.7.4",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.64.0",
+    "lighthouse": "^13.5.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1",
+    "sharp": "^0.35.5",
+    "wrangler": "^4.149.0"
+  },
+  "allowScripts": {
+    "workerd@1.20261006.1": true,
+    "esbuild@0.28.2": true,
+    "sharp@0.35.5": true
   }
 }

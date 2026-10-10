@@ -1,0 +1,117 @@
+---
+import "../styles/global.css";
+import { createHash } from "node:crypto";
+import archivo from "../assets/fonts/archivo.woff2?url";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE, UI, alternatePath, type Locale } from "../data/site";
+import { personGraph } from "../data/schema";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  /** Extra JSON-LD nodes for this page, merged into the site graph. */
+  schema?: Record<string, unknown>[];
+  og?: string;
+  noindex?: boolean;
+  /** Pass false when the page starts with a light section (header colour). */
+  inkTop?: boolean;
+}
+const { locale, title, description, schema = [], og, noindex = false, inkTop = true } = Astro.props;
+const path = Astro.url.pathname.replace(/\.html$/, "").replace(/\/index$/, "").replace(/(.)\/$/, "$1") || "/";
+const canonical = new URL(path, SITE.url).href;
+const fr = new URL(alternatePath(path, "fr"), SITE.url).href;
+const en = new URL(alternatePath(path, "en"), SITE.url).href;
+const ogSlug = og ?? (path === "/" ? "home" : path.slice(1).replaceAll("/", "-"));
+const ogImage = new URL(`/og/${ogSlug}.jpg`, SITE.url).href;
+const fullTitle = title.includes("Jules Royet") ? title : `${title} | Jules Royet`;
+const ui = UI[locale];
+// Runs before first paint: decides splash/arrival state. Hashed explicitly for the CSP.
+const BOOT = `(function(){var d=document.documentElement;d.classList.remove("no-js");if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;try{if(!sessionStorage.getItem("jr-boot")){d.classList.add("is-splash");sessionStorage.setItem("jr-boot","1")}else if(sessionStorage.getItem("jr-nav")){d.classList.add("is-arriving")}sessionStorage.removeItem("jr-nav")}catch(e){}})();`;
+Astro.csp?.insertScriptHash(`sha256-${createHash("sha256").update(BOOT).digest("base64")}`);
+const graph = { "@context": "https://schema.org", "@graph": [...personGraph(locale), ...schema] };
+---
+
+<!doctype html>
+<html lang={locale} class="no-js" data-locale={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {
+      !noindex && (
+        <>
+          <link rel="alternate" hreflang="fr" href={fr} />
+          <link rel="alternate" hreflang="en" href={en} />
+          <link rel="alternate" hreflang="x-default" href={fr} />
+        </>
+      )
+    }
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1"} />
+    <meta name="author" content="Jules Royet" />
+    <meta name="theme-color" content="#0F1011" />
+    <meta name="color-scheme" content="light" />
+    <meta property="og:type" content={path.includes("/projects/") ? "article" : "website"} />
+    <meta property="og:site_name" content="Jules Royet" />
+    <meta property="og:locale" content={locale === "fr" ? "fr_FR" : "en_US"} />
+    <meta property="og:locale:alternate" content={locale === "fr" ? "en_US" : "fr_FR"} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content={SITE.twitter} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href={archivo} as="font" type="font/woff2" crossorigin />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <slot name="head" />
+    <script is:inline set:html={BOOT} />
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+  </head>
+  <body class:list={[{ "ink-top": inkTop }]}>
+    <a class="skip" href="#main">{ui.skip}</a>
+    <div class="splash" aria-hidden="true">
+      <div>
+        <ol>
+          <li class="l0">$ boot julesroyet.dev</li>
+          <li class="l1"><span>[ ok ]</span> edge · cloudflare</li>
+          <li class="l2"><span>[ ok ]</span> region · bdx / nce</li>
+          <li class="l3"><span>[ ok ]</span> health · 200</li>
+        </ol>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <div class="curtain" aria-hidden="true">
+      <div class="route"><span>{ui.loading} <b data-curtain-route></b></span><div class="bar"></div></div>
+    </div>
+    <div class="cursor" aria-hidden="true"><span class="ring"><span class="label" data-cursor-label>{ui.open}</span></span><span class="dot"></span></div>
+    <Header locale={locale} path={path} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+    <script>
+      import "../scripts/app";
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: fixed; left: 1rem; top: 1rem; z-index: 200; padding: 0.75rem 1rem;
+    background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 0.8125rem;
+    transform: translateY(-200%); transition: transform 0.2s;
+  }
+  .skip:focus { transform: none; }
+  main:focus { outline: none; }
+  .splash .l0 { --i: 0; } .splash .l1 { --i: 1; } .splash .l2 { --i: 2; } .splash .l3 { --i: 3; }
+</style>

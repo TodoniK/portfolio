@@ -1,0 +1,122 @@
+---
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Portrait from "../components/Portrait.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Arrow from "../components/Arrow.astro";
+import { UI, SITE, t, href, CLUSTERS, CLUSTER_LABEL, type Locale } from "../data/site";
+import { breadcrumb, profilePage } from "../data/schema";
+import { logo } from "../data/media";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const ui = UI[locale];
+const d = t(locale).about;
+const meta = locale === "fr"
+  ? { title: "Parcours et expertises cloud & DevOps", description: "Jules Royet, architecte cloud et DevOps chez Orange, diplômé de l'ENSEIRB-MATMECA. Parcours, compétences et projets, de Bordeaux à Nice." }
+  : { title: "About: cloud & DevOps engineering experience", description: "Meet Jules Royet, Cloud & DevOps Architect at Orange and ENSEIRB-MATMECA graduate. Engineering experience, technical skills and projects in Bordeaux and Nice." };
+const schema = [breadcrumb(locale, [[ui.nav.about, href(locale, "/about")]]), profilePage(locale)];
+---
+<Base locale={locale} title={meta.title} description={meta.description} schema={schema}>
+  <PageHero locale={locale} kicker={ui.heroKicker} title={d.bioTitle} crumbs={[[ui.nav.about, href(locale, "/about")]]} />
+
+  <section class="section">
+    <div class="wrap bio">
+      <Portrait locale={locale} eager />
+      <div class="prose text">
+        <p class="first">{d.bioP1}</p>
+        <p>{d.bioP2}</p>
+        <p>{d.bioP3}</p>
+        <p>
+          {locale === "fr" ? "Mes domaines : " : "My areas: "}
+          {CLUSTERS.map((c, i) => <><a href={href(locale, `/expertises/${c.slug}`)}>{CLUSTER_LABEL[c.slug][locale]}</a>{i < CLUSTERS.length - 1 ? ", " : "."}</>)}
+          {" "}{locale === "fr" ? "Les réalisations sont détaillées dans les " : "Work is detailed in the "}<a href={href(locale, "/projects")}>{locale === "fr" ? "études de cas" : "case studies"}</a>.
+        </p>
+        <div class="ctas"><a class="btn" href={SITE.cv} type="application/pdf">{ui.heroCv} <Arrow dir="down" /></a><a class="btn btn--ghost" href={href(locale, "/contact")}>{ui.nav.contact} <Arrow /></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight" aria-labelledby="xp">
+    <div class="wrap">
+      <SectionHead num="01" label={ui.experienceTitle} />
+      <h2 id="xp" class="h2 visually-hidden">{ui.experienceTitle}</h2>
+      <ol class="rows" role="list">
+        {d.experiences.map((e) => {
+          const l = logo(e.logo);
+          return (
+            <li class="row reveal">
+              <p class="mono when">{e.period}</p>
+              <div class="who">
+                {l && <Image src={l} alt="" width={44} height={44} class="logo" />}
+                <div><h3 class="h3">{e.role}</h3><p class="mono muted">{e.url ? <a class="link" href={e.url} rel="noopener" target="_blank">{e.company}</a> : e.company}</p></div>
+              </div>
+              <p class="muted">{e.description}</p>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section tight on-ink grain" aria-labelledby="edu">
+    <div class="wrap two">
+      <div>
+        <SectionHead num="02" label={ui.educationTitle} />
+        <h2 id="edu" class="visually-hidden">{ui.educationTitle}</h2>
+        <ul role="list" class="list">
+          {d.educations.map((e) => (
+            <li><p class="mono when">{e.period} · {e.city}</p><h3 class="h3">{e.degree}</h3><p class="muted">{e.url ? <a class="link" href={e.url} rel="noopener" target="_blank">{e.school}</a> : e.school}</p></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <SectionHead num="03" label={ui.certificationsTitle} />
+        <h2 class="visually-hidden">{ui.certificationsTitle}</h2>
+        <ul role="list" class="list">
+          {d.certifications.map((c) => (
+            <li><p class="mono when">{c.year} · {c.issuer}</p><h3 class="h3">{c.url ? <a class="inline-link" href={c.url} rel="noopener" target="_blank">{c.name}</a> : c.name}</h3></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight" aria-labelledby="skills">
+    <div class="wrap two">
+      <div>
+        <SectionHead num="04" label={ui.skillsTitle} />
+        <h2 id="skills" class="visually-hidden">{ui.skillsTitle}</h2>
+        <ul role="list" class="skills">{d.skills.map((s) => <li class="reveal">{s}</li>)}</ul>
+      </div>
+      <div>
+        <SectionHead num="05" label={ui.languages} />
+        <h2 class="visually-hidden">{ui.languages}</h2>
+        <ul role="list" class="skills">{ui.languagesList.map((s) => <li>{s}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .bio { display: grid; gap: clamp(2rem, 6vw, 5rem); }
+  .first { font-size: var(--step-1); line-height: 1.45; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .tight { padding-block: clamp(4rem, 9vw, 7rem); }
+  .rows { display: grid; }
+  .row { display: grid; gap: 0.75rem; padding-block: 1.75rem; border-bottom: 1px solid var(--line); }
+  .when { color: var(--accent); }
+  .who { display: flex; gap: 1rem; align-items: center; }
+  .who :global(.logo) { width: 44px; height: 44px; object-fit: contain; background: #fff; padding: 4px; border-radius: var(--radius); border: 1px solid var(--line); }
+  .two { display: grid; gap: clamp(3rem, 6vw, 5rem); }
+  .list { display: grid; gap: 1.75rem; }
+  .list li { display: grid; gap: 0.4rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+  .list a { text-decoration: none; }
+  .skills { display: grid; }
+  .skills li { padding-block: 0.9rem; border-bottom: 1px solid var(--line); font-size: var(--step-1); font-weight: 560; }
+  @media (min-width: 900px) {
+    .bio { grid-template-columns: 4fr 7fr; align-items: start; }
+    .row { grid-template-columns: 14rem 1fr 1.3fr; gap: 2rem; }
+    .two { grid-template-columns: 1fr 1fr; }
+  }
+</style>

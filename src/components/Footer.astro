@@ -1,0 +1,70 @@
+---
+import { SITE, UI, t, href, CLUSTERS, CLUSTER_LABEL, type Locale } from "../data/site";
+import CopyEmail from "./CopyEmail.astro";
+import Arrow from "./Arrow.astro";
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const ui = UI[locale];
+const d = t(locale);
+const year = new Date().getFullYear();
+---
+
+<footer class="footer on-ink grain" id="contact">
+  <div class="wrap section">
+    <p class="mono kicker"><span class="dot"></span>{ui.contactKicker} · {ui.location}</p>
+    <h2 class="title" data-split>{ui.contactTitle}</h2>
+    <p class="lead muted">{d.contact.description}</p>
+    <div class="cta">
+      <a class="btn" href={`mailto:${SITE.email}`}>{ui.writeMe} <Arrow dir="up-right" /></a>
+      <CopyEmail locale={locale} />
+    </div>
+    <div class="grid">
+      <nav aria-label={locale === "fr" ? "Expertises" : "Expertise"}>
+        <p class="mono muted">{ui.clustersTitle}</p>
+        <ul role="list">
+          {CLUSTERS.map((c) => <li><a class="link" href={href(locale, `/expertises/${c.slug}`)}>{CLUSTER_LABEL[c.slug][locale]}</a></li>)}
+        </ul>
+      </nav>
+      <nav aria-label={locale === "fr" ? "Pages" : "Pages"}>
+        <p class="mono muted">Index</p>
+        <ul role="list">
+          <li><a class="link" href={href(locale, "/projects")}>{ui.nav.projects}</a></li>
+          <li><a class="link" href={href(locale, "/about")}>{ui.nav.about}</a></li>
+          <li><a class="link" href={href(locale, "/contact")}>{ui.nav.contact}</a></li>
+          <li><a class="link" href={SITE.cv} type="application/pdf">CV (PDF)</a></li>
+        </ul>
+      </nav>
+      <nav aria-label={locale === "fr" ? "Réseaux" : "Social"}>
+        <p class="mono muted">{locale === "fr" ? "Ailleurs" : "Elsewhere"}</p>
+        <ul role="list">
+          <li><a class="link" href={SITE.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
+          <li><a class="link" href={SITE.github} rel="me noopener" target="_blank">GitHub</a></li>
+          <li><a class="link" href={SITE.rootme} rel="me noopener" target="_blank">Root-Me</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="bottom mono muted">
+      <span>&copy; {year} Jules Royet</span>
+      <span>{ui.footerBuilt}</span>
+      <a class="link" href={href(locale, "/legal")}>{ui.legal}</a>
+      <a class="link" href="https://www.casa-mocha.fr/" rel="noopener" target="_blank">Casa Mocha</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { position: relative; overflow: hidden; }
+  .kicker { display: flex; align-items: center; gap: 0.75rem; color: var(--fg-muted); }
+  .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--healthy-ink); }
+  .title {
+    font-size: clamp(3.2rem, 15vw, 14rem); font-weight: 840; font-stretch: 70%; line-height: 0.84;
+    letter-spacing: -0.035em; text-transform: uppercase; margin-block: 1.5rem 2rem;
+  }
+  .lead { max-width: 52ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.5rem; }
+  .grid { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); margin-top: clamp(4rem, 10vw, 8rem); padding-top: 2rem; border-top: 1px solid var(--line); }
+  .grid ul { display: grid; gap: 0.5rem; margin-top: 1rem; }
+  .grid a { text-decoration: none; display: inline-block; padding-block: 0.15rem; }
+  .bottom { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; margin-top: 4rem; font-size: 0.75rem; }
+  .bottom a { text-decoration: none; }
+</style>

@@ -1,0 +1,7 @@
+---
+interface Props { num: string; label: string; as?: "h2" | "p" }
+const { num, label } = Astro.props;
+---
+<div class="sec-head mono" data-live>
+  <span class="num">{num}</span><span aria-hidden="true">/</span><span>{label}</span><span class="state" aria-hidden="true"></span>
+</div>

@@ -1,0 +1,71 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import CopyEmail from "../components/CopyEmail.astro";
+import Arrow from "../components/Arrow.astro";
+import { UI, SITE, href, type Locale } from "../data/site";
+import { breadcrumb, PERSON_ID } from "../data/schema";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const ui = UI[locale];
+const c = locale === "fr"
+  ? {
+      title: "Contact : projets et opportunités en ingénierie",
+      description: "Contacter Jules Royet à Bordeaux et Nice pour discuter cloud, DevOps, développement logiciel, systèmes IA, emploi ou projet freelance.",
+      h1: "Échangeons sur votre projet",
+      intro: "Je suis Jules Royet, architecte cloud et DevOps chez Orange, basé à Bordeaux avec une mission à Nice. Je suis ouvert aux échanges sur des opportunités salariées et des projets freelance en cloud, développement logiciel et systèmes IA.",
+      jobT: "Opportunités salariées",
+      job: "Indiquez le poste, l'équipe, le contexte technique, la localisation et les modalités de travail. Mon parcours et mes études de cas permettent de situer mon expérience.",
+      freeT: "Échanges sur une mission freelance",
+      free: "Présentez le problème à résoudre, l'existant, le résultat attendu et le calendrier. Le périmètre, la disponibilité et les modalités sont à définir ensemble avant tout engagement.",
+      bg: "Consulter mon parcours",
+    }
+  : {
+      title: "Contact: engineering projects and opportunities",
+      description: "Contact Jules Royet in Bordeaux and Nice to discuss cloud, DevOps, software engineering, AI systems, employment opportunities or freelance projects.",
+      h1: "Let's talk about your project",
+      intro: "I'm Jules Royet, Cloud & DevOps Architect at Orange, based in Bordeaux with an assignment in Nice. I welcome discussions about engineering roles and freelance projects in cloud, software development and AI systems.",
+      jobT: "Employment opportunities",
+      job: "Share the role, team, technical context, location and working arrangements. My background and project case studies can help you assess the fit.",
+      freeT: "Freelance project discussions",
+      free: "Describe the problem, existing systems, expected outcome and schedule. Scope, availability and working arrangements are discussed together before any commitment.",
+      bg: "Read my background",
+    };
+const schema = [
+  breadcrumb(locale, [[ui.nav.contact, href(locale, "/contact")]]),
+  { "@type": "ContactPage", url: new URL(href(locale, "/contact"), SITE.url).href, about: { "@id": PERSON_ID }, inLanguage: locale },
+];
+---
+<Base locale={locale} title={c.title} description={c.description} schema={schema}>
+  <PageHero locale={locale} kicker={`${ui.contactKicker} · ${ui.location}`} title={c.h1} lead={c.intro} crumbs={[[ui.nav.contact, href(locale, "/contact")]]}>
+    <div class="cta">
+      <a class="btn" href={`mailto:${SITE.email}`}>{ui.writeMe} <Arrow dir="up-right" /></a>
+      <CopyEmail locale={locale} />
+    </div>
+  </PageHero>
+  <section class="section">
+    <div class="wrap cards">
+      <article class="box reveal"><p class="mono num">01</p><h2 class="h3">{c.jobT}</h2><p class="muted">{c.job}</p><a class="inline-link" href={href(locale, "/about")}>{c.bg}</a></article>
+      <article class="box reveal"><p class="mono num">02</p><h2 class="h3">{c.freeT}</h2><p class="muted">{c.free}</p><a class="inline-link" href={href(locale, "/projects")}>{ui.allProjects}</a></article>
+      <article class="box reveal">
+        <p class="mono num">03</p><h2 class="h3">{locale === "fr" ? "Ailleurs" : "Elsewhere"}</h2>
+        <ul role="list" class="mono social">
+          <li><a class="link" href={SITE.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
+          <li><a class="link" href={SITE.github} rel="me noopener" target="_blank">GitHub</a></li>
+          <li><a class="link" href={SITE.rootme} rel="me noopener" target="_blank">Root-Me</a></li>
+          <li><a class="link" href={SITE.cv} type="application/pdf">CV (PDF)</a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</Base>
+<style>
+  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+  .cards { display: grid; gap: 1rem; }
+  .box { border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 3vw, 2.25rem); display: grid; gap: 1rem; align-content: start; }
+  .num { color: var(--accent); }
+  .social { display: grid; gap: 0.5rem; }
+  .social a { text-decoration: none; }
+  @media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+</style>

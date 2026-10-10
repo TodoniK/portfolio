@@ -1,0 +1,40 @@
+---
+// Ink header band shared by inner pages: breadcrumb, kicker, h1, lead.
+import { UI, href, type Locale } from "../data/site";
+interface Props { locale: Locale; kicker: string; title: string; lead?: string; crumbs?: Array<[string, string]>; video?: string }
+const { locale, kicker, title, lead, crumbs = [] } = Astro.props;
+const ui = UI[locale];
+---
+<section class="ph on-ink grain">
+  <slot name="media" />
+  <div class="wrap inner">
+    {crumbs.length > 0 && (
+      <nav class="crumbs mono" aria-label={locale === "fr" ? "Fil d'Ariane" : "Breadcrumb"}>
+        <ol role="list">
+          <li><a class="link" href={href(locale, "/")}>{ui.nav.home}</a></li>
+          {crumbs.map(([label, path], i) => (
+            <li>{i === crumbs.length - 1 ? <span aria-current="page">{label}</span> : <a class="link" href={path}>{label}</a>}</li>
+          ))}
+        </ol>
+      </nav>
+    )}
+    <p class="mono kicker">{kicker}</p>
+    <h1 class="title">{title}</h1>
+    {lead && <p class="lead muted">{lead}</p>}
+    <slot />
+  </div>
+</section>
+<style>
+  .ph { position: relative; overflow: hidden; isolation: isolate; }
+  .inner { padding-top: calc(var(--header-h) + clamp(2.5rem, 8vw, 6rem)); padding-bottom: clamp(3rem, 8vw, 6rem); display: grid; gap: 1.5rem; position: relative; }
+  .crumbs ol { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.75rem; color: var(--fg-muted); }
+  .crumbs li + li::before { content: "/"; margin-right: 0.5rem; color: var(--line); }
+  .crumbs a { text-decoration: none; }
+  .kicker { color: var(--signal); }
+  .title {
+    font-size: clamp(2.6rem, 1rem + 7vw, 8.5rem); font-weight: 800; font-stretch: 78%; line-height: 0.9;
+    letter-spacing: -0.03em; text-transform: uppercase; max-width: 18ch; animation: rise 1s var(--ease-out) backwards;
+  }
+  .lead { animation: rise 1s var(--ease-out) 0.1s backwards; }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); filter: blur(8px); } }
+</style>

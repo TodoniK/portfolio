@@ -1,0 +1,129 @@
+---
+import { Picture, getImage } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Arrow from "../components/Arrow.astro";
+import { UI, SITE, href, projects, CLUSTER_LABEL, type Locale } from "../data/site";
+import { tile } from "../data/media";
+import { breadcrumb, projectSchema } from "../data/schema";
+
+interface Props { locale: Locale; slug: string }
+const { locale, slug } = Astro.props;
+const ui = UI[locale];
+const list = projects(locale);
+const i = list.findIndex((p) => p.id === slug);
+const p = list[i]!;
+const a = p.article;
+const prev = list[(i - 1 + list.length) % list.length]!;
+const next = list[(i + 1) % list.length]!;
+const img = await getImage({ src: tile(p.id), format: "jpeg", width: 1200 });
+const title = locale === "fr" ? `${p.title} : étude de cas` : `${p.title}: case study`;
+const clean = (s: string) => s.replace(/[.:]$/, "");
+const schema = [
+  breadcrumb(locale, [[ui.nav.projects, href(locale, "/projects")], [p.title, href(locale, `/projects/${p.id}`)]]),
+  projectSchema(locale, p, img.src),
+];
+const info = [
+  [locale === "fr" ? "Rôle" : "Role", a.role[locale]],
+  [locale === "fr" ? "Période" : "Timeline", a.timeline[locale]],
+  [locale === "fr" ? "Contexte" : "Context", a.clientOrContext[locale]],
+  [locale === "fr" ? "Plateforme" : "Infra", a.infrastructure[locale]],
+];
+---
+<Base locale={locale} title={title} description={a.summary[locale]} schema={schema}>
+  <PageHero locale={locale} kicker={`${p.index} · ${p.tag}`} title={p.title} lead={clean(a.headline[locale])} crumbs={[[ui.nav.projects, href(locale, "/projects")], [p.title, href(locale, `/projects/${p.id}`)]]}>
+    <dl class="info">
+      {info.map(([k, v]) => <div><dt class="mono muted">{k}</dt><dd>{v}</dd></div>)}
+    </dl>
+  </PageHero>
+
+  <div class="cover wrap">
+    <div class="cover-in" data-parallax>
+      <Picture src={tile(p.id)} alt={p.imageAlt} formats={["avif"]} fallbackFormat="webp" widths={[640, 960, 1280, 1600]} sizes="(min-width: 1440px) 1312px, 92vw" loading="eager" fetchpriority="high" quality={72} />
+    </div>
+  </div>
+
+  <article class="section body">
+    <div class="wrap layout">
+      <div class="main prose">
+        <p class="summary">{a.summary[locale]}</p>
+        <h2 class="h3">{clean(a.problemTitle[locale])}</h2>
+        <p>{a.problemBody[locale]}</p>
+        <h2 class="h3">{clean(a.architectureTitle[locale])}</h2>
+        <p>{a.architectureBody[locale]}</p>
+        <h2 class="h3">{clean(a.challengesTitle[locale])}</h2>
+        <ol class="challenges" role="list">
+          {a.challenges.map((c, n) => <li><span class="mono">{String(n + 1).padStart(2, "0")}</span><p>{c[locale]}</p></li>)}
+        </ol>
+        <h2 class="h3">{clean(a.metricsTitle[locale])}</h2>
+        <dl class="metrics">
+          {a.metrics.map((m) => <div class="reveal"><dt class="mono muted">{m.label[locale]}</dt><dd data-count>{m.value}</dd></div>)}
+        </dl>
+      </div>
+      <aside class="side">
+        <div class="box">
+          <p class="mono muted">{locale === "fr" ? "Stack technique" : "Tech stack"}</p>
+          <ul role="list" class="chips mono">{p.stack.map((s) => <li>{s}</li>)}</ul>
+        </div>
+        <div class="box">
+          <p class="mono muted">{ui.related}</p>
+          <ul role="list" class="rel">
+            {p.clusters.map((c) => <li><a class="inline-link" href={href(locale, `/expertises/${c}`)}>{CLUSTER_LABEL[c][locale]}</a></li>)}
+          </ul>
+        </div>
+        {(p.previewUrl || p.githubUrl || p.confidential) && (
+          <div class="box">
+            <p class="mono muted">{ui.links}</p>
+            <div class="links">
+              {p.previewUrl && <a class="btn" href={p.previewUrl} rel="noopener" target="_blank">{locale === "fr" ? "Démo en direct" : "Live preview"} <Arrow dir="up-right" /></a>}
+              {p.githubUrl && <a class="btn btn--ghost" href={p.githubUrl} rel="noopener" target="_blank">{locale === "fr" ? "Code source" : "Source code"} <Arrow dir="up-right" /></a>}
+              {p.confidential && <span class="pill">{locale === "fr" ? "Projet confidentiel" : "Confidential project"}</span>}
+            </div>
+          </div>
+        )}
+        <div class="box">
+          <p class="mono muted">{ui.discuss}</p>
+          <p>{ui.discussText}</p>
+          <a class="inline-link" href={`mailto:${SITE.email}?subject=${encodeURIComponent(p.title)}`}>{SITE.email}</a>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <nav class="pager wrap" aria-label={locale === "fr" ? "Projets voisins" : "Adjacent projects"}>
+    <a href={href(locale, `/projects/${prev.id}`)} rel="prev"><span class="mono muted"><Arrow dir="left" /> {ui.prev}</span><span class="h3">{prev.title}</span></a>
+    <a href={href(locale, `/projects/${next.id}`)} rel="next" class="nx"><span class="mono muted">{ui.next} <Arrow /></span><span class="h3">{next.title}</span></a>
+  </nav>
+</Base>
+<style>
+  .info { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .info dd { margin: 0.35rem 0 0; }
+  .cover { margin-top: clamp(-4rem, -6vw, -2rem); position: relative; z-index: 2; }
+  .cover-in { overflow: hidden; border-radius: var(--radius); background: var(--ink); aspect-ratio: 16 / 10; }
+  .cover :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .layout { display: grid; gap: clamp(3rem, 6vw, 5rem); }
+  .main :global(h2) { margin-top: 3rem; margin-bottom: 1rem; }
+  .summary { font-size: var(--step-1); line-height: 1.45; }
+  .challenges { display: grid; gap: 1rem; }
+  .challenges li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .challenges .mono { color: var(--accent); padding-top: 0.2rem; }
+  .metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .metrics div { background: var(--bg); padding: 1.25rem; display: grid; gap: 0.5rem; align-content: space-between; }
+  .metrics dd { margin: 0; font-size: var(--step-3); font-weight: 760; font-stretch: 80%; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .side { display: grid; gap: 1rem; align-content: start; }
+  .box { border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; display: grid; gap: 0.85rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; font-size: 0.75rem; }
+  .chips li { padding: 0.35rem 0.6rem; background: var(--paper-2); border-radius: var(--radius); }
+  .rel { display: grid; gap: 0.35rem; }
+  .links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .pager { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-bottom: var(--section); }
+  .pager a { background: var(--bg); padding: clamp(1.25rem, 3vw, 2rem); display: grid; gap: 0.5rem; text-decoration: none; transition: background-color 0.3s; }
+  .pager a:hover { background: var(--paper-2); }
+  .pager .mono { display: inline-flex; gap: 0.5rem; align-items: center; }
+  @media (min-width: 720px) { .pager { grid-template-columns: 1fr 1fr; } .nx { text-align: right; justify-items: end; } }
+  @media (min-width: 1024px) {
+    .layout { grid-template-columns: minmax(0, 1fr) 22rem; }
+    .side { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+    .metrics { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>

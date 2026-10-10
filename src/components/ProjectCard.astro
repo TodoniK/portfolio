@@ -1,0 +1,46 @@
+---
+import { Picture } from "astro:assets";
+import { UI, href, type Locale, type Project } from "../data/site";
+import { tile } from "../data/media";
+import Arrow from "./Arrow.astro";
+interface Props { project: Project; locale: Locale; size?: "lg" | "md"; headingLevel?: "h2" | "h3"; eager?: boolean }
+const { project: p, locale, size = "md", headingLevel = "h3", eager = false } = Astro.props;
+const ui = UI[locale];
+const H = headingLevel;
+const sizes = size === "lg" ? "(min-width: 1024px) 58vw, 92vw" : "(min-width: 1024px) 40vw, (min-width: 720px) 46vw, 92vw";
+---
+<article class:list={["card", size]} data-cursor="card" data-clusters={p.clusters.join(" ")}>
+  <div class="media">
+    <Picture src={tile(p.id)} alt="" formats={["avif"]} fallbackFormat="webp" widths={[480, 800, 1200, 1600]} sizes={sizes} loading={eager ? "eager" : "lazy"} quality={70} />
+  </div>
+  <div class="meta mono">
+    <span class="idx">{p.index}</span>
+    <span>{p.tag}</span>
+    <span class="muted">{p.article.timeline[locale]}</span>
+    <span class="pill">{p.confidential ? (locale === "fr" ? "confidentiel" : "confidential") : ui.healthy}</span>
+  </div>
+  <H class="title"><a href={href(locale, `/projects/${p.id}`)}>{p.title}</a></H>
+  <p class="desc">{p.description}</p>
+  <p class="stack mono muted">{p.stack.join(" · ")}</p>
+  <span class="go mono" aria-hidden="true">{ui.readMore} <Arrow /></span>
+</article>
+<style>
+  .card { position: relative; display: grid; gap: 0.9rem; align-content: start; }
+  .media { overflow: hidden; border-radius: var(--radius); background: var(--ink); aspect-ratio: 16 / 10; }
+  .media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
+  .card:hover .media :global(img), .card:focus-within .media :global(img) { transform: scale(1.04); }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; font-size: 0.75rem; }
+  .idx { color: var(--accent); }
+  .meta .pill { margin-left: auto; }
+  .title { font-size: var(--step-2); font-weight: 680; }
+  .lg .title { font-size: var(--step-3); }
+  .title a { text-decoration: none; }
+  .title a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .title a:focus-visible { outline: none; }
+  .card:has(.title a:focus-visible) { outline: 2px solid var(--signal); outline-offset: 6px; border-radius: var(--radius); }
+  .desc { color: var(--fg-muted); max-width: 56ch; }
+  .stack { font-size: 0.75rem; letter-spacing: 0.04em; }
+  .go { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--accent); }
+  .card:hover .go :global(.arrow) { transform: translateX(4px); }
+  .go :global(.arrow) { transition: transform 0.4s var(--ease-out); }
+</style>

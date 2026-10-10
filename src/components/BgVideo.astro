@@ -1,0 +1,50 @@
+---
+// Decorative looping motion video. Poster paints first (LCP), the video is attached by script
+// only when motion is allowed and Save-Data is off (see scripts/app.ts).
+import { getImage } from "astro:assets";
+import videos from "../data/videos.json";
+import { UI, type Locale } from "../data/site";
+interface Props { ids: string[]; locale: Locale; class?: string; eager?: boolean; controls?: boolean }
+const { ids, locale, class: cls, eager = false, controls = true } = Astro.props;
+const posters = import.meta.glob<{ default: ImageMetadata }>("../assets/video/*.png", { eager: true });
+const entries = ids.map((id) => ({ id, v: (videos as Record<string, { w: number; h: number; webm: string; mp4: string }>)[id]! }));
+const main = entries[0]!;
+const portrait = entries.find((e) => e.v.h > e.v.w);
+const src = (id: string) => posters[`../assets/video/${id}.png`]!.default;
+const poster = await getImage({ src: src(main.id), format: "avif", width: Math.min(main.v.w, 1920), quality: 60 });
+const posterPortrait = portrait ? await getImage({ src: src(portrait.id), format: "avif", width: 828, quality: 60 }) : null;
+const ui = UI[locale];
+const sources = entries.map((e) => ({ media: e.v.h > e.v.w ? "(orientation: portrait)" : e === main && portrait ? "(orientation: landscape)" : undefined, ...e.v }));
+---
+<div class:list={["bgvideo", cls]} data-bgvideo>
+  <picture>
+    {posterPortrait && <source media="(orientation: portrait)" srcset={posterPortrait.src} type="image/avif" />}
+    <img src={poster.src} alt="" width={main.v.w} height={main.v.h} decoding="async" fetchpriority={eager ? "high" : "auto"} loading={eager ? "eager" : "lazy"} />
+  </picture>
+  <template data-sources>
+    {sources.map((s) => (<>
+      <source src={s.webm} type='video/webm; codecs="av01.0.08M.08"' media={s.media} />
+      <source src={s.mp4} type="video/mp4" media={s.media} />
+    </>))}
+  </template>
+  {controls && (
+    <button class="vbtn mono" type="button" data-video-toggle data-label-pause={ui.pauseVideo} data-label-play={ui.playVideo} aria-label={ui.pauseVideo} hidden>
+      <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path class="i-pause" d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"></path><path class="i-play" d="M4 3l9 5-9 5z" fill="currentColor"></path></svg>
+    </button>
+  )}
+</div>
+<style>
+  .bgvideo { position: absolute; inset: 0; overflow: hidden; background: var(--ink); }
+  .bgvideo :global(img), .bgvideo :global(video) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .bgvideo :global(video) { opacity: 0; transition: opacity 0.6s var(--ease-out); }
+  .bgvideo :global(video.is-playing) { opacity: 1; }
+  .vbtn {
+    position: absolute; right: var(--gutter); bottom: 1.25rem; z-index: 3; width: 2.75rem; height: 2.75rem;
+    display: grid; place-items: center; border: 1px solid var(--rule-ink); border-radius: 999px; color: var(--paper);
+    background: color-mix(in srgb, var(--ink) 60%, transparent);
+  }
+  .vbtn:hover { border-color: var(--signal); color: var(--signal); }
+  .vbtn .i-play { display: none; }
+  .vbtn[aria-pressed="true"] .i-play { display: block; }
+  .vbtn[aria-pressed="true"] .i-pause { display: none; }
+</style>

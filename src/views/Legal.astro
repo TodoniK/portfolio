@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { SITE, UI, href, type Locale } from "../data/site";
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const ui = UI[locale];
+const fr = locale === "fr";
+---
+<Base locale={locale} title={ui.legal} description={fr ? "Mentions légales du site julesroyet.dev : éditeur, hébergeur, données personnelles." : "Legal notice for julesroyet.dev: publisher, hosting provider, personal data."}>
+  <PageHero locale={locale} kicker="julesroyet.dev" title={ui.legal} crumbs={[[ui.legal, href(locale, "/legal")]]} />
+  <section class="section">
+    <div class="wrap prose">
+      <h2 class="h3">{fr ? "Éditeur" : "Publisher"}</h2>
+      <p>Jules Royet, {fr ? "particulier" : "private individual"}, Bordeaux, France. {fr ? "Contact" : "Contact"} : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. {fr ? "Directeur de la publication : Jules Royet." : "Publication director: Jules Royet."}</p>
+      <h2 class="h3">{fr ? "Hébergement" : "Hosting"}</h2>
+      <p>Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, {fr ? "États-Unis" : "United States"}. <a href="https://www.cloudflare.com/" rel="noopener" target="_blank">cloudflare.com</a></p>
+      <h2 class="h3">{fr ? "Données personnelles et cookies" : "Personal data and cookies"}</h2>
+      <p>{fr
+        ? "Ce site ne dépose aucun cookie et ne contient aucun formulaire. La mesure d'audience, si elle est active, utilise Cloudflare Web Analytics, sans cookie ni identifiant personnel. Les journaux techniques de l'hébergeur servent uniquement à la sécurité et au bon fonctionnement du service. Les e-mails reçus ne servent qu'à vous répondre."
+        : "This site sets no cookies and contains no form. Audience measurement, when enabled, uses Cloudflare Web Analytics, without cookies or personal identifiers. The host's technical logs are only used for security and service operation. Emails received are only used to reply to you."}</p>
+      <h2 class="h3">{fr ? "Propriété intellectuelle" : "Intellectual property"}</h2>
+      <p>{fr
+        ? "Les textes, illustrations, vidéos et le code de ce site sont la propriété de Jules Royet, sauf mention contraire. Les logos et marques cités appartiennent à leurs propriétaires respectifs et n'impliquent aucun partenariat."
+        : "Texts, illustrations, videos and code on this site belong to Jules Royet unless stated otherwise. Logos and trademarks belong to their respective owners and imply no partnership."}</p>
+    </div>
+  </section>
+</Base>
+<style>
+  .prose :global(h2) { margin-top: 2.5rem; margin-bottom: 0.75rem; }
+  .prose :global(h2:first-child) { margin-top: 0; }
+</style>

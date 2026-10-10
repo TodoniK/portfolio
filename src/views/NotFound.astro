@@ -1,0 +1,46 @@
+---
+import Base from "../layouts/Base.astro";
+import Arrow from "../components/Arrow.astro";
+import { UI, href, type Locale } from "../data/site";
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const ui = UI[locale];
+const hops: Array<[string, string, string]> = [
+  ["1", "edge.cloudflare", "0.42 ms"],
+  ["2", "bdx1.julesroyet.dev", "3.18 ms"],
+  ["3", "nce1.julesroyet.dev", "9.06 ms"],
+  ["4", "* * *", locale === "fr" ? "délai dépassé" : "request timed out"],
+  ["5", "* * *", locale === "fr" ? "délai dépassé" : "request timed out"],
+];
+---
+<Base locale={locale} title={`404 · ${ui.notFoundTitle}`} description={ui.notFoundText} noindex og="home">
+  <section class="nf on-ink grain">
+    <div class="wrap inner">
+      <pre class="trace mono" aria-hidden="true"><span class="cmd">$ traceroute julesroyet.dev<span class="path"></span></span>{hops.map(([n, host, ms], i) => (<span class:list={["hop", `h${i}`, { lost: host.startsWith("*") }]}>{n.padStart(2, " ")}  {host.padEnd(22, " ")} {ms}</span>))}</pre>
+      <h1 class="code"><span class="d d1">4</span><span class="d d2">0</span><span class="d d3">4</span><span class="visually-hidden"> · {ui.notFoundTitle}</span></h1>
+      <p class="lead">{ui.notFoundTitle}. <span class="muted">{ui.notFoundText}</span></p>
+      <div class="cta">
+        <a class="btn" href={href(locale, "/")}>{ui.notFoundHome} <Arrow /></a>
+        <a class="btn btn--ghost" href={href(locale, "/projects")}>{ui.allProjects} <Arrow /></a>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { min-height: 100svh; display: grid; align-items: center; }
+  .inner { padding-block: calc(var(--header-h) + 3rem) 4rem; display: grid; gap: 2rem; }
+  .trace { font-size: clamp(0.7rem, 2.6vw, 0.875rem); line-height: 1.8; color: var(--muted-ink); white-space: pre; overflow-x: auto; display: grid; }
+  .cmd { color: var(--paper); }
+  .path { color: var(--signal); }
+  .hop { opacity: 0; animation: hop 0.01s steps(1) forwards; }
+  .h0 { animation-delay: 0.35s; } .h1 { animation-delay: 0.7s; } .h2 { animation-delay: 1.05s; } .h3 { animation-delay: 1.6s; } .h4 { animation-delay: 2.15s; }
+  .lost { color: var(--signal); }
+  @keyframes hop { to { opacity: 1; } }
+  .code { font-size: clamp(7rem, 38vw, 26rem); font-weight: 860; line-height: 0.8; letter-spacing: -0.05em; display: flex; }
+  .d { display: inline-block; animation: d-in 1.2s var(--ease-out) backwards, wobble 6s var(--ease-io) 3.4s infinite; }
+  .d1 { animation-delay: 2.3s, 3.4s; } .d2 { animation-delay: 2.45s, 3.6s; color: var(--signal); } .d3 { animation-delay: 2.6s, 3.8s; }
+  @keyframes d-in { from { opacity: 0; transform: translateY(40%); font-stretch: 125%; filter: blur(12px); } to { font-stretch: 62%; } }
+  .d { font-stretch: 62%; }
+  @keyframes wobble { 0%, 100% { font-stretch: 62%; } 50% { font-stretch: 100%; } }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+</style>
