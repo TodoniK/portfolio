@@ -1,5 +1,6 @@
-// Post-build: renders a 1200x630 Open Graph image for every built page, from its own <title>.
-// Output: dist/og/<slug>.jpg where slug matches Base.astro (home for "/", path with "-" otherwise).
+// Renders a 1200x630 Open Graph image for every built page, from its own <title>, into public/og/<slug>.jpg
+// (slug matches Base.astro). Images are committed: the Workers Builds image has no Chromium.
+// Run `npm run media:og` after adding a page or changing a title; existing images are kept (delete one to redo it).
 import { chromium } from "@playwright/test";
 import { readFileSync, readdirSync, mkdirSync, statSync, existsSync } from "node:fs";
 import { join, resolve, relative } from "node:path";
@@ -7,7 +8,7 @@ import sharp from "sharp";
 
 const root = resolve(import.meta.dirname, "../..");
 const dist = join(root, "dist");
-const out = join(dist, "og");
+const out = join(root, "public", "og");
 mkdirSync(out, { recursive: true });
 const b64 = (f) => readFileSync(join(root, f)).toString("base64");
 const inter = b64("src/assets/fonts/inter.woff2");

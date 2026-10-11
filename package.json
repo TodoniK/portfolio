@@ -9,13 +9,13 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build && node scripts/media/og.mjs && node scripts/build/headers.mjs",
+    "build": "astro check && astro build && node scripts/build/headers.mjs",
     "preview": "wrangler dev",
     "check": "astro check",
     "format": "prettier --write .",
     "media:tiles": "node scripts/media/tiles.mjs",
     "media:video": "node scripts/media/video.mjs",
-    "media:og": "node scripts/media/og.mjs",
+    "media:og": "astro build && node scripts/media/og.mjs",
     "test": "playwright test",
     "lighthouse": "node scripts/quality/lighthouse.mjs",
     "deploy": "npm run build && wrangler deploy"
