@@ -78,6 +78,8 @@ const graph = { "@context": "https://schema.org", "@graph": [...personGraph(loca
     <slot name="head" />
     <script is:inline set:html={BOOT} />
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    <!-- Cloudflare Web Analytics : sans cookie (site julesroyet.dev, injection automatique désactivée) -->
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "bde96f20bd284ad6b30bbe7ee4ce11ed"}'></script>
   </head>
   <body>
     <a class="skip" href="#main">{ui.skip}</a>

@@ -7,7 +7,9 @@
     "not_found_handling": "404-page",
     "html_handling": "drop-trailing-slash"
   },
-  "workers_dev": true,
-  "preview_urls": false,
+  "workers_dev": false,
+  "preview_urls": true,
+  // www.julesroyet.dev redirige en 301 vers l'apex (Redirect Rule, casa-mocha-infra)
+  "routes": [{ "pattern": "julesroyet.dev", "custom_domain": true }],
   "observability": { "enabled": true }
 }

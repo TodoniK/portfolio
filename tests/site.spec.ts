@@ -4,6 +4,11 @@ import { PAGES } from "./routes";
 
 const ORIGIN = "https://julesroyet.dev";
 
+// Pas de fausses visites dans Web Analytics pendant les tests
+test.beforeEach(async ({ page }) => {
+  await page.route("https://static.cloudflareinsights.com/**", (r) => r.fulfill({ body: "", contentType: "text/javascript" }));
+});
+
 for (const { locale, path } of PAGES) {
   test.describe(path, () => {
     test("renders, metadata, a11y", async ({ page }, info) => {

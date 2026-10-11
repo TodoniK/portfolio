@@ -6,6 +6,7 @@ export const GET: APIRoute = () =>
   new Response(
     [
       "User-agent: *",
+      "Content-Signal: search=yes, ai-input=yes, ai-train=yes",
       "Allow: /",
       "",
       ...["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "PerplexityBot", "Google-Extended", "Applebot-Extended", "Amazonbot", "Bingbot"].flatMap((b) => [`User-agent: ${b}`, "Allow: /", ""]),

@@ -1,0 +1,8 @@
+[extend]
+useDefault = true
+
+# Jeton du beacon Cloudflare Web Analytics : public, servi dans chaque page
+[[allowlists]]
+description = "Cloudflare Web Analytics beacon token"
+regexTarget = "line"
+regexes = ['''data-cf-beacon=''']
