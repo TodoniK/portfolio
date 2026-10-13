@@ -41,7 +41,7 @@
 
 ## 8. Livraison
 
-- [ ] 8.1 Commits sur `feat/kinetic-dark-redesign`, preview Workers validée par le propriétaire
+- [ ] 8.1 Commits sur `feat/kinetic-dark-redesign`, preview Workers validée par le propriétaire. Version de preview envoyée le 2026-10-13 (`wrangler versions upload`, alias `kinetic-dark`), production inchangée
 - [ ] 8.2 Merge sur `main`, archive OpenSpec
 
 ## 9. Actions manuelles (propriétaire)
