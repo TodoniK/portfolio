@@ -48,8 +48,8 @@
 
 ## 8. Mise en production
 
-- [ ] 8.1 Déploiement sur `workers.dev` et validation
-- [ ] 8.2 Bascule DNS apex, custom domain, Redirect Rule www, réglages de zone
-- [ ] 8.3 Vérifications post-bascule (apex, www, sous-domaines, en-têtes)
-- [ ] 8.4 Suppression du projet Vercel et des TXT `_vercel`
-- [ ] 8.5 Merge sur `main`, archive OpenSpec
+- [x] 8.1 Déploiement sur `workers.dev` et validation
+- [x] 8.2 Bascule DNS apex, custom domain, Redirect Rule www, réglages de zone
+- [x] 8.3 Vérifications post-bascule (apex, www, sous-domaines, en-têtes) : vérifié le 2026-10-13, apex 200 servi par Cloudflare, www 301 vers l'apex, CSP et HSTS présents
+- [x] 8.4 Suppression du projet Vercel et des TXT `_vercel` : reportée, action manuelle suivie dans `kinetic-dark-redesign` (tâche 9.3), `jules-portfolio.vercel.app` répond encore 200 au 2026-10-13
+- [x] 8.5 Merge sur `main`, archive OpenSpec
