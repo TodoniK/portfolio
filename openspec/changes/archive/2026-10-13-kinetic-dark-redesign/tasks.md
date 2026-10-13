@@ -41,11 +41,11 @@
 
 ## 8. Livraison
 
-- [ ] 8.1 Commits sur `feat/kinetic-dark-redesign`, preview Workers validée par le propriétaire. Version de preview envoyée le 2026-10-13 (`wrangler versions upload`, alias `kinetic-dark`), production inchangée
-- [ ] 8.2 Merge sur `main`, archive OpenSpec
+- [x] 8.1 Commits sur `feat/kinetic-dark-redesign`, preview Workers validée par le propriétaire. Version de preview envoyée le 2026-10-13 (`wrangler versions upload`, alias `kinetic-dark`), production inchangée. Validée par le propriétaire le 2026-10-13
+- [x] 8.2 Merge sur `main` (fast-forward `4a970af`), archive OpenSpec
 
 ## 9. Actions manuelles (propriétaire)
 
 - [ ] 9.1 Ajouter la propriété domaine `julesroyet.dev` dans Search Console et soumettre le sitemap
 - [ ] 9.2 Demander l'indexation de `/` pour accélérer le rafraîchissement du titre et du favicon
-- [ ] 9.3 Supprimer le projet Vercel et les TXT `_vercel` (reporté depuis `rebuild-portfolio`)
+- [x] 9.3 Supprimer le projet Vercel et les TXT `_vercel` : vérifié le 2026-10-13, aucun projet dans l'équipe Vercel, aucun enregistrement Vercel dans la zone Cloudflare. `jules-portfolio.vercel.app` sert une autre application (« React App ») qui n'appartient pas au compte
