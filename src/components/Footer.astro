@@ -9,17 +9,18 @@ const year = new Date().getFullYear();
 ---
 
 <section class="cta-band" id="contact" aria-labelledby="cta-title">
+  <div class="glow" aria-hidden="true"></div>
   <div class="wrap inner">
-    <p class="status">{ui.status}</p>
+    <p class="status"><span class="shiny">{ui.status}</span></p>
     <h2 id="cta-title" class="big" data-split>{ui.contactTitle}</h2>
     <p class="lead">{d.contact.description}</p>
     <div class="actions">
-      <a class="btn" href={`mailto:${SITE.email}`} data-magnet data-cursor-label={SITE.email}>{ui.writeMe}</a>
+      <a class="btn" href={`mailto:${SITE.email}`} data-magnet>{ui.writeMe}</a>
       <CopyEmail locale={locale} />
     </div>
   </div>
 </section>
-<footer class="footer tint">
+<footer class="footer">
   <div class="wrap">
     <div class="cols">
       <nav aria-label={ui.clustersTitle}>
@@ -52,17 +53,20 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .cta-band { padding-block: var(--section); text-align: center; overflow: hidden; }
-  .inner { display: grid; justify-items: center; gap: 1.5rem; }
-  .big { font-size: clamp(3rem, 1rem + 10vw, 9rem); font-weight: 700; letter-spacing: -0.05em; line-height: 0.95; }
+  .cta-band { position: relative; isolation: isolate; overflow: hidden; padding-block: var(--section); text-align: center; border-top: 1px solid var(--line); }
+  /* static echo of the hero Aurora, no WebGL here */
+  .glow { position: absolute; inset: auto -10% -40% -10%; height: 80%; z-index: -1; filter: blur(40px); opacity: 0.55;
+    background: radial-gradient(35% 55% at 25% 100%, rgb(0 144 247 / 0.5), transparent 70%), radial-gradient(35% 55% at 50% 100%, rgb(186 98 252 / 0.45), transparent 70%), radial-gradient(35% 55% at 75% 100%, rgb(242 65 107 / 0.4), transparent 70%); }
+  .inner { display: grid; justify-items: center; gap: 1.1rem; }
+  .big { font-size: var(--t-3xl); font-weight: 600; letter-spacing: -0.04em; line-height: 1.05; }
   .lead { margin-inline: auto; }
-  .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 0.75rem; }
-  .footer { padding-block: 2.5rem 1.5rem; font-size: var(--t-xs); color: var(--fg-2); }
-  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1.5rem; padding-bottom: 1.75rem; border-bottom: 1px solid rgb(0 0 0 / 0.1); }
+  .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 0.5rem; }
+  .footer { padding-block: 2.5rem 1.5rem; font-size: var(--t-xs); color: var(--fg-2); border-top: 1px solid var(--line); }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1.5rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--line); }
   .col-title { font-size: var(--t-xs); font-weight: 600; letter-spacing: 0; color: var(--fg); margin-bottom: 0.6rem; }
   .cols ul { display: grid; gap: 0.25rem; }
-  .cols a { display: inline-block; padding-block: 0.3rem; }
-  .cols a:hover, .links a:hover { color: var(--fg); text-decoration: underline; }
+  .cols a { display: inline-block; padding-block: 0.3rem; transition: color 0.2s; }
+  .cols a:hover, .links a:hover { color: var(--fg); }
   .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem 2rem; padding-top: 1rem; }
   .links { display: flex; gap: 1.25rem; }
   .links a { padding-block: 0.3rem; }

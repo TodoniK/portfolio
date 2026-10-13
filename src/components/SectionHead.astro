@@ -1,6 +1,6 @@
 ---
-interface Props { label: string; accent?: boolean }
-const { label, accent = false } = Astro.props;
+interface Props { label: string }
+const { label } = Astro.props;
 ---
-<p class:list={["eyebrow", "sec-eyebrow", { accent }]}>{label}</p>
+<p class="eyebrow sec-eyebrow">{label}</p>
 <style>.sec-eyebrow { margin-bottom: 0.75rem; }</style>

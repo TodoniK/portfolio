@@ -60,9 +60,9 @@
 		"sha256": "5a417dddd3877adf8b413a59e05ba24a3cbbcd3f8b824475b16564a3a720f9c8"
 	},
 	"traefikproxy": {
-		"source": "https://traefik.io/favicon.svg",
+		"source": "https://raw.githubusercontent.com/devicons/devicon/HEAD/icons/traefikproxy/traefikproxy-original.svg",
 		"file": "traefikproxy.svg",
-		"sha256": "d99f08b7e4616fa19cabe2444989420894d79348fa044aac309af3c9c66e8602"
+		"sha256": "df4f9b8d057483e951ed9b74a7adee176225cb340b73b066091a17e1f1f9b70a"
 	},
 	"rust": {
 		"source": "https://rust-lang.org/static/images/rust-logo-blk.svg",
@@ -135,14 +135,14 @@
 		"sha256": "462c4ce8229b585dd6880cd308b121d9de63eb619db05e469598594e80d7b151"
 	},
 	"mongodb": {
-		"source": "https://webimages.mongodb.com/_com_assets/cms/kuyjf3vea2hg34taa-horizontal_default_slate_blue.svg",
+		"source": "https://raw.githubusercontent.com/devicons/devicon/HEAD/icons/mongodb/mongodb-original.svg",
 		"file": "mongodb.svg",
-		"sha256": "9f5435c8be18a834b2c2f8c4c03f117a997646c660fd6f28e3b6869a1bc2fcc1"
+		"sha256": "d9f2bf7041264f4747e9969fb82ede0199c0ac97dfa8632aa0687d702ec05f7b"
 	},
 	"redis": {
-		"source": "https://raw.githubusercontent.com/redis/redis-website/HEAD/assets/icons/logo.svg",
+		"source": "https://raw.githubusercontent.com/devicons/devicon/HEAD/icons/redis/redis-original.svg",
 		"file": "redis.svg",
-		"sha256": "a67dc854323a15e48cd49b56c44204d192a8a4f073190b43681fc4d7e9f3c255"
+		"sha256": "4707378b190878f36f7e6e1c01fa3ee7e7884c76101809d191dddd943a2e6bdb"
 	},
 	"terraform": {
 		"source": "https://raw.githubusercontent.com/hashicorp/design-system/HEAD/packages/flight-icons/svg-original/terraform-color-24.svg",
@@ -150,14 +150,14 @@
 		"sha256": "5d5f29ff8141e63a145fe1fe59553b33aa028736ecde21db55b23e988f7897d9"
 	},
 	"gitlab": {
-		"source": "https://about.gitlab.com/images/press/gitlab-logo-100-rgb.svg",
+		"source": "https://raw.githubusercontent.com/devicons/devicon/HEAD/icons/gitlab/gitlab-original.svg",
 		"file": "gitlab.svg",
-		"sha256": "5ef94eb73c9720560c1741ed616754769350c70ba8651a4419cc6b3fd956f96d"
+		"sha256": "d057a46d414f4edcb7edf96976ef7b91c2b347a990e99685e48d38de737967b0"
 	},
 	"claude": {
-		"source": "https://mintcdn.com/claude-code/c5r9_6tjPMzFdDDT/logo/light.svg",
+		"source": "https://claude.ai/favicon.svg",
 		"file": "claude.svg",
-		"sha256": "07171085b9b06105caa40e2e2889a1acfa46dd64b4e2cee46e69ca7cd67992e0"
+		"sha256": "b150888bc7257af83e3b85d3c2be4294f88986026f8168f6c12fc1fde6697350"
 	},
 	"aws": {
 		"source": "https://raw.githubusercontent.com/aws/aws-toolkit-vscode/HEAD/packages/core/resources/aws-logo.svg",
@@ -193,5 +193,10 @@
 		"source": "https://raw.githubusercontent.com/devicons/devicon/HEAD/icons/linux/linux-original.svg",
 		"file": "linux.svg",
 		"sha256": "cf50ae4a263c6142963fad3561f7cb0311d0d41cc6189eadfb34f81a8a36acb0"
+	},
+	"astro": {
+		"source": "https://astro.build/assets/press/astro-icon-dark.svg",
+		"file": "astro.svg",
+		"sha256": "00939d022ca137ae549d7a1210180be1149ca3701aa126c147a1fabc5a399ec4"
 	}
 }

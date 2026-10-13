@@ -1,15 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import BgVideo from "../components/BgVideo.astro";
 import SectionHead from "../components/SectionHead.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import Memoji from "../components/Memoji.astro";
 import Rotator from "../components/Rotator.astro";
-import Velocity from "../components/Velocity.astro";
 import Stack from "../components/Stack.astro";
-import { UI, SITE, t, href, projects, CLUSTERS, CLUSTER_LABEL, type Locale } from "../data/site";
+import { UI, SITE, t, href, projects, CLUSTERS, CLUSTER_LABEL, CLUSTER_BLURB, type Locale } from "../data/site";
 import { EXPERTISES } from "../data/expertises";
+import { PROJECT_VISUAL, brand, type Brand } from "../data/brands";
 import { logo } from "../data/media";
 
 interface Props { locale: Locale }
@@ -17,50 +16,47 @@ const { locale } = Astro.props;
 const ui = UI[locale];
 const d = t(locale);
 const all = projects(locale);
-const featured = all.slice(0, 5);
-const byId = Object.fromEntries(all.map((p) => [p.id, p]));
+const featured = all.slice(0, 6);
 const meta =
   locale === "fr"
     ? { title: "Jules Royet | Architecte cloud, DevOps et IA à Bordeaux et Nice", description: "Jules Royet, architecte cloud et DevOps chez Orange. Ingénierie logicielle, infrastructures Azure et agents IA autonomes. Parcours et études de cas entre Bordeaux et Nice." }
     : { title: "Jules Royet | Cloud, DevOps & AI engineer in Bordeaux and Nice", description: "Jules Royet, Cloud & DevOps Architect at Orange. Software engineering, Azure infrastructure and autonomous AI agents. Background and case studies from Bordeaux to Nice, France." };
 const log = [
-  ...d.about.experiences.map((e) => ({ when: e.period, who: e.company, what: e.role, text: e.description, logo: logo(e.logo), url: e.url })),
-  ...d.about.educations.map((e) => ({ when: e.period, who: e.school, what: e.degree, text: e.city, logo: logo(e.logo), url: e.url })),
+  ...d.about.experiences.map((e) => ({ when: e.period, who: e.company, what: e.role, logo: logo(e.logo), url: e.url })),
+  ...d.about.educations.map((e) => ({ when: e.period, who: e.school, what: e.degree, logo: logo(e.logo), url: e.url })),
 ];
+/** The most used tools across an area's projects, for the expertise cards. */
+const areaBrands = (slug: keyof typeof EXPERTISES) => {
+  const count = new Map<Brand, number>();
+  for (const id of EXPERTISES[slug].projects) for (const b of PROJECT_VISUAL[id]?.brands ?? []) count.set(b, (count.get(b) ?? 0) + 1);
+  return [...count].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([b]) => brand(b));
+};
 const letters = (s: string) => [...s];
 ---
 
 <Base locale={locale} title={meta.title} description={meta.description}>
   <section class="hero" data-hero aria-labelledby="hero-title">
+    <div class="aurora" data-aurora aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <Memoji locale={locale} />
-      <p class="status hero-status">{ui.status} · {ui.location}</p>
+      <p class="status"><span class="shiny">{ui.status} · {ui.location}</span></p>
       <h1 id="hero-title" class="hero-title">
-        <span class="visually-hidden">Jules Royet, {d.hero.titleLine1} {d.hero.titleLine2}</span>
-        <span class="name blur-in" aria-hidden="true">{letters("Jules Royet.").map((c) => <span>{c === " " ? "\u00a0" : c}</span>)}</span>
+        <span class="visually-hidden">Jules Royet, {ui.heroKicker}</span>
+        <span class="name blur-in" aria-hidden="true">{letters("Jules Royet").map((c) => <span>{c === " " ? "\u00a0" : c}</span>)}</span>
       </h1>
-      <p class="role" aria-hidden="true">{ui.heroRole.split("\n").map((l) => <span>{l}</span>)}</p>
+      <p class="role" aria-hidden="true">{ui.heroKicker.split(" · ").map((r, i) => <>{i > 0 && <span class="sep"> · </span>}<span>{r}</span></>)}</p>
       <p class="kinetic">{ui.heroBuild} <Rotator words={ui.heroWords} class="gradient-text" /></p>
       <div class="hero-cta">
-        <a class="btn" href={href(locale, "/projects")} data-magnet>{ui.heroCta}</a>
-        <a class="chev" href={SITE.cv} type="application/pdf">{ui.heroCv}</a>
-      </div>
-    </div>
-    <div class="stage wrap-wide">
-      <div class="screen dark" data-hero-media>
-        <BgVideo ids={["hero-16x9", "hero-9x16"]} locale={locale} eager />
-        <p class="caption small">{ui.heroCaption}</p>
+        <a class="btn star" href={href(locale, "/projects")} data-magnet><span>{ui.heroCta}</span></a>
+        <a class="btn btn--ghost" href={SITE.cv} type="application/pdf">{ui.heroCv}</a>
       </div>
     </div>
   </section>
 
-  <Velocity words={ui.velocity} />
-
   <section class="section manifesto" aria-labelledby="manifesto-title">
     <div class="wrap">
-      <SectionHead label={ui.manifestoTitle} accent />
-      <h2 id="manifesto-title" class="visually-hidden">{d.about.bioTitle}</h2>
-      <p class="statement" data-words>{d.about.bioP1}</p>
+      <SectionHead label={ui.manifestoTitle} />
+      <h2 id="manifesto-title" class="statement" data-words>{ui.manifesto}</h2>
       <ul class="stats" role="list">
         {ui.stats.map(([n, l]) => (
           <li class="card stat reveal" data-spotlight><span class="n num" data-count>{n}</span><span class="l">{l}</span></li>
@@ -70,66 +66,55 @@ const letters = (s: string) => [...s];
     </div>
   </section>
 
-  <section class="clusters dark" data-hscroll aria-labelledby="clusters-title">
-    <div class="c-inner">
-      <div class="wrap c-head">
-        <SectionHead label={ui.clustersTitle} accent />
-        <h2 id="clusters-title" class="headline" data-split>{ui.clustersLead}</h2>
+  <section class="section work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <SectionHead label={ui.projectsTitle} />
+          <h2 id="work-title" class="headline" data-split>{d.projects.headline}</h2>
+        </div>
+        <a class="chev" href={href(locale, "/projects")}>{ui.allProjects} ({all.length})</a>
       </div>
-      <ol class="track" role="list" data-track>
-        {CLUSTERS.map((c) => {
-          const e = EXPERTISES[c.slug];
-          return (
-            <li class="card panel" data-spotlight>
-              <div class="frame"><BgVideo ids={[c.video]} locale={locale} controls={false} /></div>
-              <div class="p-body">
-                <p class="small muted">{c.code} · {e.projects.length} {locale === "fr" ? "projets" : "projects"}</p>
-                <h3 class="h3"><a href={href(locale, `/expertises/${c.slug}`)} class="p-link">{CLUSTER_LABEL[c.slug][locale]}</a></h3>
-                <p class="muted p-text">{e.sections[0]!.body[locale]}</p>
-                <ul role="list" class="p-projects">
-                  {e.projects.map((id) => byId[id] && <li><a class="chip" href={href(locale, `/projects/${id}`)}>{byId[id].title}</a></li>)}
-                </ul>
-              </div>
-            </li>
-          );
-        })}
-      </ol>
+      <ul class="grid" role="list">
+        {featured.map((p) => <li class="reveal"><ProjectCard project={p} locale={locale} /></li>)}
+      </ul>
     </div>
   </section>
 
-  <section class="section work" aria-labelledby="work-title">
+  <section class="section areas" aria-labelledby="areas-title">
     <div class="wrap">
-      <div class="w-head">
-        <div>
-          <SectionHead label={ui.projectsTitle} accent />
-          <h2 id="work-title" class="headline" data-split>{d.projects.headline}</h2>
-        </div>
-        <p class="lead">{d.projects.description}</p>
-      </div>
-      <ul class="bento" role="list">
-        {featured.map((p, i) => <li class:list={["b-item", `b${i}`, "reveal"]}><ProjectCard project={p} locale={locale} size={i === 0 ? "lg" : "md"} /></li>)}
-      </ul>
-      <div class="w-more"><a class="btn btn--dark" href={href(locale, "/projects")} data-magnet>{ui.allProjects} ({all.length})</a></div>
+      <SectionHead label={ui.clustersTitle} />
+      <h2 id="areas-title" class="headline" data-split>{ui.clustersHeading}</h2>
+      <p class="lead">{ui.clustersLead}</p>
+      <ol class="area-list" role="list">
+        {CLUSTERS.map((c) => (
+          <li class="card area reveal" data-spotlight>
+            <p class="code num">{c.code}</p>
+            <h3 class="h3"><a class="a-link" href={href(locale, `/expertises/${c.slug}`)}>{CLUSTER_LABEL[c.slug][locale]}</a></h3>
+            <p class="muted small">{CLUSTER_BLURB[c.slug][locale]}</p>
+            <ul class="a-logos" role="list">{areaBrands(c.slug).map((b) => <li class:list={{ dark: b.dark }}><img src={b.src} alt={b.name} width="20" height="20" loading="lazy" decoding="async" /></li>)}</ul>
+            <p class="small a-count">{EXPERTISES[c.slug].projects.length} {locale === "fr" ? "projets" : "projects"} <span aria-hidden="true">→</span></p>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
   <Stack locale={locale} />
 
-  <section class="section log tint" aria-labelledby="log-title">
+  <section class="section log" aria-labelledby="log-title">
     <div class="wrap">
-      <SectionHead label={ui.timelineTitle} accent />
+      <SectionHead label={ui.timelineTitle} />
       <h2 id="log-title" class="headline" data-split>{locale === "fr" ? "Un parcours en production." : "A career in production."}</h2>
       <ol class="entries" role="list" data-timeline>
         <span class="line" aria-hidden="true" data-line></span>
         {log.map((l) => (
           <li class="entry reveal">
-            <span class="node" aria-hidden="true">{l.logo && <Image src={l.logo} alt="" width={44} height={44} class="logo" />}</span>
-            <div class="e-main">
-              <p class="small muted">{l.when}</p>
+            <span class="node" aria-hidden="true">{l.logo && <Image src={l.logo} alt="" width={40} height={40} class="logo" />}</span>
+            <div>
               <h3 class="e-title">{l.what}</h3>
-              <p class="small">{l.url ? <a class="link" href={l.url} rel="noopener" target="_blank">{l.who}</a> : l.who}</p>
+              <p class="small muted">{l.url ? <a class="link" href={l.url} rel="noopener" target="_blank">{l.who}</a> : l.who} · {l.when}</p>
             </div>
-            <p class="muted e-text">{l.text}</p>
           </li>
         ))}
       </ol>
@@ -139,73 +124,53 @@ const letters = (s: string) => [...s];
 
 <style>
   /* hero */
-  .hero { padding-top: calc(var(--header-h) + clamp(2.5rem, 7vw, 5rem)); overflow: hidden; }
-  .hero-inner { display: grid; justify-items: center; text-align: center; gap: 1.1rem; }
-  .hero-status { margin-top: 0.5rem; }
-  .hero-title { line-height: 0.95; }
-  .name { display: inline-flex; font-size: var(--t-hero); font-weight: 700; letter-spacing: -0.055em; line-height: 0.95; }
-  .role { display: grid; font-size: var(--t-xl); font-weight: 600; letter-spacing: -0.028em; line-height: 1.15; color: var(--fg); animation: blur-in 1s var(--ease-out) 0.35s backwards; }
-  .role span:last-child { color: var(--fg-2); }
-  .kinetic { font-size: var(--t-xl); font-weight: 600; letter-spacing: -0.028em; color: var(--fg); min-height: 1.3em; }
-  .hero-cta { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.5rem 1.75rem; margin-top: 0.75rem; }
-  .stage { margin-top: clamp(3rem, 8vw, 5rem); }
-  .screen { position: relative; overflow: hidden; border-radius: var(--r-lg); aspect-ratio: 9 / 13; max-height: 82svh; width: 100%; transform-origin: 50% 0; background: #000; }
-  .caption { position: absolute; left: 1.25rem; bottom: 1.1rem; z-index: 2; color: rgb(255 255 255 / 0.72); }
-  @media (min-width: 720px) { .screen { aspect-ratio: 16 / 9; } }
+  .hero { position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: center; padding-block: calc(var(--header-h) + 3.5rem) 3.5rem; }
+  @media (min-width: 640px) { .hero { min-height: min(92svh, 52rem); padding-bottom: 4rem; } }
+  .hero-inner { display: grid; justify-items: center; text-align: center; gap: 1rem; }
+  .hero-title { line-height: 1; margin-top: 0.25rem; }
+  .name { display: inline-flex; font-size: var(--t-hero); font-weight: 650; letter-spacing: -0.05em; line-height: 1; }
+  .role { font-size: var(--t-lg); color: var(--fg-2); animation: blur-in 0.9s var(--ease-out) 0.3s backwards; }
+  @media (max-width: 639px) { .role { display: grid; } .role .sep { display: none; } }
+  .kinetic { font-size: var(--t-xl); font-weight: 550; letter-spacing: -0.025em; min-height: 1.3em; }
+  .hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 0.75rem; }
 
   /* manifesto */
-  .statement { font-size: clamp(1.75rem, 1rem + 3.4vw, 3.75rem); font-weight: 650; letter-spacing: -0.035em; line-height: 1.1; max-width: 22em; }
-  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: clamp(3rem, 7vw, 5rem); }
-  .stat { padding: clamp(1.25rem, 3vw, 2rem); display: grid; gap: 0.5rem; align-content: space-between; min-height: 10rem; border-radius: var(--r); }
-  .stat .n { font-size: clamp(2.4rem, 1.5rem + 3vw, 4rem); font-weight: 700; letter-spacing: -0.05em; line-height: 1; }
+  .statement { font-size: var(--t-3xl); font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; max-width: 20em; margin-top: 0.75rem; }
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: clamp(2rem, 5vw, 3rem); }
+  .stat { padding: 1.25rem; display: grid; gap: 0.4rem; align-content: space-between; min-height: 7.5rem; border-radius: var(--r); }
+  .stat .n { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); font-weight: 650; letter-spacing: -0.04em; line-height: 1; }
   .stat .l { color: var(--fg-2); font-size: var(--t-sm); }
-  .more { margin-top: 1.5rem; }
+  .more { margin-top: 1rem; }
   @media (min-width: 900px) { .stats { grid-template-columns: repeat(4, 1fr); } }
 
-  /* clusters */
-  .clusters { overflow: hidden; }
-  .c-inner { padding-block: var(--section); display: grid; grid-template-columns: minmax(0, 1fr); }
-  .c-head { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
-  .c-head .headline { max-width: 18em; }
-  .track { display: grid; gap: 1rem; padding-inline: var(--gutter); }
-  .panel { display: grid; border-radius: var(--r-lg); }
-  .frame { position: relative; aspect-ratio: 4 / 3; width: 100%; }
-  .p-body { padding: clamp(1.5rem, 3vw, 2.5rem); display: grid; gap: 0.85rem; align-content: start; }
-  .p-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
-  .p-text { font-size: var(--t-body); }
-  .p-projects { display: flex; flex-wrap: wrap; gap: 0.4rem; position: relative; z-index: 3; }
-  .p-projects .chip { background: rgb(255 255 255 / 0.08); color: var(--fg-2); transition: background-color 0.2s, color 0.2s; }
-  .p-projects .chip:hover { background: rgb(255 255 255 / 0.16); color: var(--fg); }
-  @media (min-width: 1024px) {
-    .c-inner { min-height: 100svh; align-content: center; padding-block: calc(var(--header-h) + 2rem) 2.5rem; }
-    .c-head { margin-bottom: 2.5rem; }
-    .c-head .headline { font-size: clamp(2.4rem, 4vw, 4rem); }
-    .track { display: flex; gap: 1.25rem; min-width: 0; padding-right: 10vw; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-    .track > li { scroll-snap-align: start; }
-    :global(.is-pinned) .track { overflow: visible; }
-    .panel { flex: 0 0 min(70vw, 60rem); grid-template-columns: 1.1fr 1fr; }
-    .frame { aspect-ratio: auto; min-height: min(26rem, 48svh); }
-  }
-
   /* work */
-  .w-head { display: grid; gap: 1.25rem; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
-  .bento { display: grid; gap: 1rem; }
-  .w-more { margin-top: 2.5rem; display: flex; justify-content: center; }
-  @media (min-width: 720px) { .bento { grid-template-columns: repeat(2, 1fr); } .b0 { grid-column: 1 / -1; } }
-  @media (min-width: 1024px) {
-    .w-head { grid-template-columns: 1.3fr 1fr; align-items: end; }
-    .bento { grid-template-columns: repeat(3, 1fr); }
-    .b0 { grid-column: span 2; grid-row: span 2; }
-  }
+  .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem 2rem; margin-bottom: clamp(1.75rem, 4vw, 2.5rem); }
+  .head :global(.eyebrow) { margin-bottom: 0.75rem; }
+  .grid { display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* areas */
+  .areas .lead { margin-top: 0.75rem; }
+  .area-list { display: grid; gap: 1rem; margin-top: clamp(1.75rem, 4vw, 2.5rem); }
+  .area { padding: 1.5rem; display: grid; gap: 0.6rem; align-content: start; }
+  .code { font-size: var(--t-xs); color: var(--fg-2); }
+  .a-link::after { content: ""; position: absolute; inset: 0; z-index: 3; }
+  .a-logos { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
+  .a-logos li { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: #f2f2f5; }
+  .a-logos li.dark { background: #232327; box-shadow: inset 0 0 0 1px var(--line-2); }
+  .a-logos img { width: 20px; height: 20px; object-fit: contain; }
+  .a-count { color: var(--fg-2); margin-top: 0.25rem; }
+  .a-count span { display: inline-block; transition: transform 0.3s var(--ease-out); }
+  .area:hover .a-count span { transform: translateX(4px); }
+  @media (min-width: 900px) { .area-list { grid-template-columns: repeat(3, 1fr); } }
 
   /* career log */
-  .entries { position: relative; margin-top: clamp(2.5rem, 6vw, 4rem); padding-left: 3.75rem; }
-  .entries::before, .line { content: ""; position: absolute; left: 22px; top: 0.5rem; bottom: 0.5rem; width: 2px; border-radius: 2px; background: var(--gray-3); }
-  .line { background: var(--blue); transform-origin: top; z-index: 1; }
-  .entry { position: relative; display: grid; gap: 0.5rem; padding-block: 1.5rem; }
-  .node { position: absolute; left: -3.75rem; top: 1.5rem; z-index: 2; width: 46px; height: 46px; border-radius: 14px; background: #fff; display: grid; place-items: center; box-shadow: 0 0 0 4px var(--bg), 0 6px 16px -6px rgb(0 0 0 / 0.2); }
-  .node :global(.logo) { width: 30px; height: 30px; object-fit: contain; }
-  .e-title { font-size: var(--t-lg); font-weight: 620; letter-spacing: -0.022em; }
-  .e-text { max-width: 60ch; font-size: var(--t-body); }
-  @media (min-width: 1024px) { .entry { grid-template-columns: 1fr 1.25fr; gap: 3rem; } }
+  .entries { position: relative; display: grid; margin-top: clamp(1.75rem, 4vw, 2.5rem); padding-left: 3.5rem; max-width: 48rem; }
+  .entries::before, .line { content: ""; position: absolute; left: 20px; top: 1.25rem; bottom: 1.25rem; width: 1px; background: var(--line-2); }
+  .line { background: var(--gradient); transform-origin: top; z-index: 1; width: 2px; left: 19.5px; }
+  .entry { position: relative; padding-block: 0.9rem; }
+  .node { position: absolute; left: -3.5rem; top: 0.75rem; z-index: 2; width: 40px; height: 40px; border-radius: 12px; background: #fff; display: grid; place-items: center; box-shadow: 0 0 0 4px var(--bg); }
+  .node :global(.logo) { width: 26px; height: 26px; object-fit: contain; }
+  .e-title { font-size: var(--t-body); font-weight: 600; letter-spacing: -0.015em; }
 </style>

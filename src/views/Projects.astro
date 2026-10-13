@@ -41,18 +41,19 @@ const schema = [
   </section>
 </Base>
 <style>
-.filters { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: clamp(2rem, 5vw, 3rem); }
+  .filters { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: clamp(2rem, 5vw, 3rem); }
   .filters legend { margin-bottom: 0.75rem; float: left; width: 100%; font-size: var(--t-sm); color: var(--fg-2); }
-  .filters label { position: relative; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1.1rem; border-radius: var(--pill); background: var(--gray-1); font-size: var(--t-sm); font-weight: 500; cursor: pointer; transition: background-color 0.25s, color 0.25s, transform 0.3s var(--spring); }
+  .filters label { position: relative; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1.1rem; border-radius: var(--pill); border: 1px solid var(--line); color: var(--fg-2); font-size: var(--t-sm); font-weight: 500; cursor: pointer; transition: background-color 0.25s, color 0.25s, transform 0.3s var(--spring); }
   .filters label:active { transform: scale(0.96); }
   .filters label span { color: var(--fg-2); font-variant-numeric: tabular-nums; }
   .filters input { position: absolute; opacity: 0; pointer-events: none; }
-  .filters label:has(input:checked) { background: var(--black); color: #fff; }
-  .filters label:has(input:checked) span { color: #a1a1a6; }
-  .filters label:has(input:focus-visible) { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .filters label:hover { color: var(--fg); border-color: var(--line-2); }
+  .filters label:has(input:checked) { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+  .filters label:has(input:checked) span { color: #48484a; }
+  .filters label:has(input:focus-visible) { outline: 2px solid var(--link); outline-offset: 2px; }
   .grid { display: grid; gap: 1rem; }
-  @media (min-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
   section:has(input[value="cloud-devops"]:checked) .grid li:not([data-clusters~="cloud-devops"]),
   section:has(input[value="systemes-ia"]:checked) .grid li:not([data-clusters~="systemes-ia"]),
   section:has(input[value="developpement-logiciel"]:checked) .grid li:not([data-clusters~="developpement-logiciel"]) { display: none; }

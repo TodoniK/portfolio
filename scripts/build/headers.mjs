@@ -20,7 +20,7 @@ const csp = [
   `script-src 'self' https://static.cloudflareinsights.com ${[...script].join(" ")}`,
   "style-src 'self' 'unsafe-inline'", // per-page hashes stay enforced by the CSP meta; header kept short (_headers line limit)
   "img-src 'self' data:",
-  "media-src 'self'",
+  "media-src 'none'",
   "font-src 'self'",
   "connect-src 'self' https://cloudflareinsights.com",
   "frame-ancestors 'none'",
@@ -41,9 +41,6 @@ const headers = `/*
   X-Robots-Tag: index, follow
 
 /_astro/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/video/*
   Cache-Control: public, max-age=31536000, immutable
 
 /og/*

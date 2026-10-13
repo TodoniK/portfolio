@@ -1,7 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
-import BgVideo from "../components/BgVideo.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import SectionHead from "../components/SectionHead.astro";
 import { UI, SITE, href, projects, CLUSTERS, CLUSTER_LABEL, type Locale, type ExpertiseSlug } from "../data/site";
@@ -23,9 +22,7 @@ const schema = [
 ];
 ---
 <Base locale={locale} title={e.title[locale]} description={e.summary[locale]} schema={schema}>
-  <PageHero dark locale={locale} kicker={`Jules Royet · ${ui.location}`} title={e.title[locale]} lead={e.summary[locale]} crumbs={[[e.title[locale], href(locale, `/expertises/${slug}`)]]}>
-    <div class="media" slot="media" aria-hidden="true"><BgVideo ids={[cluster.video]} locale={locale} controls={false} /></div>
-  </PageHero>
+  <PageHero locale={locale} kicker={`${cluster.code} · ${ui.location}`} title={e.title[locale]} lead={e.summary[locale]} crumbs={[[e.title[locale], href(locale, `/expertises/${slug}`)]]} />
 
   <article class="section">
     <div class="wrap sections">
@@ -39,9 +36,9 @@ const schema = [
     </div>
   </article>
 
-  <section class="section tint" aria-labelledby="related">
+  <section class="section" aria-labelledby="related">
     <div class="wrap">
-      <SectionHead label={ui.relatedWork} accent />
+      <SectionHead label={ui.relatedWork} />
       <h2 id="related" class="headline" data-split>{ui.relatedWork}</h2>
       <ol class="grid" role="list">
         {related.map((p) => <li class="reveal"><ProjectCard project={p} locale={locale} /></li>)}
@@ -52,7 +49,7 @@ const schema = [
   <section class="section" aria-labelledby="faq">
     <div class="wrap faq">
       <div>
-        <SectionHead label={ui.faq} accent />
+        <SectionHead label={ui.faq} />
         <h2 id="faq" class="headline">{ui.faq}</h2>
       </div>
       <div class="qa">
@@ -71,29 +68,26 @@ const schema = [
   </section>
 </Base>
 <style>
-.media { position: absolute; inset: 0; z-index: -1; }
-  .media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #000 30%, rgb(0 0 0 / 0.55) 100%); }
   .sections { display: grid; gap: 0.75rem; }
-  .block { display: grid; gap: 0.9rem; padding: clamp(1.75rem, 3vw, 2.75rem); border-radius: var(--r-lg); }
-  .num { font-size: var(--t-sm); font-weight: 600; color: var(--blue-link); }
+  .block { display: grid; gap: 0.9rem; padding: clamp(1.5rem, 3vw, 2.25rem); }
+  .num { font-size: var(--t-sm); font-weight: 600; color: var(--fg-2); }
   .body { max-width: 68ch; color: var(--fg-2); }
   .grid { display: grid; gap: 1rem; margin-top: clamp(2rem, 5vw, 3rem); }
-  @media (min-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
   @media (min-width: 900px) { .block { grid-template-columns: 3rem 1fr 1.6fr; gap: 2rem; } }
   .faq { display: grid; gap: 2rem; }
   @media (min-width: 900px) { .faq { grid-template-columns: 1fr 1.4fr; } }
   details { border-bottom: 1px solid var(--line); }
   summary { list-style: none; display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.4rem; cursor: pointer; }
   summary::-webkit-details-marker { display: none; }
-  .plus { flex: none; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--gray-1); position: relative; }
+  .plus { flex: none; width: 1.75rem; height: 1.75rem; border-radius: 50%; border: 1px solid var(--line-2); position: relative; }
   .plus::before, .plus::after { content: ""; position: absolute; left: 30%; top: 50%; width: 40%; height: 1.5px; background: currentColor; transition: rotate 0.35s var(--ease-out); }
   .plus::after { rotate: 90deg; }
   details[open] .plus::after { rotate: 0deg; }
   details p { padding-bottom: 1.5rem; max-width: 62ch; }
   details::details-content { block-size: 0; overflow: hidden; transition: block-size 0.45s var(--ease-out), content-visibility 0.45s allow-discrete; }
   details[open]::details-content { block-size: auto; }
-  :root { interpolate-size: allow-keywords; }
   .by { margin-top: 2rem; }
   .others { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; margin-top: 0.5rem; }
 </style>

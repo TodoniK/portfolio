@@ -49,3 +49,14 @@ test("legacy resume path redirects", async ({ request }) => {
   expect(r.status()).toBe(301);
   expect(r.headers()["location"]).toMatch(/\/resumes\.pdf$/);
 });
+
+test("site icons follow Google's favicon guidance", async ({ request, page }) => {
+  const manifest = await (await request.get("/site.webmanifest")).json();
+  expect(manifest.icons.map((i: { purpose: string }) => i.purpose)).toEqual(["any", "any", "maskable"]);
+  for (const f of ["/favicon.ico", "/icon-96.png", "/icon-192.png", "/icon-512.png", "/icon-maskable-512.png", "/apple-touch-icon.png"]) {
+    expect((await request.get(f)).status(), f).toBe(200);
+  }
+  await page.goto("/");
+  await expect(page.locator('link[rel="icon"][href="/favicon.ico"]')).toHaveAttribute("sizes", "48x48");
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#0a0a0b");
+});

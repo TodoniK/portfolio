@@ -61,23 +61,76 @@ test("skip link is the first focusable element", async ({ page }, info) => {
   await expect(page).toHaveURL(/#main$/);
 });
 
-test("reduced motion: no splash, no curtain, no custom cursor, content visible", async ({ browser }) => {
+test("reduced motion: no splash, no Aurora canvas, content visible", async ({ browser }) => {
   const ctx = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1440, height: 900 } });
   const page = await ctx.newPage();
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator(".splash")).toBeHidden();
-  expect(await page.evaluate(() => document.documentElement.classList.contains("has-cursor"))).toBe(false);
-  await page.locator(".b-item").first().scrollIntoViewIfNeeded();
-  expect(await page.locator(".b-item").first().evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
-  expect(await page.locator("video").count()).toBe(0);
+  await page.waitForTimeout(1500);
+  expect(await page.locator("[data-aurora] canvas").count()).toBe(0);
+  await page.locator(".pcard").last().scrollIntoViewIfNeeded();
+  expect(await page.locator(".grid > li").last().evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
   await ctx.close();
 });
 
-test("touch devices never get the custom cursor", async ({ page }, info) => {
-  test.skip(info.project.name !== "mobile");
+test("Aurora loads after the page on desktop, never on touch", async ({ page }, info) => {
+  await page.goto("/", { waitUntil: "load" });
+  const box = page.locator("[data-aurora]");
+  await expect(box).toHaveAttribute("aria-hidden", "true");
+  if (info.project.name === "mobile") {
+    await page.waitForTimeout(2000);
+    expect(await box.getAttribute("data-aurora-state")).toBeNull();
+  } else {
+    // headless Chromium renders WebGL in software, which the port refuses on purpose
+    await expect(box).toHaveAttribute("data-aurora-state", /^(live|software)$/, { timeout: 8000 });
+  }
+});
+
+test("without JavaScript every card is visible", async ({ browser }) => {
+  const ctx = await browser.newContext({ javaScriptEnabled: false });
+  const page = await ctx.newPage();
   await page.goto("/");
-  await page.waitForTimeout(500);
-  expect(await page.evaluate(() => document.documentElement.classList.contains("has-cursor"))).toBe(false);
+  const cards = page.locator(".pcard");
+  await expect(cards).toHaveCount(6);
+  for (const op of await page.locator(".reveal").evaluateAll((els) => els.map((e) => getComputedStyle(e).opacity))) expect(op).toBe("1");
+  await ctx.close();
+});
+
+test("no custom cursor and no video anywhere", async ({ page }) => {
+  await page.goto("/");
+  await page.waitForTimeout(800);
+  expect(await page.locator(".tcursor, video").count()).toBe(0);
+  expect(await page.evaluate(() => getComputedStyle(document.body).cursor)).toBe("auto");
+});
+
+test("headings stay within the type scale on very large screens", async ({ browser }) => {
+  const ctx = await browser.newContext({ viewport: { width: 2560, height: 1440 }, reducedMotion: "reduce" });
+  const page = await ctx.newPage();
+  await page.goto("/");
+  expect(parseFloat(await page.locator(".hero-title .name").evaluate((e) => getComputedStyle(e).fontSize))).toBeLessThanOrEqual(88);
+  for (const size of await page.locator("main h2").evaluateAll((els) => els.map((e) => parseFloat(getComputedStyle(e).fontSize)))) expect(size).toBeLessThanOrEqual(44);
+  await ctx.close();
+});
+
+test("breadcrumb items share a baseline", async ({ page }) => {
+  await page.goto("/projects");
+  const tops = await page.locator(".crumbs li").evaluateAll((els) => els.map((li) => {
+    const r = document.createRange();
+    r.selectNodeContents(li.querySelector("a, [aria-current]")!);
+    return r.getBoundingClientRect().bottom;
+  }));
+  expect(tops.length).toBe(2);
+  expect(Math.abs(tops[0]! - tops[1]!)).toBeLessThanOrEqual(1);
+});
+
+test("project thumbnails name every tool of the stack", async ({ page }) => {
+  await page.goto("/projects");
+  const thumbs = page.locator("[data-thumb]");
+  await expect(thumbs).toHaveCount(10);
+  for (const alts of await thumbs.evaluateAll((els) => els.map((t) => [...t.querySelectorAll("img")].map((i) => i.alt)))) {
+    expect(alts.length).toBeGreaterThanOrEqual(3);
+    for (const a of alts) expect(a.trim().length).toBeGreaterThan(1);
+  }
 });
 
 test("project filter shows only the selected area", async ({ page }) => {

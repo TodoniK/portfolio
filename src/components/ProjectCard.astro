@@ -1,41 +1,26 @@
 ---
-import { Picture } from "astro:assets";
-import { UI, href, type Locale, type Project } from "../data/site";
-import { tile } from "../data/media";
-interface Props { project: Project; locale: Locale; size?: "lg" | "md"; headingLevel?: "h2" | "h3"; eager?: boolean }
-const { project: p, locale, size = "md", headingLevel = "h3", eager = false } = Astro.props;
-const ui = UI[locale];
+import ProjectThumb from "./ProjectThumb.astro";
+import { href, type Locale, type Project } from "../data/site";
+interface Props { project: Project; locale: Locale; headingLevel?: "h2" | "h3"; eager?: boolean }
+const { project: p, locale, headingLevel = "h3", eager = false } = Astro.props;
 const H = headingLevel;
-const sizes = size === "lg" ? "(min-width: 1024px) 760px, 92vw" : "(min-width: 1024px) 380px, (min-width: 720px) 46vw, 92vw";
 ---
-<article class:list={["card", "pcard", size]} data-cursor-target data-cursor-label={ui.open} data-spotlight data-clusters={p.clusters.join(" ")}>
+<article class="card pcard" data-spotlight data-clusters={p.clusters.join(" ")}>
+  <div class="media"><ProjectThumb id={p.id} cluster={p.clusters[0]} eager={eager} /></div>
   <div class="text">
-    <p class="tag">{p.tag} · {p.article.timeline[locale]}{p.confidential && <span> · {locale === "fr" ? "Confidentiel" : "Confidential"}</span>}</p>
+    <p class="meta">{p.tag} · {p.article.timeline[locale]}{p.confidential && <span> · {locale === "fr" ? "Confidentiel" : "Confidential"}</span>}</p>
     <H class="name"><a href={href(locale, `/projects/${p.id}`)}>{p.title}</a></H>
     <p class="desc">{p.description}</p>
-    <span class="chev" aria-hidden="true">{ui.readMore}</span>
-  </div>
-  <div class="media">
-    <Picture src={tile(p.id)} alt="" formats={["avif"]} fallbackFormat="webp" widths={[480, 800, 1200, 1600]} sizes={sizes} loading={eager ? "eager" : "lazy"} quality={72} />
   </div>
 </article>
 <style>
   .pcard { display: flex; flex-direction: column; height: 100%; }
-  .text { padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem) 1.25rem; display: grid; gap: 0.5rem; align-content: start; }
-  .tag { font-size: var(--t-xs); font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; color: var(--fg-2); }
-  .name { font-size: var(--t-xl); font-weight: 650; letter-spacing: -0.03em; }
-  .lg .name { font-size: var(--t-2xl); }
+  .media { padding: 0.5rem 0.5rem 0; }
+  .text { padding: 1rem 1.25rem 1.35rem; display: grid; gap: 0.35rem; align-content: start; }
+  .meta { font-size: var(--t-xs); font-weight: 500; color: var(--fg-2); }
+  .name { font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.022em; line-height: 1.25; }
   .name a::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; }
   .name a:focus-visible { outline: none; }
-  .pcard:has(.name a:focus-visible) { outline: 2px solid var(--blue); outline-offset: 4px; }
-  .desc { color: var(--fg-2); font-size: var(--t-body); max-width: 44ch; }
-  .lg .desc { font-size: var(--t-lg); }
-  .chev { margin-top: 0.25rem; min-height: auto; }
-  .media { margin-top: auto; padding: 0 clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem); }
-  .media :global(img) { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r); transition: transform 0.9s var(--ease-out); box-shadow: 0 20px 40px -24px rgb(0 0 0 / 0.35); }
-  .pcard:hover .media :global(img) { transform: scale(1.025); }
-  .lg .media { flex: 1; display: flex; min-height: 0; }
-  .lg .media :global(picture) { flex: 1; display: flex; }
-  .lg .media :global(img) { flex: 1; height: auto; min-height: 100%; aspect-ratio: auto; }
-  @media (max-width: 1023px) { .lg .media :global(img) { aspect-ratio: 16 / 10; min-height: 0; } }
+  .pcard:has(.name a:focus-visible) { outline: 2px solid var(--link); outline-offset: 3px; }
+  .desc { color: var(--fg-2); font-size: var(--t-sm); line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
 </style>

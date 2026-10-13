@@ -8,11 +8,15 @@ Le site SHALL utiliser un thème sombre unique, une seule famille typographique 
 - **THEN** le `h1` mesure au plus 88 px et chaque `h2` de section au plus 44 px
 
 ### Requirement: Fond animé Aurora
-Le hero de l'accueil SHALL afficher un fond Aurora en WebGL2. Le fond MUST être décoratif (`aria-hidden`), chargé après l'événement `load`, mis en pause hors écran ou onglet caché, et remplacé par un dégradé CSS statique sous mouvement réduit, `Save-Data` ou sans WebGL2.
+Sur les appareils à pointeur fin, le hero de l'accueil SHALL afficher un fond Aurora en WebGL2. Le fond MUST être décoratif (`aria-hidden`), chargé après l'événement `load`, mis en pause hors écran ou onglet caché. Il MUST être remplacé par un dégradé CSS aux mêmes couleurs sur écran tactile, sous mouvement réduit, sous `Save-Data`, sans WebGL2 ou avec un rendu WebGL logiciel.
 
 #### Scenario: Mouvement réduit
 - **WHEN** la préférence de mouvement réduit est active
 - **THEN** aucun canvas Aurora n'est créé et le dégradé statique est visible
+
+#### Scenario: Téléphone
+- **WHEN** l'accueil est ouvert sur un écran tactile
+- **THEN** le module Aurora n'est pas téléchargé et le temps de blocage total reste sous 200 ms
 
 ### Requirement: Accueil allégé
 L'accueil SHALL présenter dans l'ordre : hero, manifeste d'une phrase avec quatre chiffres, six projets en grille uniforme, trois expertises, stack et parcours. Chaque carte projet MUST montrer sa vignette standardisée, son titre, son domaine et son année.

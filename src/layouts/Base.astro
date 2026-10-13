@@ -54,8 +54,8 @@ const graph = { "@context": "https://schema.org", "@graph": [...personGraph(loca
     }
     <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1"} />
     <meta name="author" content="Jules Royet" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#0a0a0b" />
+    <meta name="color-scheme" content="dark" />
     <meta property="og:type" content={path.includes("/projects/") ? "article" : "website"} />
     <meta property="og:site_name" content="Jules Royet" />
     <meta property="og:locale" content={locale === "fr" ? "fr_FR" : "en_US"} />
@@ -69,8 +69,9 @@ const graph = { "@context": "https://schema.org", "@graph": [...personGraph(loca
     <meta property="og:image:alt" content={fullTitle} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:creator" content={SITE.twitter} />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon-96.png" type="image/png" sizes="96x96" />
     <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
@@ -92,7 +93,6 @@ const graph = { "@context": "https://schema.org", "@graph": [...personGraph(loca
     <div class="curtain" aria-hidden="true">
       <div class="inner"><img src={memoji.src} alt="" width="56" height="56" /><span class="route" data-curtain-route>{ui.loading}</span><span class="bar"></span></div>
     </div>
-    <div class="tcursor" aria-hidden="true"><span class="corner"></span><span class="corner"></span><span class="corner"></span><span class="corner"></span><span class="dot"></span><span class="label"></span></div>
     <Header locale={locale} path={path} />
     <main id="main" tabindex="-1">
       <slot />
@@ -107,7 +107,7 @@ const graph = { "@context": "https://schema.org", "@graph": [...personGraph(loca
 <style>
   .skip {
     position: fixed; left: 1rem; top: 0.5rem; z-index: 200; padding: 0.6rem 1rem; border-radius: var(--pill);
-    background: var(--black); color: #fff; font-size: var(--t-sm); transform: translateY(-200%); transition: transform 0.2s;
+    background: var(--fg); color: var(--bg); font-size: var(--t-sm); transform: translateY(-200%); transition: transform 0.2s;
   }
   .skip:focus { transform: none; }
   main:focus { outline: none; }

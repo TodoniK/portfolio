@@ -13,7 +13,7 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "img-src 'self' data:",
-        "media-src 'self'",
+        "media-src 'none'",
         "font-src 'self'",
         "connect-src 'self' https://cloudflareinsights.com",
         "base-uri 'self'",

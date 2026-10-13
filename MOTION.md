@@ -1,42 +1,44 @@
-# MOTION.md — Kinetic, Apple-like
+# MOTION.md : sombre, minimal, cinétique
 
 ## Narrative Role of Motion
 
-Le texte bouge pour être lu : le nom apparaît lettre par lettre, la phrase du hero change de mot, le manifeste s'allume au fil de la lecture. Le mouvement reste doux (ressorts légers), jamais gratuit.
+Le mouvement donne vie au texte et au fond, jamais au détriment de la lecture. Le nom apparaît lettre par lettre, la phrase du hero change de mot, le manifeste s'allume pendant la lecture. Le reste est discret : survols, lumière qui suit le pointeur, logos qui se soulèvent.
+
+## Backdrop
+
+- **Desktop** : Aurora (React Bits) en WebGL2 natif dans le hero. Le module est chargé après `load`, quand le navigateur est inactif. La compilation du shader est parallèle (`KHR_parallel_shader_compile`), le rendu se fait à 60 % de la taille CSS, et la boucle s'arrête hors écran ou quand l'onglet est caché. La lueur se déplace en suivant le pointeur.
+- **Tactile, Save-Data, rendu logiciel (SwiftShader, llvmpipe)** : le dégradé CSS aux mêmes couleurs dérive lentement (16 s), en `transform` uniquement.
+- **Bandeau de contact** : écho statique du dégradé, sans WebGL.
 
 ## Scroll Experience
 
 - Lenis sur pointeur fin, défilement natif au tactile.
-- Hero : le texte s'efface vers le haut, l'écran vidéo grandit (0.86 → 1) et ses coins se resserrent.
-- ScrollVelocity : deux bandeaux de mots en sens opposé, accélérés par la vitesse de scroll.
-- Manifeste : groupes de trois mots qui passent du gris au noir (couleur, pas opacité, pour le contraste AA).
-- Titres : mots qui montent d'un masque. Cartes : apparition par IntersectionObserver.
-- Expertises : piste horizontale épinglée sur desktop, liste empilée sur mobile.
-- Journal : la ligne bleue se trace avec la progression. Chiffres : comptage unique.
-
-## Hero Video Behavior
-
-- Poster AVIF prioritaire, vidéo WebM AV1 / MP4 H.264 attachée après le chargement, en pause hors écran, bouton pause visible.
-- Non chargée sous mouvement réduit ou Save-Data.
+- Hero : le texte remonte et s'efface en quittant l'écran.
+- Manifeste : groupes de trois mots qui passent du gris au blanc (couleur, pas opacité).
+- Titres : mots qui montent d'un masque.
+- Cartes : apparition au défilement, uniquement pour les éléments sous la ligne de flottaison. Sans script, tout est visible.
+- Journal : la ligne en dégradé se trace avec la progression. Chiffres : comptage unique.
 
 ## Transitions
 
-- Splash, première visite : memoji qui apparaît puis « Bonjour / Hello / Hola », environ 2 s, le contenu est rendu dessous.
-- Changement de page : voile blanc dépoli avec memoji, nom de la destination et barre de progression bleue (340 ms), puis fondu à l'arrivée.
+- Splash, première visite : memoji puis « Bonjour / Hello / Hola », 1,7 s au total, le contenu est rendu dessous.
+- Changement de page : voile sombre flouté avec memoji, nom de la destination et barre en dégradé (340 ms), puis fondu.
 
 ## Micro-interactions
 
-- TargetCursor : quatre crochets qui tournent au repos et se verrouillent sur les liens, boutons et cartes, avec un libellé (« Ouvrir », « Me faire signe »). Pointeur fin uniquement, en `difference`.
-- Memoji : suit le pointeur en 3D, fait signe au clic avec une bulle « Salut ! ».
-- Boutons magnétiques, pression à 0.97 au clic. Cartes : lumière qui suit le pointeur, légère élévation.
-- 404 : la graisse des chiffres suit le pointeur ou le doigt (TextPressure).
+- Curseur natif partout.
+- Memoji : suit le pointeur en 3D, fait signe au clic avec une bulle.
+- StarBorder sur le CTA principal, ShinyText sur la pastille de statut.
+- Boutons magnétiques, pression à 0,97.
+- Cartes : SpotlightCard, bordure qui s'éclaire, élévation de 2 px. Vignettes : reflet GlareHover et logos qui se soulèvent en cascade.
+- 404 : la graisse des chiffres suit le pointeur (TextPressure).
 
 ## Fallback prefers-reduced-motion
 
-Pas de splash, pas de voile, pas de Lenis, pas de scrub, pas de vidéo, pas de curseur personnalisé, pas de rotation de mots. Tout est visible immédiatement.
+Pas de splash, pas de voile, pas de Lenis, pas de scrub, pas d'Aurora ni de dérive du dégradé, pas de rotation de mots. Tout est visible immédiatement.
 
 ## Performance Budget
 
-- Uniquement `transform`, `opacity`, `filter` et `color` animés. Hero sans opacité de départ (LCP).
+- Seules les propriétés `transform`, `opacity`, `filter` et `color` sont animées. Le hero et le memoji n'ont pas d'opacité de départ, car ils sont l'élément LCP.
+- JS avant interaction sur l'accueil : environ 4 Ko gzip. GSAP et Lenis (49 Ko) se chargent au repos, Aurora (4 Ko) après `load`.
 - Pas de runtime React : les composants React Bits sont portés en TypeScript natif.
-- GSAP et Lenis chargés en différé, au repos du navigateur.

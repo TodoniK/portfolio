@@ -1,38 +1,38 @@
 ---
 // Port of React Bits "LogoLoop": monochrome logos, hover pauses and reveals colour.
 import { UI, type Locale } from "../data/site";
+import { brand, type Brand } from "../data/brands";
 interface Props { locale: Locale }
 const ui = UI[Astro.props.locale];
-const icons = import.meta.glob<string>("../assets/brands/*.svg", { eager: true, query: "?url", import: "default" });
-const items: Array<[string, string]> = [
-  ["Docker", "docker"], ["Kubernetes", "kubernetes"], ["Azure", "azure"], ["AWS", "aws"], ["Oracle Cloud", "oracle"],
-  ["Cloudflare", "cloudflare"], ["Dokploy", "dokploy"], ["Traefik", "traefikproxy"], ["Terraform", "terraform"], ["Linux", "linux"],
-  ["GitLab CI", "gitlab"], ["GitHub", "github"], ["Hermes Agent", "hermes"], ["OpenCode", "opencode"], ["Claude", "claude"],
-  ["Java", "java"], ["Spring Boot", "springboot"], ["Kotlin", "kotlin"], ["TypeScript", "typescript"], ["React", "react"],
-  ["Svelte", "svelte"], ["Node.js", "nodedotjs"], ["Rust", "rust"], ["Python", "python"], ["PostgreSQL", "postgresql"], ["MongoDB", "mongodb"], ["Redis", "redis"],
+const ids: Brand[] = [
+  "docker", "kubernetes", "azure", "aws", "oracle", "cloudflare", "dokploy", "traefikproxy", "terraform", "linux",
+  "gitlab", "github", "hermes", "opencode", "claude", "java", "springboot", "kotlin", "typescript", "react",
+  "svelte", "nodedotjs", "rust", "python", "postgresql", "mongodb", "redis", "astro",
 ];
-const list = items.map(([name, file]) => ({ name, src: icons[`../assets/brands/${file}.svg`] }));
+const list = ids.map(brand);
 ---
 <section class="stack" aria-labelledby="stack-title">
   <div class="wrap"><h2 id="stack-title" class="eyebrow">{ui.stackTitle}</h2></div>
   <div class="viewport">
     {[0, 1].map((copy) => (
       <ul class="row" role="list" aria-hidden={copy === 1 ? "true" : undefined}>
-        {list.map((i) => <li>{i.src && <img src={i.src} alt="" width="28" height="28" loading="lazy" decoding="async" />}<span>{i.name}</span></li>)}
+        {list.map((i) => <li><span class:list={["ic", { dark: i.dark }]}><img src={i.src} alt="" width="20" height="20" loading="lazy" decoding="async" /></span><span>{i.name}</span></li>)}
       </ul>
     ))}
   </div>
 </section>
 <style>
-  .stack { padding-block: clamp(3rem, 8vw, 5rem); overflow: hidden; }
-  .stack .eyebrow { margin-bottom: 2rem; }
+  .stack { padding-block: clamp(2.5rem, 6vw, 4rem); overflow: hidden; border-block: 1px solid var(--line); }
+  .stack .eyebrow { margin-bottom: 1.5rem; }
   .viewport { display: flex; width: max-content; animation: marquee 70s linear infinite; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
   .stack:hover .viewport { animation-play-state: paused; }
-  .row { display: flex; gap: 3rem; padding-right: 3rem; }
-  .row li { display: inline-flex; align-items: center; gap: 0.75rem; white-space: nowrap; font-size: var(--t-body); font-weight: 500; color: var(--fg-2); transition: color 0.3s; }
-  .row img { width: 28px; height: 28px; filter: grayscale(1); opacity: 0.7; transition: filter 0.4s, opacity 0.4s, transform 0.4s var(--spring); }
+  .row { display: flex; gap: 2.25rem; padding-right: 2.25rem; }
+  .row li { display: inline-flex; align-items: center; gap: 0.6rem; white-space: nowrap; font-size: var(--t-sm); font-weight: 500; color: var(--fg-2); transition: color 0.3s; }
+  .ic { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: #f2f2f5; opacity: 0.55; filter: grayscale(1); transition: filter 0.4s, opacity 0.4s, transform 0.4s var(--spring); }
+  .ic.dark { background: #232327; }
+  .ic img { width: 20px; height: 20px; object-fit: contain; }
   .row li:hover { color: var(--fg); }
-  .row li:hover img { filter: none; opacity: 1; transform: scale(1.15); }
+  .row li:hover .ic { filter: none; opacity: 1; transform: scale(1.1); }
   @keyframes marquee { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) {
     .viewport { width: auto; animation: none; mask-image: none; }

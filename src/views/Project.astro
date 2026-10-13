@@ -1,9 +1,8 @@
 ---
-import { Picture, getImage } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
+import ProjectThumb from "../components/ProjectThumb.astro";
 import { UI, SITE, href, projects, CLUSTER_LABEL, type Locale } from "../data/site";
-import { tile } from "../data/media";
 import { breadcrumb, projectSchema } from "../data/schema";
 
 interface Props { locale: Locale; slug: string }
@@ -15,12 +14,11 @@ const p = list[i]!;
 const a = p.article;
 const prev = list[(i - 1 + list.length) % list.length]!;
 const next = list[(i + 1) % list.length]!;
-const img = await getImage({ src: tile(p.id), format: "jpeg", width: 1200 });
 const title = locale === "fr" ? `${p.title} : étude de cas` : `${p.title}: case study`;
 const clean = (s: string) => s.replace(/[.:]$/, "");
 const schema = [
   breadcrumb(locale, [[ui.nav.projects, href(locale, "/projects")], [p.title, href(locale, `/projects/${p.id}`)]]),
-  projectSchema(locale, p, img.src),
+  projectSchema(locale, p, `/og/${locale === "fr" ? "" : "en-"}projects-${p.id}.jpg`),
 ];
 const info = [
   [locale === "fr" ? "Rôle" : "Role", a.role[locale]],
@@ -38,10 +36,8 @@ const info = [
     </div>
   </PageHero>
 
-  <div class="wrap-wide cover-wrap">
-    <div class="cover" data-cover>
-      <Picture src={tile(p.id)} alt={p.imageAlt} formats={["avif"]} fallbackFormat="webp" widths={[640, 960, 1280, 1600]} sizes="(min-width: 1440px) 1344px, 94vw" loading="eager" fetchpriority="high" quality={72} />
-    </div>
+  <div class="wrap">
+    <div class="cover" data-cover><ProjectThumb id={p.id} cluster={p.clusters[0]} eager /></div>
   </div>
 
   <section class="wrap facts" aria-label={locale === "fr" ? "En bref" : "At a glance"}>
@@ -86,32 +82,32 @@ const info = [
   </article>
 
   <nav class="wrap pager" aria-label={locale === "fr" ? "Projets voisins" : "Adjacent projects"}>
-    <a class="card" href={href(locale, `/projects/${prev.id}`)} rel="prev" data-cursor-target data-spotlight><span class="small muted">‹ {ui.prev}</span><span class="h3">{prev.title}</span></a>
-    <a class="card nx" href={href(locale, `/projects/${next.id}`)} rel="next" data-cursor-target data-spotlight><span class="small muted">{ui.next} ›</span><span class="h3">{next.title}</span></a>
+    <a class="card" href={href(locale, `/projects/${prev.id}`)} rel="prev" data-spotlight><span class="small muted">‹ {ui.prev}</span><span class="h3">{prev.title}</span></a>
+    <a class="card nx" href={href(locale, `/projects/${next.id}`)} rel="next" data-spotlight><span class="small muted">{ui.next} ›</span><span class="h3">{next.title}</span></a>
   </nav>
 </Base>
 <style>
   .links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.5rem; margin-top: 0.5rem; }
-  .cover { overflow: hidden; border-radius: var(--r-lg); background: #000; transform-origin: 50% 0; }
-  .cover :global(img) { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+  .cover { padding: 0.5rem; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--card); transform-origin: 50% 0; }
+  .cover :global(.thumb) { aspect-ratio: 21 / 9; }
+  @media (max-width: 639px) { .cover :global(.thumb) { aspect-ratio: 16 / 10; } }
   .facts { margin-top: clamp(2.5rem, 6vw, 4rem); }
   .info { display: grid; gap: 1.5rem 2rem; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
   .info dd { margin-top: 0.25rem; font-weight: 600; letter-spacing: -0.015em; }
   .layout { display: grid; gap: clamp(3rem, 6vw, 5rem); }
   .main :global(h2) { margin-top: 2.75rem; margin-bottom: 0.9rem; }
-  .summary { font-size: var(--t-xl); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; }
+  .summary { font-size: var(--t-xl); font-weight: 550; color: var(--fg); letter-spacing: -0.025em; line-height: 1.25; }
   .challenges { display: grid; gap: 1.25rem; }
   .challenges li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.75rem; align-items: start; }
-  .challenges .n { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--gray-1); font-size: var(--t-sm); font-weight: 600; }
+  .challenges .n { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line-2); font-size: var(--t-sm); font-weight: 600; }
   .side { display: grid; gap: 0.75rem; align-content: start; }
   .box { padding: 1.4rem; display: grid; gap: 0.75rem; border-radius: var(--r); }
-  .box .chip { background: var(--white); }
   .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .rel { display: grid; }
   .metrics-title { margin-top: var(--section); margin-bottom: 2rem; }
   .metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-  .metric { padding: clamp(1.25rem, 3vw, 2rem); display: flex; flex-direction: column-reverse; justify-content: space-between; gap: 1rem; min-height: 10rem; border-radius: var(--r); }
-  .metric dd { font-size: clamp(2rem, 1.2rem + 2.6vw, 3.5rem); font-weight: 700; letter-spacing: -0.045em; line-height: 1; }
+  .metric { padding: clamp(1.25rem, 3vw, 2rem); display: flex; flex-direction: column-reverse; justify-content: space-between; gap: 1rem; min-height: 8rem; border-radius: var(--r); }
+  .metric dd { font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem); font-weight: 650; letter-spacing: -0.045em; line-height: 1; }
   .pager { display: grid; gap: 0.75rem; margin-bottom: var(--section); }
   .pager a { padding: clamp(1.5rem, 3vw, 2.25rem); display: grid; gap: 0.4rem; border-radius: var(--r); }
   @media (min-width: 720px) { .pager { grid-template-columns: 1fr 1fr; } .nx { text-align: right; justify-items: end; } }
