@@ -46,6 +46,11 @@ const headers = `/*
 /og/*
   Cache-Control: public, max-age=86400
 
+/signature/*
+  ! Cross-Origin-Resource-Policy
+  Cache-Control: public, max-age=86400
+  X-Robots-Tag: noindex
+
 /resumes.pdf
   Cache-Control: public, max-age=3600
   X-Robots-Tag: noindex
