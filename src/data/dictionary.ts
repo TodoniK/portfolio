@@ -363,9 +363,8 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           name: "Infrastructure Automation with Terraform",
-          issuer: "HashiCorp",
+          issuer: "Online course, Orange training",
           year: "2025",
-          url: "https://www.hashicorp.com/certification/terraform-associate",
         },
         {
           name: "AWS Cloud Technical Essentials",
@@ -374,9 +373,9 @@ export const DICTIONARY: Record<Locale, Translations> = {
           url: "https://aws.amazon.com/training/",
         },
         {
-          name: "TOEIC: C1 Level (Full Professional)",
+          name: "TOEIC: 940/990 (Full Professional)",
           issuer: "ETS Global",
-          year: "2024 to 2026",
+          year: "2024",
           url: "https://www.etsglobal.org/fr/fr/programme/toeic-tests",
         },
       ],
@@ -675,9 +674,8 @@ export const DICTIONARY: Record<Locale, Translations> = {
         },
         {
           name: "Infrastructure Automation with Terraform",
-          issuer: "HashiCorp",
+          issuer: "Formation en ligne, Orange",
           year: "2025",
-          url: "https://www.hashicorp.com/certification/terraform-associate",
         },
         {
           name: "AWS Cloud Technical Essentials",
@@ -686,9 +684,9 @@ export const DICTIONARY: Record<Locale, Translations> = {
           url: "https://aws.amazon.com/training/",
         },
         {
-          name: "TOEIC : score C1 (anglais courant)",
+          name: "TOEIC : 940/990 (anglais courant)",
           issuer: "ETS Global",
-          year: "2024 à 2026",
+          year: "2024",
           url: "https://www.etsglobal.org/fr/fr/programme/toeic-tests",
         },
       ],
