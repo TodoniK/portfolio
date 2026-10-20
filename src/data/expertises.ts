@@ -2,8 +2,8 @@ export const EXPERTISES = {
   "cloud-devops": {
     title: { fr: "Architecture Cloud et DevOps", en: "Cloud architecture and DevOps" },
     summary: {
-      fr: "Jules Royet est architecte Cloud et DevOps chez Orange. Son travail porte sur les migrations vers Azure et le cloud privé, les architectures conteneurisées et l’automatisation des déploiements. Basé à Bordeaux, avec une mission à Nice, il associe conception d’architecture et expérience du développement logiciel.",
-      en: "Jules Royet is a Cloud & DevOps Architect at Orange. His work covers migrations to Azure and private cloud, container-based architectures and deployment automation. Based in Bordeaux, with an assignment in Nice, he combines architecture design with hands-on software engineering experience.",
+      fr: "Jules Royet est architecte Cloud et DevOps chez Orange. Son travail porte sur les migrations vers Azure et le cloud privé, les architectures conteneurisées et l’automatisation des déploiements. Basé à Nice, il associe conception d’architecture et expérience du développement logiciel.",
+      en: "Jules Royet is a Cloud & DevOps Architect at Orange. His work covers migrations to Azure and private cloud, container-based architectures and deployment automation. Based in Nice, he combines architecture design with hands-on software engineering experience.",
     },
     sections: [
       { fr: "Concevoir une migration vers Azure", en: "Designing an Azure migration", body: {

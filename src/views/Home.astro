@@ -19,8 +19,8 @@ const all = projects(locale);
 const featured = all.slice(0, 6);
 const meta =
   locale === "fr"
-    ? { title: "Jules Royet | Architecte cloud, DevOps et IA à Bordeaux et Nice", description: "Jules Royet, architecte cloud et DevOps chez Orange. Ingénierie logicielle, infrastructures Azure et agents IA autonomes. Parcours et études de cas entre Bordeaux et Nice." }
-    : { title: "Jules Royet | Cloud, DevOps & AI engineer in Bordeaux and Nice", description: "Jules Royet, Cloud & DevOps Architect at Orange. Software engineering, Azure infrastructure and autonomous AI agents. Background and case studies from Bordeaux to Nice, France." };
+    ? { title: "Jules Royet | Architecte Cloud & IA", description: "Jules Royet, architecte cloud et IA chez Orange. Architecture cible Azure, IA générative en production et agents IA autonomes. Parcours et études de cas." }
+    : { title: "Jules Royet | Cloud & AI Solutions Architect", description: "Jules Royet, Cloud & AI architect at Orange. Azure target architecture, generative AI in production and autonomous AI agents. Background and case studies." };
 const log = [
   ...d.about.experiences.map((e) => ({ when: e.period, who: e.company, what: e.role, logo: logo(e.logo), url: e.url })),
   ...d.about.educations.map((e) => ({ when: e.period, who: e.school, what: e.degree, logo: logo(e.logo), url: e.url })),

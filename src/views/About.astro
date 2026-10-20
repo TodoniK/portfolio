@@ -13,8 +13,8 @@ const { locale } = Astro.props;
 const ui = UI[locale];
 const d = t(locale).about;
 const meta = locale === "fr"
-  ? { title: "Parcours et expertises cloud & DevOps", description: "Jules Royet, architecte cloud et DevOps chez Orange, diplômé de l'ENSEIRB-MATMECA. Parcours, compétences et projets, de Bordeaux à Nice." }
-  : { title: "About: cloud & DevOps engineering experience", description: "Meet Jules Royet, Cloud & DevOps Architect at Orange and ENSEIRB-MATMECA graduate. Engineering experience, technical skills and projects in Bordeaux and Nice." };
+  ? { title: "Parcours et expertises cloud & DevOps", description: "Jules Royet, architecte cloud et DevOps chez Orange, diplômé de l'ENSEIRB-MATMECA. Parcours, compétences et projets, de Bayonne à Nice." }
+  : { title: "About: cloud & DevOps engineering experience", description: "Meet Jules Royet, Cloud & DevOps Architect at Orange and ENSEIRB-MATMECA graduate. Engineering experience, technical skills and projects, from Bayonne to Nice." };
 const schema = [breadcrumb(locale, [[ui.nav.about, href(locale, "/about")]]), profilePage(locale)];
 ---
 <Base locale={locale} title={meta.title} description={meta.description} schema={schema}>

@@ -9,7 +9,7 @@ export const GET: APIRoute = () => {
   const body = [
     "# Jules Royet",
     "",
-    "> Cloud & DevOps Architect at Orange and software engineer, ENSEIRB-MATMECA graduate. Based in Bordeaux with an assignment in Nice, France. Builds cloud platforms, CI/CD pipelines and autonomous AI agent runtimes.",
+    "> Cloud & DevOps Architect at Orange and software engineer, ENSEIRB-MATMECA graduate. Based in Nice, France. Builds cloud platforms, CI/CD pipelines and autonomous AI agent runtimes.",
     "",
     d.about.bioP1,
     "",
