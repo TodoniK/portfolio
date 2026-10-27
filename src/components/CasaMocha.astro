@@ -1,0 +1,50 @@
+---
+// Crédit Casa Mocha, version canonique (brand-casa-mocha/brand/credit). À copier tel quel sur chaque site client.
+// Icône : silhouette de assets/icon-mono.svg en currentColor, fenêtre évidée : lisible sur fond clair comme sombre.
+// Couleurs héritées du pied de page ; réglages facultatifs sur un parent : --cm-color (icône et nom), --cm-accent.
+interface Props { lang?: string }
+const LABELS = {
+  fr: ['Site conçu par', 'nouvel onglet'],
+  en: ['Site designed by', 'new tab'],
+  es: ['Web diseñada por', 'nueva pestaña'],
+  ca: ['Web dissenyada per', 'pestanya nova'],
+} as const;
+const code = (Astro.props.lang ?? Astro.currentLocale ?? 'fr').slice(0, 2) as keyof typeof LABELS;
+const [by, newTab] = LABELS[code] ?? LABELS.en;
+---
+<a class="cm" href="https://www.casa-mocha.fr/" rel="noopener" target="_blank" aria-label={`${by} Casa Mocha (${newTab})`}>
+  <span class="cm__by">{by}</span>
+  <svg class="cm__icon" viewBox="0 0 80 68" width="23" height="20" fill="none" aria-hidden="true" focusable="false">
+    <g class="cm__steam" stroke-width="1.6" stroke-linecap="round">
+      <path d="M36.5 9C34.5 7 38.5 5 36.5 3" /><path d="M40 8.5C38 6.5 42 4.5 40 2.5" /><path d="M43.5 9C41.5 7 45.5 5 43.5 3" />
+    </g>
+    <g class="cm__cup">
+      <path d="M68 43C81 42 81 58 67 56" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" opacity=".85" />
+      <path d="M14 36Q9.5 36 9.5 40.5C9.5 47.5 11 55 14 63Q15 64.5 17.5 64.5H62.5Q65 64.5 66 63C69 55 70.5 47.5 70.5 40.5Q70.5 36 66 36Z" fill="currentColor" />
+      <path class="cm__roof" fill-rule="evenodd" d="M23.5 36Q22 36 22 34.5V26.5Q22 24.5 23.58 23.27L37.24 12.65Q40 10.5 42.76 12.65L56.42 23.27Q58 24.5 58 26.5V34.5Q58 36 56.5 36ZM33.5 24.5Q31.5 24.5 31.5 26.5V33.5Q31.5 35.5 33.5 35.5H46.5Q48.5 35.5 48.5 33.5V26.5Q48.5 24.5 46.5 24.5Z" fill="currentColor" />
+      <rect x="31.5" y="24.5" width="17" height="11" rx="2" fill="currentColor" opacity=".4" />
+    </g>
+  </svg>
+  <span class="cm__name">CASA MOCHA<span class="cm__dot">.</span></span>
+</a>
+
+<style>
+  .cm { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.75rem; color: inherit; text-decoration: none; }
+  .cm__by { font-size: .6875rem; font-weight: 500; line-height: 1; }
+  .cm__icon { flex: none; width: 1.45rem; height: auto; overflow: visible; color: var(--cm-color, currentColor); }
+  .cm__name { font-size: .75rem; font-weight: 700; line-height: 1; letter-spacing: .04em; color: var(--cm-color, currentColor); }
+  .cm__dot { color: var(--cm-accent, #c07a3a); }
+  .cm__steam { stroke: var(--cm-accent, #c07a3a); }
+  .cm__steam path { opacity: .45; }
+  .cm:hover, .cm:focus-visible { color: var(--cm-color, currentColor); }
+  .cm:hover .cm__roof, .cm:focus-visible .cm__roof { fill: var(--cm-accent, #c07a3a); }
+  @media (prefers-reduced-motion: no-preference) {
+    .cm { transition: color .3s; }
+    .cm__cup, .cm__roof { transition: translate .4s cubic-bezier(.22, 1, .36, 1), fill .3s; }
+    .cm:hover .cm__cup, .cm:focus-visible .cm__cup { translate: 0 -2px; }
+    .cm__steam path { opacity: 0; animation: cm-steam 2.8s ease-in-out infinite; }
+    .cm__steam path:nth-child(2) { animation-delay: .5s; }
+    .cm__steam path:nth-child(3) { animation-delay: 1s; }
+  }
+  @keyframes cm-steam { 0% { opacity: 0; translate: 0 4px; } 40% { opacity: .8; } 100% { opacity: 0; translate: 0 -4px; } }
+</style>

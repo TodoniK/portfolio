@@ -1,6 +1,7 @@
 ---
 import { SITE, UI, t, href, CLUSTERS, CLUSTER_LABEL, type Locale } from "../data/site";
 import CopyEmail from "./CopyEmail.astro";
+import CasaMocha from "./CasaMocha.astro";
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const ui = UI[locale];
@@ -47,7 +48,7 @@ const year = new Date().getFullYear();
     </div>
     <div class="bottom">
       <span>Copyright &copy; {year} Jules Royet. {ui.location}.</span>
-      <span class="links"><a href={href(locale, "/legal")}>{ui.legal}</a><a href="https://www.casa-mocha.fr/" rel="noopener" target="_blank">Casa Mocha</a></span>
+      <span class="links"><a href={href(locale, "/legal")}>{ui.legal}</a><CasaMocha lang={locale} /></span>
     </div>
   </div>
 </footer>
@@ -68,6 +69,6 @@ const year = new Date().getFullYear();
   .cols a { display: inline-block; padding-block: 0.3rem; transition: color 0.2s; }
   .cols a:hover, .links a:hover { color: var(--fg); }
   .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem 2rem; padding-top: 1rem; }
-  .links { display: flex; gap: 1.25rem; }
+  .links { display: flex; align-items: center; gap: 1.25rem; --cm-color: var(--fg); }
   .links a { padding-block: 0.3rem; }
 </style>
