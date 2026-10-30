@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { UI, t, href, projects, CLUSTERS, CLUSTER_LABEL, SITE, type Locale } from "../data/site";
+import { UI, t, href, pick, projects, CLUSTERS, CLUSTER_LABEL, SITE, type Locale } from "../data/site";
 import { breadcrumb } from "../data/schema";
 
 interface Props { locale: Locale }
@@ -10,9 +10,11 @@ const { locale } = Astro.props;
 const ui = UI[locale];
 const d = t(locale);
 const list = projects(locale);
-const meta = locale === "fr"
-  ? { title: "Projets cloud, DevOps, logiciel et agents IA", description: "Études de cas de Jules Royet : architectures cloud, développement logiciel, agents autonomes et automatisation. Décisions techniques et réalisations." }
-  : { title: "Cloud, DevOps, software and AI projects", description: "Engineering case studies by Jules Royet: cloud infrastructure, software development, autonomous agents and automation. Technical decisions and outcomes." };
+const meta = pick({
+  fr: { title: "Projets cloud, DevOps, logiciel et agents IA", description: "Études de cas de Jules Royet : architectures cloud, développement logiciel, agents autonomes et automatisation. Décisions techniques et réalisations." },
+  en: { title: "Cloud, DevOps, software and AI projects", description: "Engineering case studies by Jules Royet: cloud infrastructure, software development, autonomous agents and automation. Technical decisions and outcomes." },
+  es: { title: "Proyectos de cloud, DevOps, software y agentes de IA", description: "Casos de estudio de Jules Royet: arquitecturas cloud, desarrollo de software, agentes autónomos y automatización. Decisiones técnicas y resultados." },
+}, locale);
 const schema = [
   breadcrumb(locale, [[ui.nav.projects, href(locale, "/projects")]]),
   {
@@ -49,7 +51,7 @@ const schema = [
   .filters input { position: absolute; opacity: 0; pointer-events: none; }
   .filters label:hover { color: var(--fg); border-color: var(--line-2); }
   .filters label:has(input:checked) { background: var(--fg); border-color: var(--fg); color: var(--bg); }
-  .filters label:has(input:checked) span { color: #48484a; }
+  .filters label:has(input:checked) span { color: color-mix(in srgb, var(--bg) 70%, var(--fg)); }
   .filters label:has(input:focus-visible) { outline: 2px solid var(--link); outline-offset: 2px; }
   .grid { display: grid; gap: 1rem; }
   @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }

@@ -6,11 +6,11 @@ Rendre le portfolio trouvable par les moteurs de recherche et citable par les mo
 ## Requirements
 
 ### Requirement: Métadonnées par page
-Chaque page MUST avoir un titre et une description uniques, une URL canonique sur `https://julesroyet.dev`, des alternates hreflang `fr`, `en` et `x-default`, et des balises Open Graph et Twitter avec une image 1200 x 630.
+Chaque page MUST avoir un titre et une description uniques, une URL canonique sur `https://julesroyet.dev`, des alternates hreflang `fr`, `en`, `es` et `x-default`, et des balises Open Graph et Twitter avec une image 1200 x 630.
 
 #### Scenario: Page projet
 - **WHEN** un robot lit `/en/projects/omniroute`
-- **THEN** il trouve un canonique vers cette URL et un alternate `fr` vers `/projects/omniroute`
+- **THEN** il trouve un canonique vers cette URL, un alternate `fr` vers `/projects/omniroute` et un alternate `es` vers `/es/projects/omniroute`
 
 ### Requirement: Données structurées fidèles
 Le site MUST publier en JSON-LD `Person`, `WebSite`, `ProfilePage` (à propos), `BreadcrumbList` (pages profondes), `CreativeWork` (projets) et `FAQPage` (expertises). Les valeurs MUST correspondre au contenu visible.

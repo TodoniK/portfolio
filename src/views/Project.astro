@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import ProjectThumb from "../components/ProjectThumb.astro";
-import { UI, SITE, href, projects, CLUSTER_LABEL, type Locale } from "../data/site";
+import { UI, SITE, href, pick, paragraphs, projects, CLUSTER_LABEL, type Locale } from "../data/site";
 import { breadcrumb, projectSchema } from "../data/schema";
 
 interface Props { locale: Locale; slug: string }
@@ -14,25 +14,25 @@ const p = list[i]!;
 const a = p.article;
 const prev = list[(i - 1 + list.length) % list.length]!;
 const next = list[(i + 1) % list.length]!;
-const title = locale === "fr" ? `${p.title} : étude de cas` : `${p.title}: case study`;
+const title = pick({ fr: `${p.title} : étude de cas`, en: `${p.title}: case study`, es: `${p.title}: caso de estudio` }, locale);
 const clean = (s: string) => s.replace(/[.:]$/, "");
 const schema = [
   breadcrumb(locale, [[ui.nav.projects, href(locale, "/projects")], [p.title, href(locale, `/projects/${p.id}`)]]),
-  projectSchema(locale, p, `/og/${locale === "fr" ? "" : "en-"}projects-${p.id}.jpg`),
+  projectSchema(locale, p, `/og/${locale === "fr" ? "" : `${locale}-`}projects-${p.id}.jpg`),
 ];
 const info = [
-  [locale === "fr" ? "Rôle" : "Role", a.role[locale]],
-  [locale === "fr" ? "Période" : "Timeline", a.timeline[locale]],
-  [locale === "fr" ? "Contexte" : "Context", a.clientOrContext[locale]],
-  [locale === "fr" ? "Plateforme" : "Infra", a.infrastructure[locale]],
+  [pick({ fr: "Rôle", en: "Role", es: "Rol" }, locale), a.role[locale]],
+  [pick({ fr: "Période", en: "Timeline", es: "Periodo" }, locale), a.timeline[locale]],
+  [pick({ fr: "Contexte", en: "Context", es: "Contexto" }, locale), a.clientOrContext[locale]],
+  [pick({ fr: "Plateforme", en: "Infra", es: "Plataforma" }, locale), a.infrastructure[locale]],
 ];
 ---
 <Base locale={locale} title={title} description={a.summary[locale]} schema={schema}>
   <PageHero locale={locale} kicker={`${p.tag} · ${a.timeline[locale]}`} title={p.title} lead={clean(a.headline[locale])} crumbs={[[ui.nav.projects, href(locale, "/projects")], [p.title, href(locale, `/projects/${p.id}`)]]}>
     <div class="links">
-      {p.previewUrl && <a class="btn" href={p.previewUrl} rel="noopener" target="_blank" data-magnet>{locale === "fr" ? "Démo en direct" : "Live preview"}</a>}
-      {p.githubUrl && <a class="chev" href={p.githubUrl} rel="noopener" target="_blank">{locale === "fr" ? "Code source" : "Source code"}</a>}
-      {p.confidential && <span class="chip">{locale === "fr" ? "Projet confidentiel" : "Confidential project"}</span>}
+      {p.previewUrl && <a class="btn" href={p.previewUrl} rel="noopener" target="_blank" data-magnet>{pick({ fr: "Démo en direct", en: "Live preview", es: "Demo en vivo" }, locale)}</a>}
+      {p.githubUrl && <a class="chev" href={p.githubUrl} rel="noopener" target="_blank">{pick({ fr: "Code source", en: "Source code", es: "Código fuente" }, locale)}</a>}
+      {p.confidential && <span class="chip">{pick({ fr: "Projet confidentiel", en: "Confidential project", es: "Proyecto confidencial" }, locale)}</span>}
     </div>
   </PageHero>
 
@@ -40,7 +40,7 @@ const info = [
     <div class="cover" data-cover><ProjectThumb id={p.id} cluster={p.clusters[0]} eager /></div>
   </div>
 
-  <section class="wrap facts" aria-label={locale === "fr" ? "En bref" : "At a glance"}>
+  <section class="wrap facts" aria-label={pick({ fr: "En bref", en: "At a glance", es: "En resumen" }, locale)}>
     <dl class="info">{info.map(([k, v]) => <div><dt class="small muted">{k}</dt><dd>{v}</dd></div>)}</dl>
   </section>
 
@@ -49,9 +49,9 @@ const info = [
       <div class="main prose">
         <p class="summary">{a.summary[locale]}</p>
         <h2 class="h3">{clean(a.problemTitle[locale])}</h2>
-        <p>{a.problemBody[locale]}</p>
+        {paragraphs(a.problemBody[locale]).map((t) => <p>{t}</p>)}
         <h2 class="h3">{clean(a.architectureTitle[locale])}</h2>
-        <p>{a.architectureBody[locale]}</p>
+        {paragraphs(a.architectureBody[locale]).map((t) => <p>{t}</p>)}
         <h2 class="h3">{clean(a.challengesTitle[locale])}</h2>
         <ol class="challenges" role="list">
           {a.challenges.map((c, n) => <li><span class="n num">{n + 1}</span><p>{c[locale]}</p></li>)}
@@ -59,7 +59,7 @@ const info = [
       </div>
       <aside class="side">
         <div class="card box">
-          <p class="small muted">{locale === "fr" ? "Stack technique" : "Tech stack"}</p>
+          <p class="small muted">{pick({ fr: "Stack technique", en: "Tech stack", es: "Stack técnico" }, locale)}</p>
           <ul role="list" class="chips">{p.stack.map((s) => <li class="chip">{s}</li>)}</ul>
         </div>
         <div class="card box">
@@ -81,7 +81,7 @@ const info = [
     </div>
   </article>
 
-  <nav class="wrap pager" aria-label={locale === "fr" ? "Projets voisins" : "Adjacent projects"}>
+  <nav class="wrap pager" aria-label={pick({ fr: "Projets voisins", en: "Adjacent projects", es: "Proyectos contiguos" }, locale)}>
     <a class="card" href={href(locale, `/projects/${prev.id}`)} rel="prev" data-spotlight><span class="small muted">‹ {ui.prev}</span><span class="h3">{prev.title}</span></a>
     <a class="card nx" href={href(locale, `/projects/${next.id}`)} rel="next" data-spotlight><span class="small muted">{ui.next} ›</span><span class="h3">{next.title}</span></a>
   </nav>
@@ -96,7 +96,11 @@ const info = [
   .info dd { margin-top: 0.25rem; font-weight: 600; letter-spacing: -0.015em; }
   .layout { display: grid; gap: clamp(3rem, 6vw, 5rem); }
   .main :global(h2) { margin-top: 2.75rem; margin-bottom: 0.9rem; }
-  .summary { font-size: var(--t-xl); font-weight: 550; color: var(--fg); letter-spacing: -0.025em; line-height: 1.25; }
+  /* the summary leads, body copy is split into short, airy paragraphs on a 65-character measure */
+  .main { max-width: 38rem; }
+  .main p { line-height: 1.7; }
+  .main > p:not(.summary), .challenges p { color: var(--fg-2); }
+  .summary { font-size: var(--t-lg); font-weight: 500; color: var(--fg); letter-spacing: -0.018em; line-height: 1.5; }
   .challenges { display: grid; gap: 1.25rem; }
   .challenges li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.75rem; align-items: start; }
   .challenges .n { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line-2); font-size: var(--t-sm); font-weight: 600; }

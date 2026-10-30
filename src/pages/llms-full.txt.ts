@@ -29,4 +29,4 @@ function dump(l: Locale) {
 }
 
 export const GET: APIRoute = () =>
-  new Response(`${dump("en")}\n\n---\n\n${dump("fr")}\n\nContact: ${SITE.email}\n`, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+  new Response(`${dump("en")}\n\n---\n\n${dump("fr")}\n\n---\n\n${dump("es")}\n\nContact: ${SITE.email}\n`, { headers: { "Content-Type": "text/plain; charset=utf-8" } });

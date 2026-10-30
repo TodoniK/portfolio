@@ -15,7 +15,7 @@ const walk = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirect
 const decode = (s) => s.replace(/&#39;/g, "'").replace(/&amp;/g, "&").replace(/&quot;/g, '"');
 
 const browser = await chromium.launch();
-const ctx = await browser.newContext({ viewport: { width: 1200, height: 630 }, bypassCSP: true, reducedMotion: "reduce" });
+const ctx = await browser.newContext({ viewport: { width: 1200, height: 630 }, bypassCSP: true, reducedMotion: "reduce", colorScheme: "dark" });
 const page = await ctx.newPage();
 // Serve dist/ under a fake origin so absolute /_astro/* URLs resolve.
 await page.route("http://og.local/**", (route) => {

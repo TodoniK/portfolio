@@ -3,7 +3,7 @@ import { PROJECT_ARTICLES } from "./projects-data";
 import { EXPERTISES, type ExpertiseSlug } from "./expertises";
 
 export type { Locale, ExpertiseSlug };
-export const LOCALES: Locale[] = ["fr", "en"];
+export const LOCALES: Locale[] = ["fr", "en", "es"];
 
 export const SITE = {
   url: "https://julesroyet.dev",
@@ -23,21 +23,28 @@ export const SITE = {
 export const t = (locale: Locale) => DICTIONARY[locale];
 
 /* ---------- routing ---------- */
-const LEGAL = { fr: "/mentions-legales", en: "/en/legal-notice" } as const;
+const LEGAL: Record<Locale, string> = { fr: "/mentions-legales", en: "/en/legal-notice", es: "/es/aviso-legal" };
 
 export function href(locale: Locale, path = "/"): string {
   if (path === "/legal") return LEGAL[locale];
   const clean = path === "/" ? "" : path;
-  return locale === "fr" ? clean || "/" : `/en${clean}`;
+  return locale === "fr" ? clean || "/" : `/${locale}${clean}`;
 }
 
-/** Equivalent URL in the other locale, so the language switch keeps context. */
+/** Equivalent URL in another locale, so the language switch keeps context. */
 export function alternatePath(pathname: string, target: Locale): string {
   const p = pathname.replace(/\/$/, "") || "/";
-  if (p === LEGAL.fr || p === LEGAL.en) return LEGAL[target];
-  const base = p.startsWith("/en") ? p.slice(3) || "/" : p;
-  return href(target, base);
+  if (/\/404$/.test(p)) return href(target, "/");
+  if (Object.values(LEGAL).includes(p)) return LEGAL[target];
+  return href(target, p.replace(/^\/(en|es)(?=\/|$)/, "") || "/");
 }
+
+/** Language names and the suggestion banner, each written in its own language. */
+export const LANG: Record<Locale, { name: string; suggest: string; go: string; close: string }> = {
+  fr: { name: "Français", suggest: "Ce site existe aussi en français.", go: "Lire en français", close: "Fermer" },
+  en: { name: "English", suggest: "This site is also available in English.", go: "Read in English", close: "Close" },
+  es: { name: "Español", suggest: "Este sitio también está disponible en español.", go: "Leer en español", close: "Cerrar" },
+};
 
 /* ---------- clusters (expertise pages) ---------- */
 export const CLUSTERS: Array<{ slug: ExpertiseSlug; code: string }> = [
@@ -47,16 +54,16 @@ export const CLUSTERS: Array<{ slug: ExpertiseSlug; code: string }> = [
 ];
 
 export const CLUSTER_LABEL: Record<ExpertiseSlug, Record<Locale, string>> = {
-  "cloud-devops": { fr: "Cloud et DevOps", en: "Cloud & DevOps" },
-  "systemes-ia": { fr: "Systèmes IA", en: "AI systems" },
-  "developpement-logiciel": { fr: "Développement logiciel", en: "Software engineering" },
+  "cloud-devops": { fr: "Cloud et DevOps", en: "Cloud & DevOps", es: "Cloud y DevOps" },
+  "systemes-ia": { fr: "Systèmes IA", en: "AI systems", es: "Sistemas de IA" },
+  "developpement-logiciel": { fr: "Développement logiciel", en: "Software engineering", es: "Desarrollo de software" },
 };
 
 /** One-line pitch per area, for home cards (the long copy lives on the expertise pages). */
 export const CLUSTER_BLURB: Record<ExpertiseSlug, Record<Locale, string>> = {
-  "cloud-devops": { fr: "Migrations Azure, conteneurs et déploiements automatisés.", en: "Azure migrations, containers and automated delivery." },
-  "systemes-ia": { fr: "Agents autonomes, passerelles de modèles et outillage agentique.", en: "Autonomous agents, model gateways and agentic tooling." },
-  "developpement-logiciel": { fr: "Backends Java et Kotlin, interfaces TypeScript, applications web.", en: "Java and Kotlin backends, TypeScript interfaces, web apps." },
+  "cloud-devops": { fr: "Migrations Azure, conteneurs et déploiements automatisés.", en: "Azure migrations, containers and automated delivery.", es: "Migraciones a Azure, contenedores y despliegues automatizados." },
+  "systemes-ia": { fr: "Agents autonomes, passerelles de modèles et outillage agentique.", en: "Autonomous agents, model gateways and agentic tooling.", es: "Agentes autónomos, pasarelas de modelos y herramientas agénticas." },
+  "developpement-logiciel": { fr: "Backends Java et Kotlin, interfaces TypeScript, applications web.", en: "Java and Kotlin backends, TypeScript interfaces, web apps.", es: "Backends en Java y Kotlin, interfaces en TypeScript, aplicaciones web." },
 };
 
 export function clustersOf(slug: string): ExpertiseSlug[] {
@@ -83,7 +90,16 @@ export function projects(locale: Locale) {
 }
 export type Project = ReturnType<typeof projects>[number];
 
-export const pick = <T>(v: { en: T; fr: T }, locale: Locale): T => v[locale];
+export const pick = <T>(v: Record<Locale, T>, locale: Locale): T => v[locale];
+
+/** Sentences of a text (a capital, or ¿ ¡, after the end punctuation starts a new one). */
+export const sentences = (text: string) => text.trim().split(/(?<=[.!?])\s+(?=[\p{Lu}¿¡«"])/u);
+/** Long copy cut into short paragraphs of at most `per` sentences, so it never reads as one block. */
+export function paragraphs(text: string, per = 2): string[] {
+  const all = sentences(text), out: string[] = [];
+  for (let i = 0; i < all.length; i += per) out.push(all.slice(i, i + per).join(" "));
+  return out;
+}
 
 /* ---------- UI strings for the new interface ---------- */
 export const UI = {
@@ -92,8 +108,8 @@ export const UI = {
     menu: "Menu",
     close: "Fermer",
     nav: { home: "Accueil", projects: "Projets", about: "Parcours", contact: "Contact" },
-    langLabel: "Read in English",
-    langShort: "EN",
+    langMenu: "Langue",
+    themeDark: "Thème sombre",
     status: "Disponible pour échanger",
     location: "Nice · Côte d'Azur",
     heroKicker: "Architecte Cloud & IA · Cloud & AI Solutions Architect",
@@ -106,9 +122,7 @@ export const UI = {
     scroll: "Défiler",
     manifestoTitle: "Manifeste",
     manifesto: "J'architecture le cloud, j'automatise la livraison et je mets des agents IA en production.",
-    portraitHint: "Survolez ou touchez le portrait",
-    portraitAlt: "Illustration de Jules Royet travaillant sur son ordinateur",
-    portraitAltWave: "Illustration de Jules Royet qui fait signe de la main",
+    portraitAlt: "Photo de Jules Royet",
     clustersTitle: "Expertises",
     clustersHeading: "Trois domaines, un même fil.",
     clustersLead: "Des systèmes qui tournent en production et que d'autres peuvent maintenir.",
@@ -148,7 +162,6 @@ export const UI = {
     notFoundTitle: "Route introuvable",
     notFoundText: "Le paquet s'est perdu entre deux sauts. Cette page n'existe pas ou a été déplacée.",
     notFoundHome: "Retour à l'accueil",
-    loading: "Chargement",
     present: "en cours",
     healthy: "healthy",
   },
@@ -157,8 +170,8 @@ export const UI = {
     menu: "Menu",
     close: "Close",
     nav: { home: "Home", projects: "Projects", about: "About", contact: "Contact" },
-    langLabel: "Lire en français",
-    langShort: "FR",
+    langMenu: "Language",
+    themeDark: "Dark theme",
     status: "Open to conversations",
     location: "Nice · Côte d'Azur",
     heroKicker: "Cloud & AI Solutions Architect",
@@ -171,9 +184,7 @@ export const UI = {
     scroll: "Scroll",
     manifestoTitle: "Manifesto",
     manifesto: "I design cloud platforms, automate delivery and ship AI agents to production.",
-    portraitHint: "Hover or tap the portrait",
-    portraitAlt: "Illustration of Jules Royet working on his laptop",
-    portraitAltWave: "Illustration of Jules Royet waving",
+    portraitAlt: "Photo of Jules Royet",
     clustersTitle: "Expertise",
     clustersHeading: "Three areas, one thread.",
     clustersLead: "Systems that run in production and that others can maintain.",
@@ -213,8 +224,69 @@ export const UI = {
     notFoundTitle: "Route not found",
     notFoundText: "The packet got lost between two hops. This page does not exist or has moved.",
     notFoundHome: "Back to home",
-    loading: "Loading",
     present: "ongoing",
+    healthy: "healthy",
+  },
+  es: {
+    skip: "Ir al contenido principal",
+    menu: "Menú",
+    close: "Cerrar",
+    nav: { home: "Inicio", projects: "Proyectos", about: "Trayectoria", contact: "Contacto" },
+    langMenu: "Idioma",
+    themeDark: "Tema oscuro",
+    status: "Disponible para conversar",
+    location: "Niza · Costa Azul",
+    heroKicker: "Arquitecto Cloud e IA · Cloud & AI Solutions Architect",
+    heroBuild: "Construyo",
+    heroWords: ["plataformas cloud.", "agentes de IA autónomos.", "pipelines de CI/CD.", "sistemas que aguantan."],
+    stats: [["4", "años de experiencia en Orange"], ["600k+", "visitantes al año en la tienda de Orange"], ["-75%", "de tiempo de publicación gracias a la IA"], ["10", "casos de estudio publicados"]] as Array<[string, string]>,
+    memojiHint: "Salúdame",
+    heroCta: "Ver los proyectos",
+    heroCv: "Descargar el CV",
+    scroll: "Desplazar",
+    manifestoTitle: "Manifiesto",
+    manifesto: "Diseño la arquitectura cloud, automatizo las entregas y llevo agentes de IA a producción.",
+    portraitAlt: "Foto de Jules Royet",
+    clustersTitle: "Especialidades",
+    clustersHeading: "Tres ámbitos, un mismo hilo.",
+    clustersLead: "Sistemas que funcionan en producción y que otros pueden mantener.",
+    clusterCta: "Explorar",
+    projectsTitle: "Proyectos destacados",
+    allProjects: "Todos los proyectos",
+    timelineTitle: "Diario de trayectoria",
+    stackTitle: "Stack en producción",
+    contactKicker: "Contacto",
+    contactTitle: "Hablemos",
+    copy: "Copiar la dirección",
+    copied: "Dirección copiada",
+    writeMe: "Enviar un correo",
+    footerBuilt: "Sitio estático Astro, servido por Cloudflare.",
+    legal: "Aviso legal",
+    filterAll: "Todo",
+    filterLabel: "Filtrar por ámbito",
+    projectsCount: (n: number) => `${n} casos de estudio`,
+    caseStudy: "Caso de estudio",
+    related: "Ámbitos",
+    links: "Enlaces",
+    back: "Todos los proyectos",
+    prev: "Proyecto anterior",
+    next: "Proyecto siguiente",
+    discuss: "Hablar de este proyecto",
+    discussText: "¿Una pregunta de arquitectura o un reto técnico parecido? Escríbeme directamente.",
+    languages: "Idiomas",
+    languagesList: ["Francés, lengua materna", "Inglés fluido (TOEIC 940/990)", "Español intermedio (B2)"],
+    certificationsTitle: "Certificaciones",
+    educationTitle: "Formación",
+    skillsTitle: "Especialidades",
+    experienceTitle: "Experiencia",
+    faq: "Preguntas frecuentes",
+    relatedWork: "Proyectos relacionados",
+    writtenBy: "Por Jules Royet, ingeniero de software y arquitecto cloud y DevOps en Orange.",
+    background: "Trayectoria y experiencia",
+    notFoundTitle: "Ruta no encontrada",
+    notFoundText: "El paquete se perdió entre dos saltos. Esta página no existe o se ha movido.",
+    notFoundHome: "Volver al inicio",
+    present: "en curso",
     healthy: "healthy",
   },
 } satisfies Record<Locale, unknown>;

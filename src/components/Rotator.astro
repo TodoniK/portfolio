@@ -1,10 +1,10 @@
 ---
-// Port of React Bits "RotatingText": words cycle with a per-character spring (scripts/app.ts).
+// Port of React Bits "RotatingText": words cycle with a spring (scripts/app.ts).
+// Each word is one element carrying its own gradient, so WebKit paints it.
 interface Props { words: string[]; class?: string }
 const { words, class: cls } = Astro.props;
-const first = words[0] ?? "";
 ---
 <span class:list={["rotator-wrap", cls]}>
   <span class="visually-hidden">{words.join(" ")}</span>
-  <span class="rotator" aria-hidden="true" data-rotator={JSON.stringify(words)}>{[...first].map((c) => <span class="ch">{c}</span>)}</span>
+  <span class="rotator" aria-hidden="true" data-rotator={JSON.stringify(words)}><span class="word gradient-text">{words[0]}</span></span>
 </span>

@@ -1,5 +1,5 @@
 ---
-import { SITE, UI, t, href, CLUSTERS, CLUSTER_LABEL, type Locale } from "../data/site";
+import { SITE, UI, t, href, pick, CLUSTERS, CLUSTER_LABEL, type Locale } from "../data/site";
 import CopyEmail from "./CopyEmail.astro";
 import CasaMocha from "./CasaMocha.astro";
 interface Props { locale: Locale }
@@ -37,8 +37,8 @@ const year = new Date().getFullYear();
           <li><a href={SITE.cv} type="application/pdf">CV (PDF)</a></li>
         </ul>
       </nav>
-      <nav aria-label={locale === "fr" ? "Réseaux" : "Social"}>
-        <h2 class="col-title">{locale === "fr" ? "Ailleurs" : "Elsewhere"}</h2>
+      <nav aria-label={pick({ fr: "Réseaux", en: "Social", es: "Redes" }, locale)}>
+        <h2 class="col-title">{pick({ fr: "Ailleurs", en: "Elsewhere", es: "En otros sitios" }, locale)}</h2>
         <ul role="list">
           <li><a href={SITE.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
           <li><a href={SITE.github} rel="me noopener" target="_blank">GitHub</a></li>
@@ -71,4 +71,6 @@ const year = new Date().getFullYear();
   .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem 2rem; padding-top: 1rem; }
   .links { display: flex; align-items: center; gap: 1.25rem; --cm-color: var(--fg); }
   .links a { padding-block: 0.3rem; }
+  /* The canonical credit animates its steam forever; SVG transforms are laid out on the main thread at every frame, so it only plays on hover here. */
+  .links :global(.cm:not(:hover, :focus-visible) .cm__steam path) { animation: none; opacity: 0.45; translate: none; }
 </style>

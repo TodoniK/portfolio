@@ -1,5 +1,5 @@
 ---
-import { UI, href, type Locale } from "../data/site";
+import { UI, href, pick, type Locale } from "../data/site";
 interface Props { locale: Locale; kicker: string; title: string; lead?: string; crumbs?: Array<[string, string]> }
 const { locale, kicker, title, lead, crumbs = [] } = Astro.props;
 const ui = UI[locale];
@@ -9,7 +9,7 @@ const words = title.split(" ");
   <div class="halo" aria-hidden="true"></div>
   <div class="wrap inner">
     {crumbs.length > 0 && (
-      <nav class="crumbs small" aria-label={locale === "fr" ? "Fil d'Ariane" : "Breadcrumb"}>
+      <nav class="crumbs small" aria-label={pick({ fr: "Fil d'Ariane", en: "Breadcrumb", es: "Ruta de navegación" }, locale)}>
         <ol role="list">
           <li><a href={href(locale, "/")}>{ui.nav.home}</a></li>
           {crumbs.map(([label, path], i) => <li>{i === crumbs.length - 1 ? <span aria-current="page">{label}</span> : <a href={path}>{label}</a>}</li>)}

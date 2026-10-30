@@ -6,7 +6,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import Memoji from "../components/Memoji.astro";
 import Rotator from "../components/Rotator.astro";
 import Stack from "../components/Stack.astro";
-import { UI, SITE, t, href, projects, CLUSTERS, CLUSTER_LABEL, CLUSTER_BLURB, type Locale } from "../data/site";
+import { UI, SITE, t, href, pick, projects, CLUSTERS, CLUSTER_LABEL, CLUSTER_BLURB, type Locale } from "../data/site";
 import { EXPERTISES } from "../data/expertises";
 import { PROJECT_VISUAL, brand, type Brand } from "../data/brands";
 import { logo } from "../data/media";
@@ -17,10 +17,11 @@ const ui = UI[locale];
 const d = t(locale);
 const all = projects(locale);
 const featured = all.slice(0, 6);
-const meta =
-  locale === "fr"
-    ? { title: "Jules Royet | Architecte Cloud & IA", description: "Jules Royet, architecte cloud et IA chez Orange. Architecture cible Azure, IA générative en production et agents IA autonomes. Parcours et études de cas." }
-    : { title: "Jules Royet | Cloud & AI Solutions Architect", description: "Jules Royet, Cloud & AI architect at Orange. Azure target architecture, generative AI in production and autonomous AI agents. Background and case studies." };
+const meta = pick({
+  fr: { title: "Jules Royet | Architecte Cloud & IA", description: "Jules Royet, architecte cloud et IA chez Orange. Architecture cible Azure, IA générative en production et agents IA autonomes. Parcours et études de cas." },
+  en: { title: "Jules Royet | Cloud & AI Solutions Architect", description: "Jules Royet, Cloud & AI architect at Orange. Azure target architecture, generative AI in production and autonomous AI agents. Background and case studies." },
+  es: { title: "Jules Royet | Arquitecto Cloud e IA", description: "Jules Royet, arquitecto cloud e IA en Orange. Arquitectura objetivo en Azure, IA generativa en producción y agentes de IA autónomos. Trayectoria y casos de estudio." },
+}, locale);
 const log = [
   ...d.about.experiences.map((e) => ({ when: e.period, who: e.company, what: e.role, logo: logo(e.logo), url: e.url })),
   ...d.about.educations.map((e) => ({ when: e.period, who: e.school, what: e.degree, logo: logo(e.logo), url: e.url })),
@@ -32,6 +33,8 @@ const areaBrands = (slug: keyof typeof EXPERTISES) => {
   return [...count].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([b]) => brand(b));
 };
 const letters = (s: string) => [...s];
+/** Manifesto words in groups of three, each lit by its own scroll timeline (global.css). */
+const groups = (s: string) => s.split(" ").reduce<string[]>((acc, w, i) => (i % 3 ? (acc[acc.length - 1] += ` ${w}`) : acc.push(w), acc), []);
 ---
 
 <Base locale={locale} title={meta.title} description={meta.description}>
@@ -45,7 +48,7 @@ const letters = (s: string) => [...s];
         <span class="name blur-in" aria-hidden="true">{letters("Jules Royet").map((c) => <span>{c === " " ? "\u00a0" : c}</span>)}</span>
       </h1>
       <p class="role" aria-hidden="true">{ui.heroKicker.split(" · ").map((r, i) => <>{i > 0 && <span class="sep"> · </span>}<span>{r}</span></>)}</p>
-      <p class="kinetic">{ui.heroBuild} <Rotator words={ui.heroWords} class="gradient-text" /></p>
+      <p class="kinetic">{ui.heroBuild} <Rotator words={ui.heroWords} /></p>
       <div class="hero-cta">
         <a class="btn star" href={href(locale, "/projects")} data-magnet><span>{ui.heroCta}</span></a>
         <a class="btn btn--ghost" href={SITE.cv} type="application/pdf">{ui.heroCv}</a>
@@ -56,7 +59,7 @@ const letters = (s: string) => [...s];
   <section class="section manifesto" aria-labelledby="manifesto-title">
     <div class="wrap">
       <SectionHead label={ui.manifestoTitle} />
-      <h2 id="manifesto-title" class="statement" data-words>{ui.manifesto}</h2>
+      <h2 id="manifesto-title" class="statement" data-words>{groups(ui.manifesto).map((g, i) => <>{i > 0 && " "}<span class="w">{g}</span></>)}</h2>
       <ul class="stats" role="list">
         {ui.stats.map(([n, l]) => (
           <li class="card stat reveal" data-spotlight><span class="n num" data-count>{n}</span><span class="l">{l}</span></li>
@@ -93,7 +96,7 @@ const letters = (s: string) => [...s];
             <h3 class="h3"><a class="a-link" href={href(locale, `/expertises/${c.slug}`)}>{CLUSTER_LABEL[c.slug][locale]}</a></h3>
             <p class="muted small">{CLUSTER_BLURB[c.slug][locale]}</p>
             <ul class="a-logos" role="list">{areaBrands(c.slug).map((b) => <li class:list={{ dark: b.dark }}><img src={b.src} alt={b.name} width="20" height="20" loading="lazy" decoding="async" /></li>)}</ul>
-            <p class="small a-count">{EXPERTISES[c.slug].projects.length} {locale === "fr" ? "projets" : "projects"} <span aria-hidden="true">→</span></p>
+            <p class="small a-count">{EXPERTISES[c.slug].projects.length} {pick({ fr: "projets", en: "projects", es: "proyectos" }, locale)} <span aria-hidden="true">→</span></p>
           </li>
         ))}
       </ol>
@@ -105,9 +108,10 @@ const letters = (s: string) => [...s];
   <section class="section log" aria-labelledby="log-title">
     <div class="wrap">
       <SectionHead label={ui.timelineTitle} />
-      <h2 id="log-title" class="headline" data-split>{locale === "fr" ? "Un parcours en production." : "A career in production."}</h2>
-      <ol class="entries" role="list" data-timeline>
-        <span class="line" aria-hidden="true" data-line></span>
+      <h2 id="log-title" class="headline" data-split>{pick({ fr: "Un parcours en production.", en: "A career in production.", es: "Una trayectoria en producción." }, locale)}</h2>
+      <div class="timeline">
+      <span class="line" aria-hidden="true"></span>
+      <ol class="entries" role="list">
         {log.map((l) => (
           <li class="entry reveal">
             <span class="node" aria-hidden="true">{l.logo && <Image src={l.logo} alt="" width={40} height={40} class="logo" />}</span>
@@ -118,6 +122,7 @@ const letters = (s: string) => [...s];
           </li>
         ))}
       </ol>
+      </div>
     </div>
   </section>
 </Base>
@@ -129,9 +134,12 @@ const letters = (s: string) => [...s];
   .hero-inner { display: grid; justify-items: center; text-align: center; gap: 1rem; }
   .hero-title { line-height: 1; margin-top: 0.25rem; }
   .name { display: inline-flex; font-size: var(--t-hero); font-weight: 650; letter-spacing: -0.05em; line-height: 1; }
-  .role { font-size: var(--t-lg); color: var(--fg-2); animation: blur-in 0.9s var(--ease-out) 0.3s backwards; }
+  .role { font-size: var(--t-lg); color: var(--fg-2); }
+  :global(.is-intro) .role { animation: rise 0.8s var(--ease-out) 1.2s backwards; }
   @media (max-width: 639px) { .role { display: grid; } .role .sep { display: none; } }
   .kinetic { font-size: var(--t-xl); font-weight: 550; letter-spacing: -0.025em; min-height: 1.3em; }
+  /* the longest words do not fit next to the verb on phones */
+  @media (max-width: 639px) { .kinetic :global(.rotator-wrap) { display: block; } }
   .hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 0.75rem; }
 
   /* manifesto */
@@ -166,11 +174,13 @@ const letters = (s: string) => [...s];
   @media (min-width: 900px) { .area-list { grid-template-columns: repeat(3, 1fr); } }
 
   /* career log */
-  .entries { position: relative; display: grid; margin-top: clamp(1.75rem, 4vw, 2.5rem); padding-left: 3.5rem; max-width: 48rem; }
-  .entries::before, .line { content: ""; position: absolute; left: 20px; top: 1.25rem; bottom: 1.25rem; width: 1px; background: var(--line-2); }
-  .line { background: var(--gradient); transform-origin: top; z-index: 1; width: 2px; left: 19.5px; }
-  .entry { position: relative; padding-block: 0.9rem; }
-  .node { position: absolute; left: -3.5rem; top: 0.75rem; z-index: 2; width: 40px; height: 40px; border-radius: 12px; background: #fff; display: grid; place-items: center; box-shadow: 0 0 0 4px var(--bg); }
+  .timeline { position: relative; margin-top: clamp(1.75rem, 4vw, 2.5rem); max-width: 48rem; }
+  .entries { display: grid; padding-left: 3.5rem; }
+  .timeline::before, .line { content: ""; position: absolute; left: 20px; top: 1.75rem; bottom: 1.75rem; width: 1px; background: var(--line-2); }
+  .line { background: var(--gradient); transform-origin: top; width: 2px; left: 19.5px; }
+  /* z-index on the entry itself: reveal transforms make each entry a stacking context, which would trap the logo under the line */
+  .entry { position: relative; z-index: 1; padding-block: 0.9rem; }
+  .node { position: absolute; left: -3.5rem; top: 0.75rem; z-index: 2; width: 40px; height: 40px; border-radius: 12px; background: #fff; display: grid; place-items: center; box-shadow: 0 0 0 4px var(--bg), inset 0 0 0 1px var(--line); }
   .node :global(.logo) { width: 26px; height: 26px; object-fit: contain; }
   .e-title { font-size: var(--t-body); font-weight: 600; letter-spacing: -0.015em; }
 </style>

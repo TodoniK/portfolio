@@ -1,6 +1,6 @@
 ---
 import ProjectThumb from "./ProjectThumb.astro";
-import { href, type Locale, type Project } from "../data/site";
+import { href, pick, type Locale, type Project } from "../data/site";
 interface Props { project: Project; locale: Locale; headingLevel?: "h2" | "h3"; eager?: boolean }
 const { project: p, locale, headingLevel = "h3", eager = false } = Astro.props;
 const H = headingLevel;
@@ -8,7 +8,7 @@ const H = headingLevel;
 <article class="card pcard" data-spotlight data-clusters={p.clusters.join(" ")}>
   <div class="media"><ProjectThumb id={p.id} cluster={p.clusters[0]} eager={eager} /></div>
   <div class="text">
-    <p class="meta">{p.tag} · {p.article.timeline[locale]}{p.confidential && <span> · {locale === "fr" ? "Confidentiel" : "Confidential"}</span>}</p>
+    <p class="meta">{p.tag} · {p.article.timeline[locale]}{p.confidential && <span> · {pick({ fr: "Confidentiel", en: "Confidential", es: "Confidencial" }, locale)}</span>}</p>
     <H class="name"><a href={href(locale, `/projects/${p.id}`)}>{p.title}</a></H>
     <p class="desc">{p.description}</p>
   </div>

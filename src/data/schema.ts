@@ -1,5 +1,5 @@
 // JSON-LD builders. Every value mirrors visible content (Google structured data policy).
-import { SITE, UI, CLUSTER_LABEL, href, t, type Locale, type Project } from "./site";
+import { SITE, UI, CLUSTER_LABEL, href, pick, t, type Locale, type Project } from "./site";
 import { EXPERTISES, type ExpertiseSlug } from "./expertises";
 
 const abs = (p: string) => new URL(p, SITE.url).href;
@@ -17,7 +17,7 @@ export function personGraph(locale: Locale) {
       familyName: "Royet",
       url: SITE.url,
       image: abs("/og/home.jpg"),
-      jobTitle: locale === "fr" ? "Architecte cloud et DevOps" : "Cloud & DevOps Architect",
+      jobTitle: pick({ fr: "Architecte cloud et DevOps", en: "Cloud & DevOps Architect", es: "Arquitecto cloud y DevOps" }, locale),
       description: d.about.bioP1,
       email: `mailto:${SITE.email}`,
       address: { "@type": "PostalAddress", addressLocality: SITE.locality, addressRegion: SITE.region, addressCountry: SITE.country },
@@ -37,7 +37,7 @@ export function personGraph(locale: Locale) {
       "@id": SITE_ID,
       url: SITE.url,
       name: "Jules Royet",
-      inLanguage: ["fr", "en"],
+      inLanguage: ["fr", "en", "es"],
       publisher: { "@id": PERSON_ID },
     },
   ];

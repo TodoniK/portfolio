@@ -20,13 +20,15 @@ for (const { locale, path } of PAGES) {
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.locator("h1")).toHaveCount(1);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", ORIGIN + path);
-      await expect(page.locator('link[rel="alternate"][hreflang]')).toHaveCount(3);
+      await expect(page.locator('link[rel="alternate"][hreflang]')).toHaveCount(4);
       expect((await page.locator('meta[name="description"]').getAttribute("content"))?.length).toBeGreaterThan(50);
       const ld = await page.locator('script[type="application/ld+json"]').textContent();
       expect(() => JSON.parse(ld ?? "")).not.toThrow();
       expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(0);
       if (info.project.name === "mobile") {
-        const axe = await new AxeBuilder({ page }).exclude(".splash").exclude(".curtain").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
+        // the first-visit intro fades letters in under the splash: audit the settled page
+        await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => (a as CSSAnimation).animationName === "rise").map((a) => a.finished)));
+        const axe = await new AxeBuilder({ page }).exclude(".splash").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
         const bad = axe.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
         expect(bad.map((v) => `${v.id}: ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(" | ")}`)).toEqual([]);
       }
@@ -36,11 +38,12 @@ for (const { locale, path } of PAGES) {
 }
 
 test("unknown URLs answer 404 with the themed page", async ({ page }) => {
-  for (const [url, lang] of [["/n-existe-pas", "fr"], ["/en/does-not-exist", "en"]] as const) {
+  const home = { fr: "Retour à l'accueil", en: "Back to home", es: "Volver al inicio" };
+  for (const [url, lang] of [["/n-existe-pas", "fr"], ["/en/does-not-exist", "en"], ["/es/no-existe", "es"]] as const) {
     const res = await page.goto(url);
     expect(res?.status()).toBe(404);
     await expect(page.locator("html")).toHaveAttribute("lang", lang);
-    await expect(page.getByRole("link", { name: lang === "fr" ? "Retour à l'accueil" : "Back to home" })).toBeVisible();
+    await expect(page.getByRole("link", { name: home[lang] })).toBeVisible();
   }
 });
 
@@ -48,8 +51,100 @@ test("language switch keeps the page context", async ({ page }) => {
   await page.goto("/projects/hermes");
   const link = page.locator('a[hreflang="en"]').first();
   await expect(link).toHaveAttribute("href", "/en/projects/hermes");
+  await expect(page.locator('a[hreflang="es"]').first()).toHaveAttribute("href", "/es/projects/hermes");
   await page.goto("/en/legal-notice");
   await expect(page.locator('a[hreflang="fr"]').first()).toHaveAttribute("href", "/mentions-legales");
+  await expect(page.locator('a[hreflang="es"]').first()).toHaveAttribute("href", "/es/aviso-legal");
+});
+
+test("theme toggle follows the system, then remembers the choice", async ({ browser }) => {
+  const ctx = await browser.newContext({ colorScheme: "dark" });
+  const page = await ctx.newPage();
+  await page.goto("/");
+  const bg = () => page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  const toggle = page.locator("[data-theme-toggle]");
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  expect(await bg()).toBe("rgb(10, 10, 11)");
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  await page.goto("/about");
+  expect(await bg()).toBe("rgb(251, 251, 253)");
+  await expect(page.locator("[data-theme-toggle]")).toHaveAttribute("aria-pressed", "false");
+  await ctx.close();
+});
+
+test("light theme passes contrast checks", async ({ browser }, info) => {
+  test.skip(info.project.name !== "desktop", "once");
+  const ctx = await browser.newContext({ colorScheme: "light", reducedMotion: "reduce" });
+  const page = await ctx.newPage();
+  for (const path of ["/", "/es/projects/hermes", "/en/about"]) {
+    await page.goto(path, { waitUntil: "networkidle" });
+    const axe = await new AxeBuilder({ page }).withRules(["color-contrast"]).analyze();
+    expect(axe.violations.flatMap((v) => v.nodes.map((n) => n.target.join(" "))), path).toEqual([]);
+  }
+  await ctx.close();
+});
+
+test("suggests the browser language once, without redirecting", async ({ browser }) => {
+  const ctx = await browser.newContext({ locale: "es-ES" });
+  const page = await ctx.newPage();
+  await page.goto("/projects");
+  const banner = page.locator('[data-suggest="es"]');
+  await expect(banner).toBeVisible();
+  await expect(page).toHaveURL(/\/projects$/);
+  await expect(banner.getByRole("link")).toHaveAttribute("href", "/es/projects");
+  await banner.getByRole("button").click();
+  await expect(banner).toBeHidden();
+  await page.reload();
+  await expect(banner).toBeHidden();
+  await page.goto("/es");
+  await expect(page.locator("[data-suggest]:visible")).toHaveCount(0);
+  await ctx.close();
+});
+
+test("rotating words carry their own gradient (WebKit paints clipped text only on the text's own element)", async ({ page }) => {
+  await page.goto("/");
+  const parts = page.locator(".rotator > *");
+  const check = () => parts.evaluateAll((els) => els.map((e) => [e.children.length, getComputedStyle(e).backgroundClip]));
+  for (const [kids, clip] of await check()) { expect(kids).toBe(0); expect(clip).toBe("text"); }
+  await expect(page.locator(".rotator .ch").first()).toBeAttached({ timeout: 6000 });
+  for (const [kids, clip] of await check()) { expect(kids).toBe(0); expect(clip).toBe("text"); }
+  // one continuous gradient: each letter's slice is offset by its position in the word
+  const offsets = await page.locator(".rotator .ch").evaluateAll((els) => els.map((e) => parseFloat(getComputedStyle(e).backgroundPositionX)));
+  expect(offsets[0]).toBe(0);
+  expect(offsets.at(-1)!).toBeLessThan(0);
+});
+
+test("logo tiles stay square whatever the logo's shape", async ({ page }) => {
+  await page.goto("/projects");
+  for (const [w, h] of await page.locator("[data-thumb] .logos li").evaluateAll((els) => els.map((e) => [e.getBoundingClientRect().width, e.getBoundingClientRect().height]))) {
+    expect(Math.abs(w! - h!)).toBeLessThanOrEqual(1);
+  }
+});
+
+test("pages do no continuous layout work when idle", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop", "Chromium metrics, once");
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send("Performance.enable");
+  const layouts = async () => (await cdp.send("Performance.getMetrics")).metrics.find((m) => m.name === "LayoutCount")!.value;
+  for (const path of ["/about", "/projects", "/es/contact"]) {
+    await page.goto(path, { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    const before = await layouts();
+    await page.waitForTimeout(2000);
+    expect((await layouts()) - before, path).toBeLessThan(10);
+  }
+});
+
+test("about page shows the real photo, without hover swap", async ({ page }) => {
+  for (const [path, alt] of [["/about", "Photo de Jules Royet"], ["/en/about", "Photo of Jules Royet"], ["/es/about", "Foto de Jules Royet"]] as const) {
+    await page.goto(path);
+    const img = page.locator(".portrait img");
+    await expect(img).toHaveCount(1);
+    await expect(img).toHaveAttribute("alt", alt);
+    expect(await img.evaluate((i: HTMLImageElement) => i.complete && i.naturalWidth > 0)).toBe(true);
+  }
+  expect(await page.locator("[data-portrait]").count()).toBe(0);
 });
 
 test("skip link is the first focusable element", async ({ page }, info) => {
@@ -154,4 +249,13 @@ test("every internal link resolves", async ({ request }) => {
   }
   for (const h of seen) expect((await request.get(h)).status(), h).toBeLessThan(400);
   for (const { path } of PAGES) expect(inbound.get(path) ?? 0, `orphan page ${path}`).toBeGreaterThan(0);
+});
+
+test("long copy reads as short paragraphs of two sentences at most", async ({ page }) => {
+  for (const path of ["/about", "/projects/hermes", "/es/projects/shopeen"]) {
+    await page.goto(path);
+    const counts = await page.locator(".text p:not(.first), .main > p:not(.summary)").evaluateAll((ps) => ps.map((p) => (p.textContent ?? "").trim().split(/(?<=[.!?])\s+(?=[\p{Lu}¿¡«"])/u).length));
+    expect(counts.length, path).toBeGreaterThan(1);
+    for (const n of counts) expect(n, path).toBeLessThanOrEqual(2);
+  }
 });

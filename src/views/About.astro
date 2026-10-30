@@ -4,7 +4,7 @@ import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import Portrait from "../components/Portrait.astro";
 import SectionHead from "../components/SectionHead.astro";
-import { UI, SITE, t, href, CLUSTERS, CLUSTER_LABEL, type Locale } from "../data/site";
+import { UI, SITE, t, href, pick, sentences, paragraphs, CLUSTERS, CLUSTER_LABEL, type Locale } from "../data/site";
 import { breadcrumb, profilePage } from "../data/schema";
 import { logo } from "../data/media";
 
@@ -12,9 +12,13 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const ui = UI[locale];
 const d = t(locale).about;
-const meta = locale === "fr"
-  ? { title: "Parcours et expertises cloud & DevOps", description: "Jules Royet, architecte cloud et DevOps chez Orange, diplômé de l'ENSEIRB-MATMECA. Parcours, compétences et projets, de Bayonne à Nice." }
-  : { title: "About: cloud & DevOps engineering experience", description: "Meet Jules Royet, Cloud & DevOps Architect at Orange and ENSEIRB-MATMECA graduate. Engineering experience, technical skills and projects, from Bayonne to Nice." };
+const meta = pick({
+  fr: { title: "Parcours et expertises cloud & DevOps", description: "Jules Royet, architecte cloud et DevOps chez Orange, diplômé de l'ENSEIRB-MATMECA. Parcours, compétences et projets, de Bayonne à Nice." },
+  en: { title: "About: cloud & DevOps engineering experience", description: "Meet Jules Royet, Cloud & DevOps Architect at Orange and ENSEIRB-MATMECA graduate. Engineering experience, technical skills and projects, from Bayonne to Nice." },
+  es: { title: "Trayectoria: experiencia en ingeniería cloud y DevOps", description: "Jules Royet, arquitecto cloud y DevOps en Orange, titulado por la ENSEIRB-MATMECA. Trayectoria, competencias técnicas y proyectos, de Bayona a Niza." },
+}, locale);
+const [lead, ...intro] = sentences(d.bioP1);
+const bio = [intro.join(" "), d.bioP2, d.bioP3].flatMap((p) => paragraphs(p));
 const schema = [breadcrumb(locale, [[ui.nav.about, href(locale, "/about")]]), profilePage(locale)];
 ---
 <Base locale={locale} title={meta.title} description={meta.description} schema={schema}>
@@ -24,13 +28,12 @@ const schema = [breadcrumb(locale, [[ui.nav.about, href(locale, "/about")]]), pr
     <div class="wrap bio">
       <Portrait locale={locale} eager />
       <div class="prose text">
-        <p class="first">{d.bioP1}</p>
-        <p>{d.bioP2}</p>
-        <p>{d.bioP3}</p>
+        <p class="first">{lead}</p>
+        {bio.map((p) => <p>{p}</p>)}
         <p>
-          {locale === "fr" ? "Mes domaines : " : "My areas: "}
+          {pick({ fr: "Mes domaines : ", en: "My areas: ", es: "Mis ámbitos: " }, locale)}
           {CLUSTERS.map((c, i) => <><a href={href(locale, `/expertises/${c.slug}`)}>{CLUSTER_LABEL[c.slug][locale]}</a>{i < CLUSTERS.length - 1 ? ", " : "."}</>)}
-          {" "}{locale === "fr" ? "Les réalisations sont détaillées dans les " : "Work is detailed in the "}<a href={href(locale, "/projects")}>{locale === "fr" ? "études de cas" : "case studies"}</a>.
+          {" "}{pick({ fr: "Les réalisations sont détaillées dans les ", en: "Work is detailed in the ", es: "Los proyectos se detallan en los " }, locale)}<a href={href(locale, "/projects")}>{pick({ fr: "études de cas", en: "case studies", es: "casos de estudio" }, locale)}</a>.
         </p>
         <div class="ctas"><a class="btn" href={SITE.cv} type="application/pdf" data-magnet>{ui.heroCv}</a><a class="chev" href={href(locale, "/contact")}>{ui.nav.contact}</a></div>
       </div>
@@ -40,7 +43,7 @@ const schema = [breadcrumb(locale, [[ui.nav.about, href(locale, "/about")]]), pr
   <section class="section" aria-labelledby="xp">
     <div class="wrap">
       <SectionHead label={ui.experienceTitle} />
-      <h2 id="xp" class="headline" data-split>{locale === "fr" ? "Expériences." : "Experience."}</h2>
+      <h2 id="xp" class="headline" data-split>{pick({ fr: "Expériences.", en: "Experience.", es: "Experiencia." }, locale)}</h2>
       <ol class="rows" role="list">
         {d.experiences.map((e) => {
           const l = logo(e.logo);
@@ -94,7 +97,11 @@ const schema = [breadcrumb(locale, [[ui.nav.about, href(locale, "/about")]]), pr
 </Base>
 <style>
   .bio { display: grid; gap: clamp(2rem, 6vw, 5rem); }
-  .first { font-size: var(--t-xl); font-weight: 550; color: var(--fg); letter-spacing: -0.025em; line-height: 1.25; }
+  /* short lead, then airy paragraphs of two sentences at most, on a 65-character measure */
+  .text { max-width: 38rem; }
+  .text p { color: var(--fg-2); line-height: 1.7; }
+  .text p + p { margin-top: 1.15em; }
+  .text .first { font-size: var(--t-xl); font-weight: 550; color: var(--fg); letter-spacing: -0.025em; line-height: 1.3; margin-bottom: 1.5rem; }
   .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 2rem; }
   .rows { display: grid; gap: 0.75rem; margin-top: clamp(2rem, 5vw, 3rem); }
   .row { display: grid; gap: 1rem; padding: clamp(1.25rem, 3vw, 1.75rem); border-radius: var(--r); }

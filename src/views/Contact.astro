@@ -2,14 +2,14 @@
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import CopyEmail from "../components/CopyEmail.astro";
-import { UI, SITE, href, type Locale } from "../data/site";
+import { UI, SITE, href, pick, type Locale } from "../data/site";
 import { breadcrumb, PERSON_ID } from "../data/schema";
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const ui = UI[locale];
-const c = locale === "fr"
-  ? {
+const c = pick({
+  fr: {
       title: "Contact : projets et opportunités en ingénierie",
       description: "Contacter Jules Royet, basé à Nice, pour discuter cloud, DevOps, développement logiciel, systèmes IA, emploi ou projet freelance.",
       h1: "Échangeons sur votre projet",
@@ -19,8 +19,8 @@ const c = locale === "fr"
       freeT: "Échanges sur une mission freelance",
       free: "Présentez le problème à résoudre, l'existant, le résultat attendu et le calendrier. Le périmètre, la disponibilité et les modalités sont à définir ensemble avant tout engagement.",
       bg: "Consulter mon parcours",
-    }
-  : {
+    },
+  en: {
       title: "Contact: engineering projects and opportunities",
       description: "Contact Jules Royet, based in Nice, to discuss cloud, DevOps, software engineering, AI systems, employment opportunities or freelance projects.",
       h1: "Let's talk about your project",
@@ -30,7 +30,19 @@ const c = locale === "fr"
       freeT: "Freelance project discussions",
       free: "Describe the problem, existing systems, expected outcome and schedule. Scope, availability and working arrangements are discussed together before any commitment.",
       bg: "Read my background",
-    };
+    },
+  es: {
+      title: "Contacto: proyectos y oportunidades de ingeniería",
+      description: "Contacta con Jules Royet, con base en Niza, para hablar de cloud, DevOps, desarrollo de software, sistemas de IA, empleo o proyectos freelance.",
+      h1: "Hablemos de tu proyecto",
+      intro: "Soy Jules Royet, arquitecto cloud y DevOps en Orange, con base en Niza, Francia. Estoy abierto a conversar sobre puestos de ingeniería y proyectos freelance de cloud, desarrollo de software y sistemas de IA.",
+      jobT: "Oportunidades de empleo",
+      job: "Indica el puesto, el equipo, el contexto técnico, la ubicación y la modalidad de trabajo. Mi trayectoria y mis casos de estudio ayudan a valorar el encaje.",
+      freeT: "Proyectos freelance",
+      free: "Describe el problema, los sistemas existentes, el resultado esperado y el calendario. El alcance, la disponibilidad y las condiciones se definen juntos antes de cualquier compromiso.",
+      bg: "Ver mi trayectoria",
+    },
+}, locale);
 const schema = [
   breadcrumb(locale, [[ui.nav.contact, href(locale, "/contact")]]),
   { "@type": "ContactPage", url: new URL(href(locale, "/contact"), SITE.url).href, about: { "@id": PERSON_ID }, inLanguage: locale },
@@ -48,7 +60,7 @@ const schema = [
       <article class="card box reveal" data-spotlight><p class="num">01</p><h2 class="h3">{c.jobT}</h2><p class="muted">{c.job}</p><a class="chev" href={href(locale, "/about")}>{c.bg}</a></article>
       <article class="card box reveal" data-spotlight><p class="num">02</p><h2 class="h3">{c.freeT}</h2><p class="muted">{c.free}</p><a class="chev" href={href(locale, "/projects")}>{ui.allProjects}</a></article>
       <article class="card box reveal" data-spotlight>
-        <p class="num">03</p><h2 class="h3">{locale === "fr" ? "Ailleurs" : "Elsewhere"}</h2>
+        <p class="num">03</p><h2 class="h3">{pick({ fr: "Ailleurs", en: "Elsewhere", es: "En otros sitios" }, locale)}</h2>
         <ul role="list" class="social">
           <li><a class="chev" href={SITE.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
           <li><a class="chev" href={SITE.github} rel="me noopener" target="_blank">GitHub</a></li>

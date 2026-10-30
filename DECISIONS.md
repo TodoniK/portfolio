@@ -7,3 +7,7 @@
 - **Mesure d'audience** : Cloudflare Web Analytics, beacon dans `Base.astro` (injection automatique coupée), sans cookie. Les tests neutralisent le beacon.
 - **SEO / IA** : robots.txt ouvert aux robots de recherche et d'IA avec `Content-Signal: search=yes, ai-input=yes, ai-train=yes`, sitemap hreflang, `llms.txt` et `llms-full.txt`, JSON-LD par page.
 - **Zone Cloudflare** : Speed Brain et Bot Fight Mode désactivés (préchargements en 503 vers un Worker, script injecté incompatible avec la CSP à hashes).
+- **Langues** : FR à la racine, EN sous `/en`, ES sous `/es`. Pas de redirection selon la langue du navigateur (Google la déconseille et les robots doivent voir l'URL demandée) : un bandeau propose la langue du navigateur, le choix est mémorisé.
+- **Thème** : clair et sombre via `light-dark()` et `color-scheme`, système par défaut, choix mémorisé et appliqué par le script de démarrage hashé dans la CSP.
+- **Dépendances** : Dependabot remplace Renovate (l'app Renovate n'a jamais été installée). Mineures et correctifs fusionnés par le job `automerge` de `ci.yml` après build et tests, majeures en PR. Quarantaine de 3 jours. TypeScript reste en 6.x tant que `@astrojs/check` n'accepte pas la 7. `allowScripts` par nom de paquet pour ne pas casser chaque mise à jour.
+- **Logos** : fichiers officiels des éditeurs, sources et sha256 dans `src/assets/brands/sources.json`. Hermes Agent utilise la marque « Nous Girl » du site de documentation de Nous Research, le dépôt n'ayant pas d'autre logo.

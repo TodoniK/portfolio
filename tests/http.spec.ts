@@ -58,5 +58,7 @@ test("site icons follow Google's favicon guidance", async ({ request, page }) =>
   }
   await page.goto("/");
   await expect(page.locator('link[rel="icon"][href="/favicon.ico"]')).toHaveAttribute("sizes", "48x48");
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#0a0a0b");
+  const html = await (await request.get("/")).text();
+  expect(html).toMatch(/<meta name="theme-color" content="#0a0a0b" media="\(prefers-color-scheme: dark\)"/);
+  expect(html).toMatch(/<meta name="theme-color" content="#fbfbfd" media="\(prefers-color-scheme: light\)"/);
 });

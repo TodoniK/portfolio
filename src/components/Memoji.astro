@@ -7,22 +7,24 @@ interface Props { locale: Locale; size?: number }
 const { locale, size = 120 } = Astro.props;
 const ui = UI[locale];
 ---
-<button type="button" class="memoji" data-memoji aria-label={ui.memojiHint}>
+<button type="button" class="memoji" data-memoji aria-label={ui.memojiHint} data-hi={{ fr: "Salut !", en: "Hi!", es: "¡Hola!" }[locale]}>
   <span class="halo" aria-hidden="true"></span>
-  <Image src={memoji} alt="" width={size} height={size} widths={[size, size * 2]} sizes={`${size}px`} format="avif" loading="eager" fetchpriority="high" />
-  <span class="bubble" aria-hidden="true">{locale === "fr" ? "Salut !" : "Hi!"}</span>
+  <span class="face" data-face>
+    <Image src={memoji} alt="" width={size} height={size} widths={[size, size * 2, size * 3]} sizes={`${size}px`} format="avif" quality={85} loading="eager" fetchpriority="high" />
+  </span>
 </button>
 <style>
-  .memoji { position: relative; display: grid; place-items: center; width: var(--s, 120px); aspect-ratio: 1; border-radius: 50%; perspective: 600px; animation: float 6s var(--ease-io) infinite; }
-  .memoji :global(img) { position: relative; z-index: 1; width: 100%; height: auto; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.4s var(--ease-out); filter: drop-shadow(0 16px 24px rgb(0 0 0 / 0.45)); animation: memoji-in 0.9s var(--spring) backwards; }
+  .memoji { position: relative; display: grid; place-items: center; width: 120px; aspect-ratio: 1; border-radius: 50%; perspective: 800px; animation: float 6s var(--ease-io) infinite; }
+  .face { position: relative; z-index: 1; display: block; width: 100%; }
+  /* No scale in the entrance and no filter: both make Chrome and Safari keep a low-resolution raster of the image. */
+  .face :global(img) { width: 100%; height: auto; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 0.5s var(--ease-out); }
+  :global(.is-intro) .face :global(img) { animation: memoji-in 0.8s var(--spring) 0.8s backwards; }
   .halo { position: absolute; inset: 8%; border-radius: 50%; background: conic-gradient(from 180deg, #0090f7, #ba62fc, #f2416b, #f55600, #0090f7); filter: blur(28px); opacity: 0.28; animation: spin 12s linear infinite; }
-  .bubble { position: absolute; z-index: 2; left: 78%; top: 2%; padding: 0.35rem 0.8rem; border-radius: 18px 18px 18px 4px; background: var(--fg); color: var(--bg); font-size: 0.9375rem; font-weight: 600; white-space: nowrap; transform-origin: 0 100%; opacity: 0; transform: scale(0.3) translateY(8px); transition: opacity 0.2s, transform 0.45s var(--spring); }
-  .memoji.is-waving .bubble { opacity: 1; transform: none; }
-  .memoji.is-waving :global(img) { animation: wave 0.9s var(--ease-io); }
-  .memoji.is-waving :global(img) { animation: hop 0.6s var(--spring); }
-  /* scale only, no opacity: the memoji is the LCP element on mobile */
-  @keyframes memoji-in { from { transform: scale(0.6) rotate(-10deg); } }
+  /* the greeting is decorative generated content, so the button's accessible name stays its label */
+  .memoji::after { content: attr(data-hi); position: absolute; z-index: 2; left: 78%; top: 2%; padding: 0.35rem 0.8rem; border-radius: 18px 18px 18px 4px; background: var(--fg); color: var(--bg); font-size: 0.9375rem; font-weight: 600; white-space: nowrap; transform-origin: 0 100%; opacity: 0; transform: scale(0.3) translateY(8px); transition: opacity 0.2s, transform 0.45s var(--spring); }
+  .memoji.is-waving::after { opacity: 1; transform: none; }
+  /* translate and rotate only: the memoji is the LCP element on mobile, it must paint on the first frame */
+  @keyframes memoji-in { from { translate: 0 14px; rotate: -10deg; } }
   @keyframes float { 50% { translate: 0 -6px; } }
   @keyframes spin { to { rotate: 1turn; } }
-  @keyframes wave { 0%, 100% { rotate: 0deg; translate: 0 0; } 20% { rotate: -9deg; translate: 0 -8px; } 45% { rotate: 7deg; } 70% { rotate: -4deg; } }
 </style>

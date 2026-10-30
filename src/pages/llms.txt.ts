@@ -27,6 +27,7 @@ export const GET: APIRoute = () => {
     "",
     "## Optional",
     `- [Version française](${abs("/")})`,
+    `- [Versión en español](${abs("/es")})`,
     `- [LinkedIn](${SITE.linkedin})`,
     `- [GitHub](${SITE.github})`,
     "",

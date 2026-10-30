@@ -17,18 +17,18 @@ const v = visual(id);
   .thumb {
     --tint: 186 98 252;
     position: relative; isolation: isolate; overflow: hidden; container-type: inline-size;
-    aspect-ratio: 16 / 10; border-radius: var(--r); background: #111113;
+    aspect-ratio: 16 / 10; border-radius: var(--r); background: var(--bg-2);
     display: grid; place-content: center; justify-items: center; gap: clamp(0.75rem, 5cqi, 1.5rem);
   }
   .c-cloud-devops { --tint: 0 144 247; }
   .c-developpement-logiciel { --tint: 242 65 107; }
   .thumb::before {
     content: ""; position: absolute; inset: 0; z-index: -1;
-    background: radial-gradient(70% 80% at 50% 115%, rgb(var(--tint) / 0.42), transparent 70%), radial-gradient(50% 50% at 50% -10%, rgb(255 255 255 / 0.06), transparent 70%);
+    background: radial-gradient(70% 80% at 50% 115%, rgb(var(--tint) / 0.42), transparent 70%), radial-gradient(50% 50% at 50% -10%, color-mix(in srgb, var(--fg) 6%, transparent), transparent 70%);
   }
   .dots {
     position: absolute; inset: 0; z-index: -1;
-    background: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1.2px) 0 0 / 16px 16px;
+    background: radial-gradient(color-mix(in srgb, var(--fg) 10%, transparent) 1px, transparent 1.2px) 0 0 / 16px 16px;
     mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent);
   }
   /* port of React Bits GlareHover: a light sheen crosses the thumbnail on hover */
@@ -39,14 +39,15 @@ const v = visual(id);
   }
   :global(.pcard:hover) .thumb::after { background-position: 100% 100%; }
   .t-name { font-size: clamp(1.15rem, 7.5cqi, 2.6rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--fg); }
-  .logos { display: flex; gap: 2.4cqi; }
+  .logos { display: flex; align-items: center; gap: 2.4cqi; }
   .logos li {
-    width: clamp(36px, 11cqi, 68px); aspect-ratio: 1; border-radius: 27%; display: grid; place-items: center;
-    background: linear-gradient(#fff, #e9e9ee); box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.8), inset 0 -1px 0 rgb(0 0 0 / 0.08);
+    /* min-height 0: a tall logo (MongoDB) must not stretch the tile past its aspect ratio */
+    width: clamp(36px, 11cqi, 68px); aspect-ratio: 1; min-height: 0; overflow: hidden; border-radius: 27%; display: grid; place-items: center;
+    background: linear-gradient(#fff, #e9e9ee); box-shadow: 0 10px 24px -12px light-dark(rgb(0 0 0 / 0.3), rgb(0 0 0 / 0.8)), inset 0 0 0 1px rgb(0 0 0 / 0.06);
     transition: transform 0.5s var(--spring); transition-delay: calc(var(--n, 0) * 35ms);
   }
-  .logos li.dark { background: linear-gradient(#2a2a2e, #18181b); box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.8), inset 0 0 0 1px rgb(255 255 255 / 0.12); }
+  .logos li.dark { background: linear-gradient(#2a2a2e, #18181b); box-shadow: 0 10px 24px -12px light-dark(rgb(0 0 0 / 0.3), rgb(0 0 0 / 0.8)), inset 0 0 0 1px rgb(255 255 255 / 0.12); }
   .logos li:nth-child(2) { --n: 1; } .logos li:nth-child(3) { --n: 2; } .logos li:nth-child(4) { --n: 3; } .logos li:nth-child(5) { --n: 4; }
   :global(.pcard:hover) .logos li { transform: translateY(-5px); }
-  .logos img { width: 60%; height: 60%; object-fit: contain; }
+  .logos img { width: 60%; height: 60%; min-height: 0; object-fit: contain; }
 </style>

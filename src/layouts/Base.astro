@@ -6,7 +6,7 @@ import { getImage } from "astro:assets";
 import memojiSrc from "../assets/portraits/memoji.png";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { SITE, UI, alternatePath, type Locale } from "../data/site";
+import { SITE, UI, LANG, LOCALES, alternatePath, type Locale } from "../data/site";
 import { personGraph } from "../data/schema";
 
 interface Props {
@@ -21,17 +21,17 @@ interface Props {
 const { locale, title, description, schema = [], og, noindex = false} = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, "").replace(/\/index$/, "").replace(/(.)\/$/, "$1") || "/";
 const canonical = new URL(path, SITE.url).href;
-const fr = new URL(alternatePath(path, "fr"), SITE.url).href;
-const en = new URL(alternatePath(path, "en"), SITE.url).href;
+const alternates = LOCALES.map((l) => ({ l, url: new URL(alternatePath(path, l), SITE.url).href }));
+const OG_LOCALE: Record<Locale, string> = { fr: "fr_FR", en: "en_US", es: "es_ES" };
 const ogSlug = og ?? (path === "/" ? "home" : path.slice(1).replaceAll("/", "-"));
 const ogImage = new URL(`/og/${ogSlug}.jpg`, SITE.url).href;
 const fullTitle = title.includes("Jules Royet") ? title : `${title} | Jules Royet`;
 const ui = UI[locale];
-// Runs before first paint: decides splash/arrival state. Hashed explicitly for the CSP.
-const BOOT = `(function(){var d=document.documentElement;d.classList.remove("no-js");if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;try{if(!sessionStorage.getItem("jr-boot")){d.classList.add("is-splash");sessionStorage.setItem("jr-boot","1")}else if(sessionStorage.getItem("jr-nav")){d.classList.add("is-arriving")}sessionStorage.removeItem("jr-nav")}catch(e){}})();`;
+// Runs before first paint: applies the saved theme and decides the splash and intro (first page of the session only). Hashed explicitly for the CSP.
+const BOOT = `(function(){var d=document.documentElement;d.classList.remove("no-js");try{var t=localStorage.getItem("jr-theme");if(t==="light"||t==="dark")d.dataset.theme=t;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;if(!sessionStorage.getItem("jr-boot")){d.classList.add("is-splash","is-intro");sessionStorage.setItem("jr-boot","1")}}catch(e){}})();`;
 Astro.csp?.insertScriptHash(`sha256-${createHash("sha256").update(BOOT).digest("base64")}`);
-const memoji = await getImage({ src: memojiSrc, format: "avif", width: 192, quality: 70 });
-const hello = locale === "fr" ? ["Bonjour", "Hello", "Hola"] : ["Hello", "Bonjour", "Hola"];
+const memoji = await getImage({ src: memojiSrc, format: "avif", width: 256, quality: 80 });
+const hello = { fr: ["Hola", "Hello", "Bonjour"], en: ["Hola", "Bonjour", "Hello"], es: ["Hello", "Bonjour", "Hola"] }[locale];
 const graph = { "@context": "https://schema.org", "@graph": [...personGraph(locale), ...schema] };
 ---
 
@@ -46,20 +46,20 @@ const graph = { "@context": "https://schema.org", "@graph": [...personGraph(loca
     {
       !noindex && (
         <>
-          <link rel="alternate" hreflang="fr" href={fr} />
-          <link rel="alternate" hreflang="en" href={en} />
-          <link rel="alternate" hreflang="x-default" href={fr} />
+          {alternates.map((a) => <link rel="alternate" hreflang={a.l} href={a.url} />)}
+          <link rel="alternate" hreflang="x-default" href={alternates[0]!.url} />
         </>
       )
     }
     <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1"} />
     <meta name="author" content="Jules Royet" />
-    <meta name="theme-color" content="#0a0a0b" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="light dark" />
     <meta property="og:type" content={path.includes("/projects/") ? "article" : "website"} />
     <meta property="og:site_name" content="Jules Royet" />
-    <meta property="og:locale" content={locale === "fr" ? "fr_FR" : "en_US"} />
-    <meta property="og:locale:alternate" content={locale === "fr" ? "en_US" : "fr_FR"} />
+    <meta property="og:locale" content={OG_LOCALE[locale]} />
+    {LOCALES.filter((l) => l !== locale).map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -90,14 +90,20 @@ const graph = { "@context": "https://schema.org", "@graph": [...personGraph(loca
         <p class="words">{hello.map((w) => <span>{w}</span>)}</p>
       </div>
     </div>
-    <div class="curtain" aria-hidden="true">
-      <div class="inner"><img src={memoji.src} alt="" width="56" height="56" /><span class="route" data-curtain-route>{ui.loading}</span><span class="bar"></span></div>
-    </div>
     <Header locale={locale} path={path} />
     <main id="main" tabindex="-1">
       <slot />
     </main>
     <Footer locale={locale} />
+    {
+      LOCALES.filter((l) => l !== locale).map((l) => (
+        <aside class="lang-suggest" data-suggest={l} lang={l} aria-label={LANG[l].name} hidden>
+          <p>{LANG[l].suggest}</p>
+          <a class="btn" href={alternatePath(path, l)} hreflang={l} data-lang={l}>{LANG[l].go}</a>
+          <button type="button" class="x" data-suggest-close aria-label={LANG[l].close}><span></span><span></span></button>
+        </aside>
+      ))
+    }
     <script>
       import "../scripts/app";
     </script>
@@ -111,4 +117,17 @@ const graph = { "@context": "https://schema.org", "@graph": [...personGraph(loca
   }
   .skip:focus { transform: none; }
   main:focus { outline: none; }
+  .lang-suggest:not([hidden]) {
+    position: fixed; z-index: 60; inset: auto var(--gutter) max(1rem, env(safe-area-inset-bottom)) auto; max-width: calc(100% - 2 * var(--gutter));
+    display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.5rem 0.5rem 1rem; border-radius: var(--r);
+    background: var(--card); border: 1px solid var(--line-2); box-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.35);
+    font-size: var(--t-sm); animation: suggest-in 0.4s var(--ease-out);
+  }
+  .lang-suggest .btn { flex: none; }
+  .x { flex: none; width: 2.75rem; height: 2.75rem; display: grid; place-content: center; border-radius: var(--pill); color: var(--fg-2); }
+  .x:hover { color: var(--fg); background: var(--wash); }
+  .x span { display: block; width: 14px; height: 1.5px; background: currentColor; }
+  .x span:first-child { transform: translateY(0.75px) rotate(45deg); }
+  .x span:last-child { transform: translateY(-0.75px) rotate(-45deg); }
+  @keyframes suggest-in { from { opacity: 0; transform: translateY(12px); } }
 </style>

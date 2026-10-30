@@ -1,28 +1,52 @@
 ---
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
-import { SITE, UI, href, type Locale } from "../data/site";
+import { SITE, UI, href, pick, type Locale } from "../data/site";
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const ui = UI[locale];
-const fr = locale === "fr";
+const c = pick({
+  fr: {
+    description: "Mentions légales du site julesroyet.dev : éditeur, hébergeur, données personnelles.",
+    publisherT: "Éditeur", individual: "particulier", contact: "Contact :", director: "Directeur de la publication : Jules Royet.",
+    hostingT: "Hébergement", usa: "États-Unis",
+    dataT: "Données personnelles et cookies",
+    data: "Ce site ne dépose aucun cookie et ne contient aucun formulaire. La mesure d'audience utilise Cloudflare Web Analytics, sans cookie ni identifiant personnel. Les journaux techniques de l'hébergeur servent uniquement à la sécurité et au bon fonctionnement du service. Les e-mails reçus ne servent qu'à vous répondre.",
+    ipT: "Propriété intellectuelle",
+    ip: "Les textes, illustrations et le code de ce site sont la propriété de Jules Royet, sauf mention contraire. Les logos et marques cités appartiennent à leurs propriétaires respectifs et n'impliquent aucun partenariat.",
+  },
+  en: {
+    description: "Legal notice for julesroyet.dev: publisher, hosting provider, personal data.",
+    publisherT: "Publisher", individual: "private individual", contact: "Contact:", director: "Publication director: Jules Royet.",
+    hostingT: "Hosting", usa: "United States",
+    dataT: "Personal data and cookies",
+    data: "This site sets no cookies and contains no form. Audience measurement uses Cloudflare Web Analytics, without cookies or personal identifiers. The host's technical logs are only used for security and service operation. Emails received are only used to reply to you.",
+    ipT: "Intellectual property",
+    ip: "Texts, illustrations and code on this site belong to Jules Royet unless stated otherwise. Logos and trademarks belong to their respective owners and imply no partnership.",
+  },
+  es: {
+    description: "Aviso legal del sitio julesroyet.dev: editor, proveedor de alojamiento, datos personales.",
+    publisherT: "Editor", individual: "particular", contact: "Contacto:", director: "Director de la publicación: Jules Royet.",
+    hostingT: "Alojamiento", usa: "Estados Unidos",
+    dataT: "Datos personales y cookies",
+    data: "Este sitio no instala ninguna cookie ni contiene formularios. La medición de audiencia usa Cloudflare Web Analytics, sin cookies ni identificadores personales. Los registros técnicos del proveedor de alojamiento solo se usan para la seguridad y el buen funcionamiento del servicio. Los correos recibidos solo se usan para responderte.",
+    ipT: "Propiedad intelectual",
+    ip: "Los textos, las ilustraciones y el código de este sitio son propiedad de Jules Royet, salvo que se indique lo contrario. Los logotipos y marcas citados pertenecen a sus respectivos titulares y no implican ninguna colaboración.",
+  },
+}, locale);
 ---
-<Base locale={locale} title={ui.legal} description={fr ? "Mentions légales du site julesroyet.dev : éditeur, hébergeur, données personnelles." : "Legal notice for julesroyet.dev: publisher, hosting provider, personal data."}>
+<Base locale={locale} title={ui.legal} description={c.description}>
   <PageHero locale={locale} kicker="julesroyet.dev" title={ui.legal} crumbs={[[ui.legal, href(locale, "/legal")]]} />
   <section class="section-tight">
     <div class="wrap prose">
-      <h2 class="h3">{fr ? "Éditeur" : "Publisher"}</h2>
-      <p>Jules Royet, {fr ? "particulier" : "private individual"}, Nice, France. {fr ? "Contact" : "Contact"} : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. {fr ? "Directeur de la publication : Jules Royet." : "Publication director: Jules Royet."}</p>
-      <h2 class="h3">{fr ? "Hébergement" : "Hosting"}</h2>
-      <p>Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, {fr ? "États-Unis" : "United States"}. <a href="https://www.cloudflare.com/" rel="noopener" target="_blank">cloudflare.com</a></p>
-      <h2 class="h3">{fr ? "Données personnelles et cookies" : "Personal data and cookies"}</h2>
-      <p>{fr
-        ? "Ce site ne dépose aucun cookie et ne contient aucun formulaire. La mesure d'audience utilise Cloudflare Web Analytics, sans cookie ni identifiant personnel. Les journaux techniques de l'hébergeur servent uniquement à la sécurité et au bon fonctionnement du service. Les e-mails reçus ne servent qu'à vous répondre."
-        : "This site sets no cookies and contains no form. Audience measurement uses Cloudflare Web Analytics, without cookies or personal identifiers. The host's technical logs are only used for security and service operation. Emails received are only used to reply to you."}</p>
-      <h2 class="h3">{fr ? "Propriété intellectuelle" : "Intellectual property"}</h2>
-      <p>{fr
-        ? "Les textes, illustrations et le code de ce site sont la propriété de Jules Royet, sauf mention contraire. Les logos et marques cités appartiennent à leurs propriétaires respectifs et n'impliquent aucun partenariat."
-        : "Texts, illustrations and code on this site belong to Jules Royet unless stated otherwise. Logos and trademarks belong to their respective owners and imply no partnership."}</p>
+      <h2 class="h3">{c.publisherT}</h2>
+      <p>Jules Royet, {c.individual}, Nice, France. {c.contact} <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. {c.director}</p>
+      <h2 class="h3">{c.hostingT}</h2>
+      <p>Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, {c.usa}. <a href="https://www.cloudflare.com/" rel="noopener" target="_blank">cloudflare.com</a></p>
+      <h2 class="h3">{c.dataT}</h2>
+      <p>{c.data}</p>
+      <h2 class="h3">{c.ipT}</h2>
+      <p>{c.ip}</p>
     </div>
   </section>
 </Base>

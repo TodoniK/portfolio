@@ -1,0 +1,9 @@
+---
+import View from "../../../views/Project.astro";
+import { DICTIONARY } from "../../../data/dictionary";
+export function getStaticPaths() {
+  return DICTIONARY.fr.projects.items.map((p) => ({ params: { slug: p.id } }));
+}
+const { slug } = Astro.params;
+---
+<View locale="es" slug={slug} />
