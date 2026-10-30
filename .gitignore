@@ -12,3 +12,4 @@ reports/
 .agent-memory
 .playwright-mcp
 .vercel
+openspec/
